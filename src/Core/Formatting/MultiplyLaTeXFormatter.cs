@@ -25,13 +25,7 @@ public class MultiplyLaTeXFormatter : LaTeXFormatter<IBinaryTeXpression>
         var leftLatex = binTexpr.Left.ToLaTeX();
         var rightLatex = binTexpr.Right.ToLaTeX();
 
-        if (
-            !this.SmartFormatting ||
-            binTexpr.Left.LaTeXFormatter is not LaTeXFormatter leftFormatter ||
-            !leftFormatter.AllowAdjacentMultiplication ||
-            binTexpr.Right.LaTeXFormatter is not LaTeXFormatter rightFormatter ||
-            !rightFormatter.AllowAdjacentMultiplication
-        )
+        if (!this.SmartFormatting || !CanDoAdjacent(binTexpr.Left) || !CanDoAdjacent(binTexpr.Right))
         {
             return this.GetFormatStringFromMultiplyStyle(leftLatex, rightLatex);
         }
@@ -44,10 +38,37 @@ public class MultiplyLaTeXFormatter : LaTeXFormatter<IBinaryTeXpression>
                 return this.GetFormatStringFromMultiplyStyle(leftLatex, rightLatex);
             }
 
+            var leftOfRight = binTexpr.Right;
+
+            // go down the left side of the expression subtree on the right
+            // check if we encounter cases where we can't do adjacent multiply
+            while (leftOfRight is IBinaryTeXpression binLeftOfRight)
+            {
+                if (binLeftOfRight.Left is IConstantTeXpression || !CanDoAdjacent(binLeftOfRight.Left))
+                {
+                    return this.GetFormatStringFromMultiplyStyle(leftLatex, rightLatex);
+                }
+
+                leftOfRight = binLeftOfRight.Left;
+            }
+
             return $"{{{leftLatex}}} {{{rightLatex}}}";
         }
         else if (binTexpr.Right is IConstantTeXpression)
         {
+            var rightOfLeft = binTexpr.Left;
+
+            // go down the right side of the expression subtree on the left
+            // check if we encounter cases where we can't do adjacent multiply
+            while (rightOfLeft is IBinaryTeXpression binRightOfLeft)
+            {
+                if (binRightOfLeft.Right is IConstantTeXpression || !CanDoAdjacent(binRightOfLeft.Right))
+                {
+                    return this.GetFormatStringFromMultiplyStyle(leftLatex, rightLatex);
+                }
+
+                rightOfLeft = binRightOfLeft.Right;
+            }
             return $"{{{rightLatex}}} {{{leftLatex}}}";
         }
 
@@ -65,6 +86,14 @@ public class MultiplyLaTeXFormatter : LaTeXFormatter<IBinaryTeXpression>
             MultiplyStyle.ParenthesesRightOnly => $"{left} ({right})",
             _ => throw new NotImplementedException($"MultiplyStyle {this.Style} not implemented!"),
         };
+    }
+
+    private static bool CanDoAdjacent(ITeXpression texpr)
+    {
+        var adjacent = texpr.LaTeXFormatter is LaTeXFormatter formatter &&
+            formatter.AllowAdjacentMultiplication;
+
+        return adjacent;
     }
 
     public static MultiplyLaTeXFormatter Default { get; set; } = new(MultiplyStyle.Times, true);
