@@ -49,13 +49,9 @@ TeXpressions was never intended to replace Linq.Expressions. While some inspirat
 - List all LaTeX macros being used and their package dependencies
 - Demo web application
 
-## 1.0.0 Roadmap
+### 1.0.0 Roadmap
 
 - Iterables (sums, etc.)
 - SigFigLaTeXFormatter
 - How to handle rounding error - should number rounding in simplifications cascade to future steps? Make it configurable?
 - CI / CD workflows
-
-## Limitations
-
-- Complex numbers not yet supported
