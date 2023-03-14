@@ -14,7 +14,7 @@ I'm not very smart, I'm not the best programmer or software architect, I'm certa
 
 At the moment this code base is **highly** volatile - it is very likely to change quite a lot before I choose to release 1.0.0. Use at your own risk!
 
-I *do not* guarantee or certify the accuracy of the LaTeX parsing, expression simplifications, evaluation, or LaTeX formatting! It is up to **you** as the consumer to independently verify that this software is sufficiently safe and accurate for your needs. See [LICENSE.md] for more details.
+I *do not* guarantee or certify the accuracy of the LaTeX parsing, expression simplifications, evaluation, or LaTeX formatting! It is up to **you** as the consumer to independently verify that this software is sufficiently safe and accurate for your needs. See [LICENSE.txt](LICENSE.txt) for more details.
 
 ## How to Use
 
