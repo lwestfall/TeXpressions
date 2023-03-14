@@ -1,5 +1,7 @@
 # TeXpressions
 
+[![codecov](https://codecov.io/gh/lwestfall/TeXpressions/branch/main/graph/badge.svg?token=UDHTYTL99C)](https://codecov.io/gh/lwestfall/TeXpressions)
+
 TeXpressions is a framework for .NET 6+ that can do:
 
 - (TODO) Run-time parsing of LaTeX math and logical strings

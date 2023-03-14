@@ -7,6 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{602166AA-0AF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "src\Core\Core.csproj", "{2E2F5AD2-A6D5-419B-9E41-06E4368C3058}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{8E60ACF8-2E10-4ABD-8242-8326DB9C4A3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Test", "test\Core.Test\Core.Test.csproj", "{EA3E693F-5349-49DC-8B1D-A4432781E1A6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,8 +24,13 @@ Global
 		{2E2F5AD2-A6D5-419B-9E41-06E4368C3058}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E2F5AD2-A6D5-419B-9E41-06E4368C3058}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E2F5AD2-A6D5-419B-9E41-06E4368C3058}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA3E693F-5349-49DC-8B1D-A4432781E1A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA3E693F-5349-49DC-8B1D-A4432781E1A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA3E693F-5349-49DC-8B1D-A4432781E1A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA3E693F-5349-49DC-8B1D-A4432781E1A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2E2F5AD2-A6D5-419B-9E41-06E4368C3058} = {602166AA-0AF3-41C1-9CA8-268B4042672F}
+		{EA3E693F-5349-49DC-8B1D-A4432781E1A6} = {8E60ACF8-2E10-4ABD-8242-8326DB9C4A3C}
 	EndGlobalSection
 EndGlobal
