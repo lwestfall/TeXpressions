@@ -11,7 +11,7 @@ where TResult : notnull, IFormattable
 
     public override TResult Evaluate() => this.Value;
 
-    public override TeXpression<TResult> Simplify(ILaTeXFormatter? constantFormatter)
+    public override TeXpression<TResult> Simplify(ILaTeXFormatter? constantFormatter = null)
     {
         if (constantFormatter != null)
         {
