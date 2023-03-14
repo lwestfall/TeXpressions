@@ -19,7 +19,7 @@ public static class Numeric
     public static ConstantTeXpression<double> Constant(double value, ILaTeXFormatter? formatter = null)
         => new(value, formatter ?? new ConstantLaTeXFormatter("#.###"));
 
-    public static ParameterTeXpression<double> Parameter(string latexName, TeXpression<double> inner, ILaTeXFormatter? formatter = null)
+    public static ParameterTeXpression<double> Parameter(string latexName, TeXpression<double>? inner = null, ILaTeXFormatter? formatter = null)
         => new(new(latexName, inner), formatter ?? new ParameterLaTeXFormatter());
     #endregion
 

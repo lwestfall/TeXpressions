@@ -26,7 +26,7 @@ where TResult : notnull, IFormattable
 
     public abstract override TeXpression<TResult> Simplify(ILaTeXFormatter? constantFormatter);
 
-    public ConstantTeXpression<TResult> SimplifyToConstant(ILaTeXFormatter? constantFormatter) => new(this.Evaluate(), constantFormatter ?? new ConstantLaTeXFormatter());
+    public ConstantTeXpression<TResult> SimplifyToConstant(ILaTeXFormatter? constantFormatter = null) => new(this.Evaluate(), constantFormatter ?? new ConstantLaTeXFormatter());
 
     public abstract TResult Evaluate();
 }
