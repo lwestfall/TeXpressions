@@ -6,7 +6,10 @@ public class UnaryTeXpression<TResultInner, TResultOuter> : TeXpression<TResultO
 where TResultOuter : notnull, IFormattable
 where TResultInner : notnull, IFormattable
 {
-    public UnaryTeXpression(TeXpression<TResultInner> inner, Func<TResultInner, TResultOuter> function, ILaTeXFormatter latexFmt) : base(latexFmt)
+    public UnaryTeXpression(
+        TeXpression<TResultInner> inner,
+        Func<TResultInner, TResultOuter> function,
+        ILaTeXFormatter latexFmt) : base(latexFmt)
     {
         this.Inner = inner;
         this.Function = function;
@@ -20,7 +23,7 @@ where TResultInner : notnull, IFormattable
 
     public override TResultOuter Evaluate() => this.Function(this.Inner.Evaluate());
 
-    public override TeXpression<TResultOuter> Simplify(ILaTeXFormatter? constantFormatter)
+    public override TeXpression<TResultOuter> Simplify(ILaTeXFormatter? constantFormatter = null)
     {
         if (this.Inner is ConstantTeXpression<TResultInner>)
         {

@@ -30,7 +30,7 @@ where TResultRight : notnull, IFormattable
 
     public override TResultOuter Evaluate() => this.Function(this.Left.Evaluate(), this.Right.Evaluate());
 
-    public override TeXpression<TResultOuter> Simplify(ILaTeXFormatter? constantFormatter)
+    public override TeXpression<TResultOuter> Simplify(ILaTeXFormatter? constantFormatter = null)
     {
         if (this.Left is IConstantTeXpression && this.Right is IConstantTeXpression)
         {
