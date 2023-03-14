@@ -1,0 +1,24 @@
+name: Tests
+
+on:
+  pull_request:
+    branches: [ main, integration ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Run tests and generate coverage report
+      run: dotnet test -c Release /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=lcov.info /p:Include="src/Core/*"
+
+    - name: Upload coverage report
+      uses: codecov/codecov-action@v2
+      with:
+        files: lcov.info
+        flags: unittests
+        fail_ci_if_error: true
+        verbose: true
