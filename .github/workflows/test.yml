@@ -18,6 +18,7 @@ jobs:
     - name: Upload coverage report
       uses: codecov/codecov-action@v2
       with:
+        token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
         files: lcov.info
         flags: unittests
         fail_ci_if_error: true
