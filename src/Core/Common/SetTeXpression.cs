@@ -6,7 +6,10 @@ public class SetTeXpression<TResultInner, TResultOuter> : TeXpression<TResultOut
 where TResultOuter : notnull, IFormattable
 where TResultInner : notnull, IFormattable
 {
-    public SetTeXpression(TeXpression<TResultInner>[] inners, Func<TResultInner[], TResultOuter> function, ILaTeXFormatter latexFmt) : base(latexFmt)
+    public SetTeXpression(
+        TeXpression<TResultInner>[] inners,
+        Func<TResultInner[], TResultOuter> function,
+        ILaTeXFormatter latexFmt) : base(latexFmt)
     {
         this.Inners = inners;
         this.Function = function;
@@ -20,7 +23,7 @@ where TResultInner : notnull, IFormattable
 
     public override TResultOuter Evaluate() => this.Function(this.Inners.Select(t => t.Evaluate()).ToArray());
 
-    public override TeXpression<TResultOuter> Simplify(ILaTeXFormatter? constantFormatter)
+    public override TeXpression<TResultOuter> Simplify(ILaTeXFormatter? constantFormatter = null)
     {
         if (this.Inners.All(t => t is ConstantTeXpression<TResultInner>))
         {

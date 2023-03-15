@@ -6,7 +6,7 @@ using TeXpressions.Core.Interfaces;
 public class ParameterValue<TValue>
 where TValue : notnull, IFormattable
 {
-    public ParameterValue(string latex, TeXpression<TValue> valExpr)
+    public ParameterValue(string latex, TeXpression<TValue>? valExpr = null)
     {
         this.LaTeXName = latex;
         this.ValueExpression = valExpr;
@@ -16,5 +16,6 @@ where TValue : notnull, IFormattable
 
     public TeXpression<TValue>? ValueExpression { get; set; }
 
-    public ParameterTeXpression<TValue> GetNewTeXpression(ILaTeXFormatter? formatter = null) => new(this, formatter ?? new ParameterLaTeXFormatter());
+    public ParameterTeXpression<TValue> GetNewTeXpression(ILaTeXFormatter? formatter = null)
+        => new(this, formatter ?? new ParameterLaTeXFormatter());
 }

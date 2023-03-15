@@ -23,5 +23,5 @@ where TResult : notnull, IFormattable
 
     public string GetParameterLatex() => this.ParameterValue.LaTeXName;
 
-    public override TeXpression<TResult> Simplify(ILaTeXFormatter? constantFormatter) => this.SimplifyToConstant(constantFormatter);
+    public override TeXpression<TResult> Simplify(ILaTeXFormatter? constantFormatter = null) => this.SimplifyToConstant(constantFormatter);
 }
