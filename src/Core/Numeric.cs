@@ -33,6 +33,12 @@ public static class Numeric
     public static BinaryTeXpression<double, double, double> Exponent(TeXpression<double> @base, TeXpression<double> power, ILaTeXFormatter? formatter = null)
         => new(@base, power, (l, r) => Math.Pow(l, r), formatter ?? new CompositeLaTeXFormatter("{{{0}}}^{{{1}}}"));
 
+    public static SetTeXpression<double, double> Max(TeXpression<double>[] inners, ILaTeXFormatter? formatter = null)
+        => new(inners, (i) => i.Max(), formatter ?? new CompositeLaTeXFormatter("max({0})"));
+
+    public static SetTeXpression<double, double> Min(TeXpression<double>[] inners, ILaTeXFormatter? formatter = null)
+        => new(inners, (i) => i.Min(), formatter ?? new CompositeLaTeXFormatter("min({0})"));
+
     public static BinaryTeXpression<double, double, double> Multiply(TeXpression<double> left, TeXpression<double> right, ILaTeXFormatter? formatter = null)
         => new(left, right, (l, r) => l * r, formatter ?? new MultiplyLaTeXFormatter());
 
