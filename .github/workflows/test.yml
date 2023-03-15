@@ -1,6 +1,8 @@
 name: Tests
 
 on:
+  push:
+    branches: [ main, integration ]
   pull_request:
     branches: [ main, integration ]
   workflow_dispatch:
