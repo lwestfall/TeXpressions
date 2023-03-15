@@ -40,7 +40,6 @@ TeXpressions was never intended to replace Linq.Expressions. While some inspirat
 
 ### 0.1.0 Roadmap
 
-- Tests
 - Documentation
 - Implement ANTLR grammar for LaTeX parsing
 - Custom exceptions where it makes sense
