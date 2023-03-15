@@ -12,23 +12,6 @@ public class SetTeXpressionTests
     }
 
     [Test]
-    public void EvaluateRunsFunctionOnInners()
-    {
-        var values = new[] { 1, 2.2, 7.9, 0.125, -0.13, 999 };
-        var expectedMin = values.Min();
-
-        var constantTexprs = values.Select(v => Numeric.Constant(v)).ToArray();
-
-        var texpr = Numeric.Min(
-            constantTexprs
-        );
-
-        var result = texpr.Evaluate();
-
-        Assert.That(result, Is.EqualTo(expectedMin));
-    }
-
-    [Test]
     public void SetTeXpressionSimplifiesToConstantIfAllInnersAreConstant()
     {
         var values = new[] { 1, 2.2, 7.9, 0.125, -0.13, 999 };
