@@ -455,3 +455,7 @@ $RECYCLE.BIN/
 
 src/ConsoleTest
 **/lcov.info
+
+# Antlr files (except grammars)
+**/antlr/*
+!**/antlr/*.g4
