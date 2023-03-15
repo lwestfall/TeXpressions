@@ -2,30 +2,27 @@ grammar LaTeX;
 
 prog: assign EOF;
 
-funcCall: FUNCTION '(';
+// funcCall: FUNCTION '(';
 
-exprList:
-	expr (',' expr)*
-	| matrixStart matrixRowCommaDelimited matrixEnd;
+exprList: expr (',' expr)*;
+// | matrixStart matrixRowCommaDelimited matrixEnd;
 
 number: DIGIT* '.' DIGIT+ | DIGIT+;
 id: LETTER (DIGIT | LETTER)* | '{' id '}';
-constant: '\\pi';
+namedConstant: '\\pi';
 
-desc: (DIGIT | LETTER | '-' | ',' | FUNCTION)+;
+desc: (DIGIT | LETTER | '-' | ',')+;
 subscript: '_{' desc '}' | '_' (DIGIT | LETTER);
 varMod: '\\bar';
 var: varMod '{' id '}' subscript? | id subscript?;
-stringLiteral: '"' .*? '"' | '\'' .*? '\'';
+// stringLiteral: '"' .*? '"' | '\'' .*? '\'';
 
 assign: var '=' expr;
 
-matrixStart: '\\begin{matrix}';
-matrixEnd: '\\end{matrix}';
-matrix: matrixStart matrixRow+ matrixEnd;
+// matrixStart: '\\begin{matrix}'; matrixEnd: '\\end{matrix}'; matrix: matrixStart matrixRow+
+// matrixEnd;
 
-matrixRow: expr ('&' expr)* '\\\\';
-matrixRowCommaDelimited: expr (',' '&' expr)* '\\\\';
+// matrixRow: expr ('&' expr)* '\\\\'; matrixRowCommaDelimited: expr (',' '&' expr)* '\\\\';
 
 lessThan: '<';
 lessThanEqual: '\\le' 'q'? | '<=';
@@ -38,41 +35,37 @@ comparison:
 	| greaterThan
 	| greaterThanEqual;
 
+// expr: exprGroup | number | var | constant | expr exprGroup | exprGroup expr | expr '^' expr |
+// expr '^{' expr '}' | (number | constant) expr | expr ('*' | '\\ast' | '\\times' | '/' | '\\dot')
+// expr | expr ('+' | '-') expr | expr comparison expr;
+
 expr:
-	exprGroup
-	| number
-	| var
-	| constant
-	| expr exprGroup
-	| exprGroup expr
-	| expr '^' expr
-	| expr '^{' expr '}'
-	| (number | constant) expr
-	| expr ('*' | '\\ast' | '\\times' | '/' | '\\dot') expr
+	unaryFunction expr
+	| <assoc = right> expr '^' expr
+	| expr BINARY_OPERATOR expr
+	| ('\\sfrac' | '\\frac') expr expr
 	| expr ('+' | '-') expr
-	| expr comparison expr;
+	| expr comparison expr
+	| setFunction '(' exprList ')'
+	| var
+	| assign
+	| number
+	| '{' expr '}'
+	| '(' expr ')';
 
-exprFunc1: '\\sqrt';
+// unaryExpr: ; binaryExpr: <assoc = right> expr '^' expr | expr ('*' | '\\ast' | '\\times' | '/' |
+// '\\dot') expr | ('\\sfrac' | '\\frac') expr expr | expr ('+' | '-') expr | expr comparison expr;
+// setExpr: setFunction '(' exprList ')'; paramExpr: var | assign; constantExpr: number;
 
-exprFunc2: '\\frac' | '\\sfrac';
-
-exprGroup:
-	funcCall exprList ')'
-	| '(' expr ')'
-	| '[' expr ']'
-	| exprFunc1 exprParam
-	| exprFunc2 exprParam exprParam
-	| exprParam
-	| matrix;
-
-exprParam: '{' expr '}';
-
-FUNCTION: 'max' | 'min';
+unaryFunction: '\\sqrt';
+setFunction: 'max' | 'min';
 
 LETTER: GREEK | [a-zA-Z];
 DIGIT: [0-9];
-WS: ('\\'? ' ' | [\t\r\n])+ -> skip; // skip spaces, tabs, newlines
+WS: ('\\'? ' ' | [\t\r\n])+ -> skip;
+// skip spaces, tabs, newlines
 MISC_SKIP: ('\\left' | '\\right' '.'?) -> skip;
+BINARY_OPERATOR: '*' | '\\ast' | '\\times' | '/' | '\\dot';
 
 fragment GREEK:
 	[\u0391-\u03C9]
