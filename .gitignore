@@ -459,3 +459,5 @@ src/ConsoleTest
 # Antlr files (except grammars)
 **/antlr/*
 !**/antlr/*.g4
+src/Parsing/Generated/*.interp
+src/Parsing/Generated/*.tokens

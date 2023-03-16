@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from src/antlr/TeXpressionMath.g4 by ANTLR 4.12.0
+// Generated from src\antlr\TeXpressionMath.g4 by ANTLR 4.12.0
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -36,18 +36,6 @@ using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 [System.CLSCompliant(false)]
 public partial class TeXpressionMathBaseListener : ITeXpressionMathListener {
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.program"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterProgram([NotNull] TeXpressionMathParser.ProgramContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TeXpressionMathParser.program"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitProgram([NotNull] TeXpressionMathParser.ProgramContext context) { }
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.inlineMath"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -60,17 +48,19 @@ public partial class TeXpressionMathBaseListener : ITeXpressionMathListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitInlineMath([NotNull] TeXpressionMathParser.InlineMathContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.assign"/>.
+	/// Enter a parse tree produced by the <c>ParamExpr</c>
+	/// labeled alternative in <see cref="TeXpressionMathParser.expr"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterAssign([NotNull] TeXpressionMathParser.AssignContext context) { }
+	public virtual void EnterParamExpr([NotNull] TeXpressionMathParser.ParamExprContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TeXpressionMathParser.assign"/>.
+	/// Exit a parse tree produced by the <c>ParamExpr</c>
+	/// labeled alternative in <see cref="TeXpressionMathParser.expr"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitAssign([NotNull] TeXpressionMathParser.AssignContext context) { }
+	public virtual void ExitParamExpr([NotNull] TeXpressionMathParser.ParamExprContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by the <c>BinaryExpr</c>
 	/// labeled alternative in <see cref="TeXpressionMathParser.expr"/>.
@@ -159,6 +149,18 @@ public partial class TeXpressionMathBaseListener : ITeXpressionMathListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitFracCmd([NotNull] TeXpressionMathParser.FracCmdContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.assign"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterAssign([NotNull] TeXpressionMathParser.AssignContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TeXpressionMathParser.assign"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitAssign([NotNull] TeXpressionMathParser.AssignContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.varMod"/>.
 	/// <para>The default implementation does nothing.</para>

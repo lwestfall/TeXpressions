@@ -1,14 +1,11 @@
 grammar TeXpressionMath;
 
-program: inlineMath | expr EOF;
-
-inlineMath: '$' expr '$' | '\\(' expr '\\)';
-
-assign: var '=' expr;
+inlineMath: ('$' expr '$' | '\\(' expr '\\)') EOF;
 
 expr:
 	binaryCmd				# BinaryExpr
 	| expr binaryOp expr	# BinaryExpr
+	| assign				# ParamExpr
 	| number				# ConstantExpr;
 bracedExpr: '{' expr '}';
 
@@ -16,6 +13,8 @@ binaryOp: '+' | '-' | '*' | '\\ast' | '*' | '\\dot' | '\\times';
 binaryCmd: fracCmd bracedExpr bracedExpr;
 binaryCmdName: fracCmd;
 fracCmd: '\\' ('d' | 's' | 't') 'frac';
+
+assign: var '=' expr;
 
 varMod: '\\bar';
 var: varMod '{' id '}' subscript? | id subscript?;
