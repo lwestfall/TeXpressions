@@ -3,16 +3,21 @@ grammar TeXpressionMath;
 inlineMath: ('$' expr '$' | '\\(' expr '\\)') EOF;
 
 expr:
-	binaryCmd				# BinaryExpr
-	| expr binaryOp expr	# BinaryExpr
-	| assign				# ParamExpr
-	| number				# ConstantExpr;
-bracedExpr: '{' expr '}';
+	binaryCmdName '{' l = expr '}{' r = expr '}'	# BinaryExpr
+	| l = expr op = binaryOp r = expr				# BinaryExpr
+	| assign										# ParamExpr
+	| number										# ConstantExpr;
 
-binaryOp: '+' | '-' | '*' | '\\ast' | '*' | '\\dot' | '\\times';
-binaryCmd: fracCmd bracedExpr bracedExpr;
-binaryCmdName: fracCmd;
-fracCmd: '\\' ('d' | 's' | 't') 'frac';
+binaryOp: addOp | subOp | mulOp | divOp | expOp;
+
+addOp: '+';
+subOp: '-';
+mulOp: '*' | '\\ast' | '*' | '\\dot' | '\\times';
+divOp: '/' | '÷';
+expOp: '^';
+
+binaryCmdName: divCmd;
+divCmd: '\\' ('d' | 's' | 't')? 'frac';
 
 assign: var '=' expr;
 

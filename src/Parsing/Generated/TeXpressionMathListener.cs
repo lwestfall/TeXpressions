@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from src\antlr\TeXpressionMath.g4 by ANTLR 4.12.0
+// Generated from src/antlr/TeXpressionMath.g4 by ANTLR 4.12.0
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -77,16 +77,6 @@ public interface ITeXpressionMathListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitConstantExpr([NotNull] TeXpressionMathParser.ConstantExprContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.bracedExpr"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterBracedExpr([NotNull] TeXpressionMathParser.BracedExprContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TeXpressionMathParser.bracedExpr"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitBracedExpr([NotNull] TeXpressionMathParser.BracedExprContext context);
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.binaryOp"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -97,15 +87,55 @@ public interface ITeXpressionMathListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitBinaryOp([NotNull] TeXpressionMathParser.BinaryOpContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.binaryCmd"/>.
+	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.addOp"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterBinaryCmd([NotNull] TeXpressionMathParser.BinaryCmdContext context);
+	void EnterAddOp([NotNull] TeXpressionMathParser.AddOpContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TeXpressionMathParser.binaryCmd"/>.
+	/// Exit a parse tree produced by <see cref="TeXpressionMathParser.addOp"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitBinaryCmd([NotNull] TeXpressionMathParser.BinaryCmdContext context);
+	void ExitAddOp([NotNull] TeXpressionMathParser.AddOpContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.subOp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSubOp([NotNull] TeXpressionMathParser.SubOpContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TeXpressionMathParser.subOp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSubOp([NotNull] TeXpressionMathParser.SubOpContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.mulOp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMulOp([NotNull] TeXpressionMathParser.MulOpContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TeXpressionMathParser.mulOp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMulOp([NotNull] TeXpressionMathParser.MulOpContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.divOp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDivOp([NotNull] TeXpressionMathParser.DivOpContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TeXpressionMathParser.divOp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDivOp([NotNull] TeXpressionMathParser.DivOpContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.expOp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterExpOp([NotNull] TeXpressionMathParser.ExpOpContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TeXpressionMathParser.expOp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitExpOp([NotNull] TeXpressionMathParser.ExpOpContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.binaryCmdName"/>.
 	/// </summary>
@@ -117,15 +147,15 @@ public interface ITeXpressionMathListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitBinaryCmdName([NotNull] TeXpressionMathParser.BinaryCmdNameContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.fracCmd"/>.
+	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.divCmd"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterFracCmd([NotNull] TeXpressionMathParser.FracCmdContext context);
+	void EnterDivCmd([NotNull] TeXpressionMathParser.DivCmdContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TeXpressionMathParser.fracCmd"/>.
+	/// Exit a parse tree produced by <see cref="TeXpressionMathParser.divCmd"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitFracCmd([NotNull] TeXpressionMathParser.FracCmdContext context);
+	void ExitDivCmd([NotNull] TeXpressionMathParser.DivCmdContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.assign"/>.
 	/// </summary>

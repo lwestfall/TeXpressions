@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from src\antlr\TeXpressionMath.g4 by ANTLR 4.12.0
+// Generated from src/antlr/TeXpressionMath.g4 by ANTLR 4.12.0
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -59,23 +59,41 @@ public interface ITeXpressionMathVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitConstantExpr([NotNull] TeXpressionMathParser.ConstantExprContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TeXpressionMathParser.bracedExpr"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitBracedExpr([NotNull] TeXpressionMathParser.BracedExprContext context);
-	/// <summary>
 	/// Visit a parse tree produced by <see cref="TeXpressionMathParser.binaryOp"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitBinaryOp([NotNull] TeXpressionMathParser.BinaryOpContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TeXpressionMathParser.binaryCmd"/>.
+	/// Visit a parse tree produced by <see cref="TeXpressionMathParser.addOp"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitBinaryCmd([NotNull] TeXpressionMathParser.BinaryCmdContext context);
+	Result VisitAddOp([NotNull] TeXpressionMathParser.AddOpContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TeXpressionMathParser.subOp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitSubOp([NotNull] TeXpressionMathParser.SubOpContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TeXpressionMathParser.mulOp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitMulOp([NotNull] TeXpressionMathParser.MulOpContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TeXpressionMathParser.divOp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitDivOp([NotNull] TeXpressionMathParser.DivOpContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TeXpressionMathParser.expOp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitExpOp([NotNull] TeXpressionMathParser.ExpOpContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="TeXpressionMathParser.binaryCmdName"/>.
 	/// </summary>
@@ -83,11 +101,11 @@ public interface ITeXpressionMathVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitBinaryCmdName([NotNull] TeXpressionMathParser.BinaryCmdNameContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TeXpressionMathParser.fracCmd"/>.
+	/// Visit a parse tree produced by <see cref="TeXpressionMathParser.divCmd"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitFracCmd([NotNull] TeXpressionMathParser.FracCmdContext context);
+	Result VisitDivCmd([NotNull] TeXpressionMathParser.DivCmdContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="TeXpressionMathParser.assign"/>.
 	/// </summary>

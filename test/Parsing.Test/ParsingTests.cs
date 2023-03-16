@@ -12,25 +12,32 @@ public class ParsingTests
 
     }
 
-    [TestCase("$1.23$", 1.23)]
-    public void NumberExpressionParsesToDouble(string input, double expected)
+    [TestCase("$1.23$", 1.23, typeof(ConstantTeXpression<double>))]
+    [TestCase("$1 + 2$", 3, typeof(BinaryTeXpression<double, double, double>))]
+    [TestCase("$2^3$", 8, typeof(BinaryTeXpression<double, double, double>))]
+    [TestCase("$15.5 - 2.25$", 13.25, typeof(BinaryTeXpression<double, double, double>))]
+    [TestCase("$25.25 * 4$", 101, typeof(BinaryTeXpression<double, double, double>))]
+    [TestCase("$49 ÷ 7$", 7, typeof(BinaryTeXpression<double, double, double>))]
+    [TestCase("$\\sfrac{7.5}{2}$", 3.75, typeof(BinaryTeXpression<double, double, double>))]
+    [TestCase("$\\dfrac{1}{2}$", 0.5, typeof(BinaryTeXpression<double, double, double>))]
+    [TestCase("$\\tfrac{2}{0.5}$", 4, typeof(BinaryTeXpression<double, double, double>))]
+    [TestCase("$\\frac{6}{2}$", 3, typeof(BinaryTeXpression<double, double, double>))]
+    [TestCase("$10 / 10$", 1, typeof(BinaryTeXpression<double, double, double>))]
+    public void NumericExpressionParses(string input, double expectedEval, Type expectedType)
     {
         var parser = ParseUtility.GetParserForInput(input);
-        // var listener = new TeXpressionMathBaseListener();
 
-        // var context = parser.inlineMath();
-        // listener.EnterInlineMath(context);
-        // listener.ExitInlineMath(context);
         var visitor = new NumericTeXpressionVisitor();
         var ctx = parser.inlineMath();
-        var actual = visitor.Visit(ctx);
+        var expr = visitor.Visit(ctx);
 
-        Assert.That(actual, Is.Not.Null);
+        Assert.That(expr, Is.Not.Null);
 
-        var constExpr = (ConstantTeXpression<double>)actual!;
-
-        var evaulatedActual = constExpr.Evaluate();
-
-        Assert.That(evaulatedActual, Is.EqualTo(expected));
+        var actualEval = expr!.Evaluate();
+        Assert.Multiple(() =>
+        {
+            Assert.That(actualEval, Is.EqualTo(expectedEval));
+            Assert.That(expr, Is.InstanceOf(expectedType));
+        });
     }
 }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from src\antlr\TeXpressionMath.g4 by ANTLR 4.12.0
+// Generated from src/antlr/TeXpressionMath.g4 by ANTLR 4.12.0
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -90,18 +90,6 @@ public partial class TeXpressionMathBaseListener : ITeXpressionMathListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitConstantExpr([NotNull] TeXpressionMathParser.ConstantExprContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.bracedExpr"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterBracedExpr([NotNull] TeXpressionMathParser.BracedExprContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TeXpressionMathParser.bracedExpr"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitBracedExpr([NotNull] TeXpressionMathParser.BracedExprContext context) { }
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.binaryOp"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -114,17 +102,65 @@ public partial class TeXpressionMathBaseListener : ITeXpressionMathListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitBinaryOp([NotNull] TeXpressionMathParser.BinaryOpContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.binaryCmd"/>.
+	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.addOp"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterBinaryCmd([NotNull] TeXpressionMathParser.BinaryCmdContext context) { }
+	public virtual void EnterAddOp([NotNull] TeXpressionMathParser.AddOpContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TeXpressionMathParser.binaryCmd"/>.
+	/// Exit a parse tree produced by <see cref="TeXpressionMathParser.addOp"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitBinaryCmd([NotNull] TeXpressionMathParser.BinaryCmdContext context) { }
+	public virtual void ExitAddOp([NotNull] TeXpressionMathParser.AddOpContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.subOp"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSubOp([NotNull] TeXpressionMathParser.SubOpContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TeXpressionMathParser.subOp"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSubOp([NotNull] TeXpressionMathParser.SubOpContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.mulOp"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterMulOp([NotNull] TeXpressionMathParser.MulOpContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TeXpressionMathParser.mulOp"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitMulOp([NotNull] TeXpressionMathParser.MulOpContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.divOp"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDivOp([NotNull] TeXpressionMathParser.DivOpContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TeXpressionMathParser.divOp"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDivOp([NotNull] TeXpressionMathParser.DivOpContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.expOp"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterExpOp([NotNull] TeXpressionMathParser.ExpOpContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TeXpressionMathParser.expOp"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitExpOp([NotNull] TeXpressionMathParser.ExpOpContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.binaryCmdName"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -138,17 +174,17 @@ public partial class TeXpressionMathBaseListener : ITeXpressionMathListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitBinaryCmdName([NotNull] TeXpressionMathParser.BinaryCmdNameContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.fracCmd"/>.
+	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.divCmd"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterFracCmd([NotNull] TeXpressionMathParser.FracCmdContext context) { }
+	public virtual void EnterDivCmd([NotNull] TeXpressionMathParser.DivCmdContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TeXpressionMathParser.fracCmd"/>.
+	/// Exit a parse tree produced by <see cref="TeXpressionMathParser.divCmd"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitFracCmd([NotNull] TeXpressionMathParser.FracCmdContext context) { }
+	public virtual void ExitDivCmd([NotNull] TeXpressionMathParser.DivCmdContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.assign"/>.
 	/// <para>The default implementation does nothing.</para>
