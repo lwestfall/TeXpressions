@@ -26,6 +26,8 @@ jobs:
         if: steps.grammar-diff.outputs.changed == 'true'
         with:
           labels: grammar changed
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Java
         uses: actions/setup-java@v3
