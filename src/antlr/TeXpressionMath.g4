@@ -10,9 +10,9 @@ expr:
 	| assign										# ParamExpr
 	| number										# ConstantExpr;
 
-binaryOp: addOp | subOp | mulOp | divOp | expOp;
+binaryOp: addOp1 | subOp | mulOp | divOp | expOp;
 
-addOp: '+';
+addOp1: '+';
 subOp: '-';
 mulOp: '*' | '\\ast' | '*' | '\\dot' | '\\times';
 divOp: '/' | '÷';
