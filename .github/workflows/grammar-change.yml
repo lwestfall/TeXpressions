@@ -55,8 +55,10 @@ jobs:
 
           if git diff --quiet; then
             # There are no changes
+            echo "No changes after ANTLR generate"
             exit 0
           else
             # There are changes
+            echo "Uncomittd changes after ANTLR generate"
             exit 1
           fi
