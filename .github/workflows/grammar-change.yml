@@ -9,8 +9,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-        with:
-          path: head
 
       - name: Check if grammar changed
         id: grammar-diff
@@ -45,9 +43,9 @@ jobs:
       - name: Check diff against base
         if: steps.grammar-diff.outputs.changed == 'true'
         run: |
-          git -C head/ add .
+          git add .
 
-          if git -C TeXpressions/ diff --quiet; then
+          if git diff --quiet; then
             # There are no changes
             exit 0
           else
