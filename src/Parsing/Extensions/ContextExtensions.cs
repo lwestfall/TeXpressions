@@ -7,16 +7,6 @@ using static TeXpressionMathParser;
 
 public static class ContextExtensions
 {
-    public static double? GetDouble(this ParserRuleContext ctx)
-    {
-        if (!double.TryParse(ctx.GetText(), out var dbl))
-        {
-            return null;
-        }
-
-        return dbl;
-    }
-
     public static BinaryTeXpression<double, double, double> GetBinaryTeXpression(this BinaryOpContext ctx, TeXpression<double> left, TeXpression<double> right)
     {
         Dictionary<Func<BinaryOpContext, ParserRuleContext>, Func<TeXpression<double>, TeXpression<double>, BinaryTeXpression<double, double, double>>> lookup = new()
