@@ -1,0 +1,54 @@
+name: 'Grammar Changes'
+
+on:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          path: head
+
+      - name: Verify Changed files
+        uses: tj-actions/verify-changed-files@v14
+        id: verify-changed-files
+        with:
+          files: |
+            head/src/antlr/TeXpressionMath.g4
+
+      - name: Apply label if grammar changed
+        uses: actions-ecosystem/action-add-labels@v1
+        if: steps.verify-changed-files.outputs.files_changed == 'true'
+        with:
+          labels: grammar changed
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        if: steps.verify-changed-files.outputs.files_changed == 'true'
+        with:
+          distribution: 'oracle'
+          java-version: '11'
+
+      - name: Download ANTLR
+        if: steps.verify-changed-files.outputs.files_changed == 'true'
+        run: wget -O head/src/antlr/antlr.jar https://www.antlr.org/download/antlr-4.12.0-complete.jar
+
+      - name: Generate files
+        if: steps.verify-changed-files.outputs.files_changed == 'true'
+        run: java -jar head/src/antlr/antlr.jar -o src/Parsing/Generated -Dlanguage=CSharp src/antlr/TeXpressionMath.g4 -visitor -no-listener
+
+      - name: Check diff against base
+        if: steps.verify-changed-files.outputs.files_changed == 'true'
+        run: |
+          git -C head/ add .
+
+          if git -C TeXpressions/ diff --quiet; then
+            # There are no changes
+            exit 0
+          else
+            # There are changes
+            exit 1
+          fi
