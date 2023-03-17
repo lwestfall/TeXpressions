@@ -41,7 +41,6 @@ TeXpressions was never intended to replace Linq.Expressions. While some inspirat
 ### 0.1.0 Roadmap
 
 - Documentation
-- Implement ANTLR grammar for LaTeX parsing
 - Custom exceptions where it makes sense
 - Built-in support for common numeric functions (trig, max, min, floor, ceiling, etc.)
 - Logical / boolean expressions, numeric comparisons, Iverson bracket notation for conditional expressions
