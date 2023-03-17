@@ -46,7 +46,9 @@ jobs:
 
       - name: Generate files
         if: steps.grammar-diff.outputs.changed == 'true'
-        run: java -jar src/antlr/antlr.jar -o ./src/Parsing/Generated -Dlanguage=CSharp src/antlr/TeXpressionMath.g4 -visitor -no-listener
+        run: |
+          cd src/antlr/
+          java -jar antlr.jar -o ${{ github.workspace }}/src/Parsing/Generated/ -Dlanguage=CSharp src/antlr/TeXpressionMath.g4 -visitor -no-listener
 
       - name: Diff
         if: steps.grammar-diff.outputs.changed == 'true'
