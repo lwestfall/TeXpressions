@@ -51,7 +51,9 @@ jobs:
       - name: Check diff against base
         if: steps.grammar-diff.outputs.changed == 'true'
         run: |
-          if git diff --ignore-space-at-eol --quiet; then
+          git add .
+
+          if git diff --quiet; then
             # There are no changes
             exit 0
           else

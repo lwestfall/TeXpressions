@@ -42,12 +42,12 @@ public partial class TeXpressionMathParser : Parser {
 		T__24=25, T__25=26, LETTER=27, DIGIT=28, WS=29, MISC_SKIP=30;
 	public const int
 		RULE_inlineMath = 0, RULE_topExpr = 1, RULE_expr = 2, RULE_binaryOp = 3, 
-		RULE_addOp1 = 4, RULE_subOp = 5, RULE_mulOp = 6, RULE_divOp = 7, RULE_expOp = 8, 
+		RULE_addOp = 4, RULE_subOp = 5, RULE_mulOp = 6, RULE_divOp = 7, RULE_expOp = 8, 
 		RULE_binaryCmdName = 9, RULE_divCmd = 10, RULE_assign = 11, RULE_varMod = 12, 
 		RULE_var = 13, RULE_desc = 14, RULE_subscript = 15, RULE_number = 16, 
 		RULE_id = 17;
 	public static readonly string[] ruleNames = {
-		"inlineMath", "topExpr", "expr", "binaryOp", "addOp1", "subOp", "mulOp", 
+		"inlineMath", "topExpr", "expr", "binaryOp", "addOp", "subOp", "mulOp", 
 		"divOp", "expOp", "binaryCmdName", "divCmd", "assign", "varMod", "var", 
 		"desc", "subscript", "number", "id"
 	};
@@ -381,8 +381,8 @@ public partial class TeXpressionMathParser : Parser {
 	}
 
 	public partial class BinaryOpContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public AddOp1Context addOp1() {
-			return GetRuleContext<AddOp1Context>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public AddOpContext addOp() {
+			return GetRuleContext<AddOpContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public SubOpContext subOp() {
 			return GetRuleContext<SubOpContext>(0);
@@ -421,7 +421,7 @@ public partial class TeXpressionMathParser : Parser {
 				EnterOuterAlt(_localctx, 1);
 				{
 				State = 73;
-				addOp1();
+				addOp();
 				}
 				break;
 			case T__7:
@@ -471,24 +471,24 @@ public partial class TeXpressionMathParser : Parser {
 		return _localctx;
 	}
 
-	public partial class AddOp1Context : ParserRuleContext {
-		public AddOp1Context(ParserRuleContext parent, int invokingState)
+	public partial class AddOpContext : ParserRuleContext {
+		public AddOpContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_addOp1; } }
+		public override int RuleIndex { get { return RULE_addOp; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ITeXpressionMathVisitor<TResult> typedVisitor = visitor as ITeXpressionMathVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitAddOp1(this);
+			if (typedVisitor != null) return typedVisitor.VisitAddOp(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public AddOp1Context addOp1() {
-		AddOp1Context _localctx = new AddOp1Context(Context, State);
-		EnterRule(_localctx, 8, RULE_addOp1);
+	public AddOpContext addOp() {
+		AddOpContext _localctx = new AddOpContext(Context, State);
+		EnterRule(_localctx, 8, RULE_addOp);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
