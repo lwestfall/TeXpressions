@@ -47,7 +47,7 @@ jobs:
       - name: Generate files
         if: steps.grammar-diff.outputs.changed == 'true'
         run: |
-          java -jar src/antlr/antlr.jar -o src/Parsing/Generated/ -Dlanguage=CSharp src/antlr/TeXpressionMath.g4 -visitor -no-listener
+          java -jar ./src/antlr/antlr.jar -o ./src/Parsing/Generated/ -Dlanguage=CSharp ./src/antlr/TeXpressionMath.g4 -visitor -no-listener
           git diff --ignore-space-at-eol
 
       - name: Check diff against base
