@@ -22,7 +22,7 @@ jobs:
           fi
 
       - name: Apply label if grammar changed
-        uses: actions-ecosystem/action-add-labels@v1
+        uses: christianvuerings/add-labels@v1
         if: steps.grammar-diff.outputs.changed == 'true'
         with:
           labels: grammar changed
