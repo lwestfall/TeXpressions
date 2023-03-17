@@ -50,17 +50,6 @@ jobs:
           cd src/antlr/
           java -jar antlr.jar -o ${{ github.workspace }}/src/Parsing/Generated/ -Dlanguage=CSharp TeXpressionMath.g4 -visitor -no-listener
 
-      - name: Diff
-        if: steps.grammar-diff.outputs.changed == 'true'
-        run: |
-          git diff --ignore-space-at-eol
-          echo "---"
-          ls src/Parsing/Generated
-          echo "---"
-          ls src/Parsing/Generated/src/antlr
-          echo "---"
-          ls src/antlr/
-
       - name: Check diff against base
         if: steps.grammar-diff.outputs.changed == 'true'
         run: |
