@@ -46,14 +46,16 @@ jobs:
 
       - name: Generate files
         if: steps.grammar-diff.outputs.changed == 'true'
-        run: java -jar src/antlr/antlr.jar -o src/Parsing/Generated -Dlanguage=CSharp src/antlr/TeXpressionMath.g4 -visitor -no-listener
+        run: java -jar src/antlr/antlr.jar -o ./src/Parsing/Generated -Dlanguage=CSharp src/antlr/TeXpressionMath.g4 -visitor -no-listener
 
       - name: Diff
         if: steps.grammar-diff.outputs.changed == 'true'
         run: |
           touch test1.txt
           git diff --ignore-space-at-eol
+          echo "---"
           ls src/Parsing/Generated
+          echo "---"
           ls src/antlr/
 
       - name: Check diff against base
