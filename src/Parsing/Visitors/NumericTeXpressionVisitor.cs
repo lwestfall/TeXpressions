@@ -10,7 +10,7 @@ using static TeXpressionMathParser;
 public class NumericTeXpressionVisitor : TeXpressionMathBaseVisitor<TeXpression<double>>
 {
     public override TeXpression<double> VisitInlineMath([NotNull] InlineMathContext context)
-        => this.Visit(context.expr());
+        => this.Visit(context.topExpr());
 
     public override TeXpression<double> VisitBinaryExpr([NotNull] BinaryExprContext context)
     {
@@ -37,5 +37,13 @@ public class NumericTeXpressionVisitor : TeXpressionMathBaseVisitor<TeXpression<
     {
         var num = double.Parse(context.number().GetText(), CultureInfo.InvariantCulture);
         return Numeric.Constant(num);
+    }
+
+    public override TeXpression<double> VisitParamExpr([NotNull] ParamExprContext context)
+    {
+        var paramCtx = context.assign().var();
+        var exprCtx = context.assign().expr();
+
+        return Numeric.Parameter(paramCtx.GetText(), this.Visit(exprCtx));
     }
 }

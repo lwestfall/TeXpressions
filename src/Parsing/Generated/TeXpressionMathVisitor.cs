@@ -38,6 +38,12 @@ public interface ITeXpressionMathVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitInlineMath([NotNull] TeXpressionMathParser.InlineMathContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="TeXpressionMathParser.topExpr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitTopExpr([NotNull] TeXpressionMathParser.TopExprContext context);
+	/// <summary>
 	/// Visit a parse tree produced by the <c>ParamExpr</c>
 	/// labeled alternative in <see cref="TeXpressionMathParser.expr"/>.
 	/// </summary>

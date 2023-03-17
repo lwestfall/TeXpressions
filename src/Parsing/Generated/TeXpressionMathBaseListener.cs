@@ -48,6 +48,18 @@ public partial class TeXpressionMathBaseListener : ITeXpressionMathListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitInlineMath([NotNull] TeXpressionMathParser.InlineMathContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.topExpr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterTopExpr([NotNull] TeXpressionMathParser.TopExprContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TeXpressionMathParser.topExpr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitTopExpr([NotNull] TeXpressionMathParser.TopExprContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by the <c>ParamExpr</c>
 	/// labeled alternative in <see cref="TeXpressionMathParser.expr"/>.
 	/// <para>The default implementation does nothing.</para>

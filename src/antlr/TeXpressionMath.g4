@@ -1,6 +1,8 @@
 grammar TeXpressionMath;
 
-inlineMath: ('$' expr '$' | '\\(' expr '\\)') EOF;
+inlineMath: ('$' topExpr '$' | '\\(' topExpr '\\)') EOF;
+
+topExpr: expr | assign;
 
 expr:
 	binaryCmdName '{' l = expr '}{' r = expr '}'	# BinaryExpr

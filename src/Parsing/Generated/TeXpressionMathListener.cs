@@ -41,6 +41,16 @@ public interface ITeXpressionMathListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitInlineMath([NotNull] TeXpressionMathParser.InlineMathContext context);
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="TeXpressionMathParser.topExpr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterTopExpr([NotNull] TeXpressionMathParser.TopExprContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TeXpressionMathParser.topExpr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitTopExpr([NotNull] TeXpressionMathParser.TopExprContext context);
+	/// <summary>
 	/// Enter a parse tree produced by the <c>ParamExpr</c>
 	/// labeled alternative in <see cref="TeXpressionMathParser.expr"/>.
 	/// </summary>

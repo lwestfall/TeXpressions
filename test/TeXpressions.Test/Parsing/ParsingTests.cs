@@ -1,4 +1,4 @@
-namespace Parsing.Test;
+namespace TeXpressions.Test.Parsing;
 using NUnit.Framework;
 using TeXpressions.Core.Common;
 using TeXpressions.Parsing;
@@ -23,7 +23,11 @@ public class ParsingTests
     [TestCase("$\\tfrac{2}{0.5}$", 4, typeof(BinaryTeXpression<double, double, double>))]
     [TestCase("$\\frac{6}{2}$", 3, typeof(BinaryTeXpression<double, double, double>))]
     [TestCase("$10 / 10$", 1, typeof(BinaryTeXpression<double, double, double>))]
-    public void NumericExpressionParses(string input, double expectedEval, Type expectedType)
+    [TestCase("$A_b = 1.5$", 1.5, typeof(ParameterTeXpression<double>))]
+    [TestCase("$A = 1/2$", 0.5, typeof(ParameterTeXpression<double>))]
+    [TestCase("$\\alpha=1*5$", 5, typeof(ParameterTeXpression<double>))]
+    [TestCase("$\\beta_{min}=8.75$", 8.75, typeof(ParameterTeXpression<double>))]
+    public void NumericExpressionParsesAndEvaluates(string input, double expectedEval, Type expectedType)
     {
         var parser = ParseUtility.GetParserForInput(input);
 
