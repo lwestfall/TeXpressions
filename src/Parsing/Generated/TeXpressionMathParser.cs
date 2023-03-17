@@ -106,16 +106,6 @@ public partial class TeXpressionMathParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_inlineMath; } }
 		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.EnterInlineMath(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.ExitInlineMath(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ITeXpressionMathVisitor<TResult> typedVisitor = visitor as ITeXpressionMathVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitInlineMath(this);
@@ -184,16 +174,6 @@ public partial class TeXpressionMathParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_topExpr; } }
 		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.EnterTopExpr(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.ExitTopExpr(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ITeXpressionMathVisitor<TResult> typedVisitor = visitor as ITeXpressionMathVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitTopExpr(this);
@@ -254,16 +234,6 @@ public partial class TeXpressionMathParser : Parser {
 		}
 		public ParamExprContext(ExprContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.EnterParamExpr(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.ExitParamExpr(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ITeXpressionMathVisitor<TResult> typedVisitor = visitor as ITeXpressionMathVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitParamExpr(this);
@@ -288,16 +258,6 @@ public partial class TeXpressionMathParser : Parser {
 		}
 		public BinaryExprContext(ExprContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.EnterBinaryExpr(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.ExitBinaryExpr(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ITeXpressionMathVisitor<TResult> typedVisitor = visitor as ITeXpressionMathVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitBinaryExpr(this);
@@ -309,16 +269,6 @@ public partial class TeXpressionMathParser : Parser {
 			return GetRuleContext<NumberContext>(0);
 		}
 		public ConstantExprContext(ExprContext context) { CopyFrom(context); }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.EnterConstantExpr(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.ExitConstantExpr(this);
-		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ITeXpressionMathVisitor<TResult> typedVisitor = visitor as ITeXpressionMathVisitor<TResult>;
@@ -452,16 +402,6 @@ public partial class TeXpressionMathParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_binaryOp; } }
 		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.EnterBinaryOp(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.ExitBinaryOp(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ITeXpressionMathVisitor<TResult> typedVisitor = visitor as ITeXpressionMathVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitBinaryOp(this);
@@ -538,16 +478,6 @@ public partial class TeXpressionMathParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_addOp; } }
 		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.EnterAddOp(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.ExitAddOp(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ITeXpressionMathVisitor<TResult> typedVisitor = visitor as ITeXpressionMathVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitAddOp(this);
@@ -584,16 +514,6 @@ public partial class TeXpressionMathParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_subOp; } }
 		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.EnterSubOp(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.ExitSubOp(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ITeXpressionMathVisitor<TResult> typedVisitor = visitor as ITeXpressionMathVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitSubOp(this);
@@ -629,16 +549,6 @@ public partial class TeXpressionMathParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_mulOp; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.EnterMulOp(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.ExitMulOp(this);
-		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ITeXpressionMathVisitor<TResult> typedVisitor = visitor as ITeXpressionMathVisitor<TResult>;
@@ -684,16 +594,6 @@ public partial class TeXpressionMathParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_divOp; } }
 		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.EnterDivOp(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.ExitDivOp(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ITeXpressionMathVisitor<TResult> typedVisitor = visitor as ITeXpressionMathVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitDivOp(this);
@@ -738,16 +638,6 @@ public partial class TeXpressionMathParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_expOp; } }
 		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.EnterExpOp(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.ExitExpOp(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ITeXpressionMathVisitor<TResult> typedVisitor = visitor as ITeXpressionMathVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitExpOp(this);
@@ -787,16 +677,6 @@ public partial class TeXpressionMathParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_binaryCmdName; } }
 		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.EnterBinaryCmdName(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.ExitBinaryCmdName(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ITeXpressionMathVisitor<TResult> typedVisitor = visitor as ITeXpressionMathVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitBinaryCmdName(this);
@@ -832,16 +712,6 @@ public partial class TeXpressionMathParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_divCmd; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.EnterDivCmd(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.ExitDivCmd(this);
-		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ITeXpressionMathVisitor<TResult> typedVisitor = visitor as ITeXpressionMathVisitor<TResult>;
@@ -905,16 +775,6 @@ public partial class TeXpressionMathParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_assign; } }
 		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.EnterAssign(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.ExitAssign(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ITeXpressionMathVisitor<TResult> typedVisitor = visitor as ITeXpressionMathVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitAssign(this);
@@ -954,16 +814,6 @@ public partial class TeXpressionMathParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_varMod; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.EnterVarMod(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.ExitVarMod(this);
-		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ITeXpressionMathVisitor<TResult> typedVisitor = visitor as ITeXpressionMathVisitor<TResult>;
@@ -1009,16 +859,6 @@ public partial class TeXpressionMathParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_var; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.EnterVar(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.ExitVar(this);
-		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ITeXpressionMathVisitor<TResult> typedVisitor = visitor as ITeXpressionMathVisitor<TResult>;
@@ -1107,16 +947,6 @@ public partial class TeXpressionMathParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_desc; } }
 		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.EnterDesc(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.ExitDesc(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ITeXpressionMathVisitor<TResult> typedVisitor = visitor as ITeXpressionMathVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitDesc(this);
@@ -1177,16 +1007,6 @@ public partial class TeXpressionMathParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_subscript; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.EnterSubscript(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.ExitSubscript(this);
-		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ITeXpressionMathVisitor<TResult> typedVisitor = visitor as ITeXpressionMathVisitor<TResult>;
@@ -1256,16 +1076,6 @@ public partial class TeXpressionMathParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_number; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.EnterNumber(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.ExitNumber(this);
-		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ITeXpressionMathVisitor<TResult> typedVisitor = visitor as ITeXpressionMathVisitor<TResult>;
@@ -1380,16 +1190,6 @@ public partial class TeXpressionMathParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_id; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.EnterId(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			ITeXpressionMathListener typedListener = listener as ITeXpressionMathListener;
-			if (typedListener != null) typedListener.ExitId(this);
-		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ITeXpressionMathVisitor<TResult> typedVisitor = visitor as ITeXpressionMathVisitor<TResult>;
