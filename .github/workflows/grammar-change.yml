@@ -51,7 +51,7 @@ jobs:
       - name: Check diff against base
         if: steps.grammar-diff.outputs.changed == 'true'
         run: |
-          if git diff --ignore-space-at-eol --quiet; then
+          if git diff --ignore-space-at-eol; then
             # There are no changes
             echo "No changes after ANTLR generate"
             exit 0
