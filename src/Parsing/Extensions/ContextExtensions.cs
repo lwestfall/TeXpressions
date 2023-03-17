@@ -17,7 +17,7 @@ public static class ContextExtensions
         return dbl;
     }
 
-    public static BinaryTeXpression<double, double, double>? GetBinaryTeXpression(this BinaryOpContext ctx, TeXpression<double> left, TeXpression<double> right)
+    public static BinaryTeXpression<double, double, double> GetBinaryTeXpression(this BinaryOpContext ctx, TeXpression<double> left, TeXpression<double> right)
     {
         Dictionary<Func<BinaryOpContext, ParserRuleContext>, Func<TeXpression<double>, TeXpression<double>, BinaryTeXpression<double, double, double>>> lookup = new()
         {
@@ -28,6 +28,6 @@ public static class ContextExtensions
             {(ctx) => ctx.expOp(), (l,r) => Numeric.Exponent(l,r)}
         };
 
-        return lookup.FirstOrDefault(kvp => kvp.Key(ctx) != null).Value(left, right);
+        return lookup.First(kvp => kvp.Key(ctx) != null).Value(left, right);
     }
 }
