@@ -449,9 +449,15 @@ $RECYCLE.BIN/
 ##
 .vscode/*
 # !.vscode/settings.json
-# !.vscode/tasks.json
+!.vscode/tasks.json
 # !.vscode/launch.json
 # !.vscode/extensions.json
 
 src/ConsoleTest
 **/lcov.info
+
+# Antlr files (except grammars)
+**/antlr/*
+!**/antlr/*.g4
+src/Parsing/Generated/*.interp
+src/Parsing/Generated/*.tokens

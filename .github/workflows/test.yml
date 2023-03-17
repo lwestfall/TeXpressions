@@ -8,14 +8,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
 
     - name: Run tests and generate coverage report
-      run: dotnet test -c Release /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=lcov.info /p:Include="src/Core/*"
+      run: dotnet test -c Release /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=lcov.info /p:ExcludeByFile=\"**/Parsing/Generated/*.cs\"
 
     - name: Upload coverage report
       uses: codecov/codecov-action@v2

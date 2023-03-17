@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Core\Core.csproj" />
+    <ProjectReference Include="..\..\src\Parsing\Parsing.csproj" />
   </ItemGroup>
 
 </Project>

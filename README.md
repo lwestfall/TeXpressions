@@ -41,7 +41,6 @@ TeXpressions was never intended to replace Linq.Expressions. While some inspirat
 ### 0.1.0 Roadmap
 
 - Documentation
-- Implement ANTLR grammar for LaTeX parsing
 - Custom exceptions where it makes sense
 - Built-in support for common numeric functions (trig, max, min, floor, ceiling, etc.)
 - Logical / boolean expressions, numeric comparisons, Iverson bracket notation for conditional expressions
@@ -56,3 +55,16 @@ TeXpressions was never intended to replace Linq.Expressions. While some inspirat
 - SigFigLaTeXFormatter
 - How to handle rounding error - should number rounding in simplifications cascade to future steps? Make it configurable?
 - CI / CD workflows
+
+## References
+
+<a id="1">[1]</a>
+Downes, Michael, and Barbara Beeton.
+“Short Math Guide for LATEX."
+<http://mirror.ctan.org/info/short-math-guide>
+
+<a id="2">[2]</a>
+"LaTeX/Mathematics."
+Wikibooks, The Free Textbook Project.
+25 Oct 2022, 10:02 UTC. 16 Mar 2023, 09:48
+<https://en.wikibooks.org/w/index.php?title=LaTeX/Mathematics&oldid=4197055>.
