@@ -98,7 +98,7 @@ public partial class TeXpressionMathBaseVisitor<Result> : AbstractParseTreeVisit
 	/// <return>The visitor result.</return>
 	public virtual Result VisitBinaryOp([NotNull] TeXpressionMathParser.BinaryOpContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TeXpressionMathParser.addOp"/>.
+	/// Visit a parse tree produced by <see cref="TeXpressionMathParser.addOp1"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -106,7 +106,7 @@ public partial class TeXpressionMathBaseVisitor<Result> : AbstractParseTreeVisit
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitAddOp([NotNull] TeXpressionMathParser.AddOpContext context) { return VisitChildren(context); }
+	public virtual Result VisitAddOp1([NotNull] TeXpressionMathParser.AddOp1Context context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="TeXpressionMathParser.subOp"/>.
 	/// <para>

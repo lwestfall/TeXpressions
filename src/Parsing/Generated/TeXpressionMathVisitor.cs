@@ -71,11 +71,11 @@ public interface ITeXpressionMathVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitBinaryOp([NotNull] TeXpressionMathParser.BinaryOpContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TeXpressionMathParser.addOp"/>.
+	/// Visit a parse tree produced by <see cref="TeXpressionMathParser.addOp1"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitAddOp([NotNull] TeXpressionMathParser.AddOpContext context);
+	Result VisitAddOp1([NotNull] TeXpressionMathParser.AddOp1Context context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="TeXpressionMathParser.subOp"/>.
 	/// </summary>
