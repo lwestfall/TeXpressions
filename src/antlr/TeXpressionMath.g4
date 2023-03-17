@@ -48,3 +48,5 @@ fragment GREEK:
 	| '\\tau'
 	| '\\lambda'
 	| '\\omega';
+
+test
