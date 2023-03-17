@@ -1,0 +1,53 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build",
+      "command": "dotnet",
+      "type": "shell",
+      "args": [
+        "build",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "Test & Report",
+      "command": "dotnet",
+      "type": "shell",
+      "args": [
+        "test",
+        "-c",
+        "Release",
+        "/p:CollectCoverage=true",
+        "/p:CoverletOutputFormat=lcov",
+        "/p:CoverletOutput=lcov.info",
+        "/p:ExcludeByFile=\"**/Parsing/Generated/*.cs\""
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Generate From Grammar",
+      "command": "java",
+      "type": "shell",
+      "args": [
+        "-jar",
+        "src/antlr/antlr-4.12.0-complete.jar",
+        "-o",
+        "src/Parsing/Generated",
+        "-Dlanguage=CSharp",
+        "src/antlr/TeXpressionMath.g4",
+        "-visitor",
+        "-no-listener"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}
