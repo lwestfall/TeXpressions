@@ -42,11 +42,11 @@ jobs:
 
       - name: Download ANTLR
         if: steps.grammar-diff.outputs.changed == 'true'
-        run: wget -O head/src/antlr/antlr.jar https://www.antlr.org/download/antlr-4.12.0-complete.jar
+        run: wget -O src/antlr/antlr.jar https://www.antlr.org/download/antlr-4.12.0-complete.jar
 
       - name: Generate files
         if: steps.grammar-diff.outputs.changed == 'true'
-        run: java -jar head/src/antlr/antlr.jar -o src/Parsing/Generated -Dlanguage=CSharp src/antlr/TeXpressionMath.g4 -visitor -no-listener
+        run: java -jar src/antlr/antlr.jar -o src/Parsing/Generated -Dlanguage=CSharp src/antlr/TeXpressionMath.g4 -visitor -no-listener
 
       - name: Check diff against base
         if: steps.grammar-diff.outputs.changed == 'true'
