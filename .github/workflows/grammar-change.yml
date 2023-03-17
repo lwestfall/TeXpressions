@@ -51,12 +51,11 @@ jobs:
       - name: Diff
         if: steps.grammar-diff.outputs.changed == 'true'
         run: |
-          touch test1.txt
           git diff --ignore-space-at-eol
           echo "---"
           ls src/Parsing/Generated
           echo "---"
-          ls src/Parsing/Generated/src
+          ls src/Parsing/Generated/src/antlr
           echo "---"
           ls src/antlr/
 
