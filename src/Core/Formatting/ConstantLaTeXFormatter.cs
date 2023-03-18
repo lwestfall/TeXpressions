@@ -1,6 +1,5 @@
 namespace TeXpressions.Core.Formatting;
 
-using System.Globalization;
 using TeXpressions.Core.Interfaces;
 
 public class ConstantLaTeXFormatter : LaTeXFormatter<IConstantTeXpression>
@@ -13,7 +12,5 @@ public class ConstantLaTeXFormatter : LaTeXFormatter<IConstantTeXpression>
 
     public string FormatString { get; set; }
 
-    public IFormatProvider FormatProvider { get; set; } = CultureInfo.CurrentCulture;
-
-    public override string Format(IConstantTeXpression texpression) => texpression.ToString(this.FormatString, this.FormatProvider);
+    public override string Format(IConstantTeXpression texpression) => texpression.ValueToString(this.FormatString);
 }

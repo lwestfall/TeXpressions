@@ -9,6 +9,8 @@ where TResult : notnull, IFormattable
 
     public TResult Value { get; }
 
+    object IConstantTeXpression.Value => this.Value;
+
     public override TResult Evaluate() => this.Value;
 
     public override TeXpression<TResult> Simplify(ILaTeXFormatter? constantFormatter = null)
@@ -21,5 +23,5 @@ where TResult : notnull, IFormattable
         return this;
     }
 
-    public string ToString(string? format = null, IFormatProvider? formatProvider = null) => this.Value.ToString(format, formatProvider);
+    public string ValueToString(string? format = null) => this.Value.ToString(format, this.FormatProvider);
 }
