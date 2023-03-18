@@ -15,6 +15,26 @@ public abstract class TeXpression : ITeXpression
     public abstract TeXpression Simplify(ILaTeXFormatter? constantFormatter);
 
     public string ToLaTeX() => this.LaTeXFormatter.Format(this);
+
+    public abstract ITeXpression[] GetChildren();
+
+    public ITeXpression[] GetDescendants()
+    {
+        var children = this.GetChildren();
+        var descendants = new List<ITeXpression>();
+
+        foreach (var child in children)
+        {
+            descendants.Add(child);
+
+            if (child is IParentTeXpression parent)
+            {
+                descendants.AddRange(parent.GetDescendants());
+            }
+        }
+
+        return descendants.ToArray();
+    }
 }
 
 public abstract class TeXpression<TResult> : TeXpression

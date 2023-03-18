@@ -21,6 +21,8 @@ where TResult : notnull, IFormattable
         throw new InvalidOperationException($"Tried to evaluate unset parameter {this.ToLaTeX()}");
     }
 
+    public override ITeXpression[] GetChildren() => Array.Empty<ITeXpression>();
+
     public string GetParameterLatex() => this.ParameterValue.LaTeXName;
 
     public override TeXpression<TResult> Simplify(ILaTeXFormatter? constantFormatter = null) => this.SimplifyToConstant(constantFormatter);

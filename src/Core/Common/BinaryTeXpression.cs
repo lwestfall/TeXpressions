@@ -43,4 +43,6 @@ where TResultRight : notnull, IFormattable
             this.Function,
             this.LaTeXFormatter);
     }
+
+    public override ITeXpression[] GetChildren() => new TeXpression[] { this.Left, this.Right };
 }

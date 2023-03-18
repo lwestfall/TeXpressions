@@ -23,6 +23,8 @@ where TResultInner : notnull, IFormattable
 
     public override TResultOuter Evaluate() => this.Function(this.Inners.Select(t => t.Evaluate()).ToArray());
 
+    public override ITeXpression[] GetChildren() => this.Inners;
+
     public override TeXpression<TResultOuter> Simplify(ILaTeXFormatter? constantFormatter = null)
     {
         if (this.Inners.All(t => t is ConstantTeXpression<TResultInner>))
