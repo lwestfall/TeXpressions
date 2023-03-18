@@ -21,5 +21,5 @@ where TResult : notnull, IFormattable
         return this;
     }
 
-    public string ToString(string? format = null, IFormatProvider? formatProvider = null) => this.Value.ToString(format, formatProvider);
+    public string ValueToString(string? format = null) => this.Value.ToString(format, this.FormatProvider);
 }
