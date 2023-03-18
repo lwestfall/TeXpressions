@@ -17,7 +17,7 @@ public static class Numeric
         => new(inner, function, formatter);
 
     public static ConstantTeXpression<double> Constant(double value, ILaTeXFormatter? formatter = null)
-        => new(value, formatter ?? new ConstantLaTeXFormatter("#.###"));
+        => new(value, formatter ?? new ConstantLaTeXFormatter("0.###"));
 
     public static ParameterTeXpression<double> Parameter(string latexName, TeXpression<double>? inner = null, ILaTeXFormatter? formatter = null)
         => new(new(latexName, inner), formatter ?? new ParameterLaTeXFormatter());

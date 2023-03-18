@@ -17,19 +17,16 @@ public class MultiplyLaTeXFormatter : LaTeXFormatter<IBinaryTeXpression>
 
     public override string Format(IBinaryTeXpression texpression)
     {
-        if (texpression is not IBinaryTeXpression binTexpr)
-        {
-            throw new InvalidOperationException($"Cannot use {nameof(MultiplyLaTeXFormatter)} as format for {texpression.GetType().Name}");
-        }
-
-        var leftLatex = binTexpr.Left.ToLaTeX();
-        var rightLatex = binTexpr.Right.ToLaTeX();
+        var left = texpression.Left;
+        var right = texpression.Right;
+        var leftLatex = left.ToLaTeX();
+        var rightLatex = right.ToLaTeX();
 
         if (
             !this.SmartFormatting ||
-            binTexpr.Left.LaTeXFormatter is not LaTeXFormatter leftFormatter ||
+            left.LaTeXFormatter is not LaTeXFormatter leftFormatter ||
             !leftFormatter.AllowAdjacentMultiplication ||
-            binTexpr.Right.LaTeXFormatter is not LaTeXFormatter rightFormatter ||
+            right.LaTeXFormatter is not LaTeXFormatter rightFormatter ||
             !rightFormatter.AllowAdjacentMultiplication
         )
         {
@@ -37,18 +34,18 @@ public class MultiplyLaTeXFormatter : LaTeXFormatter<IBinaryTeXpression>
         }
 
         // todo - fix smart formatting
-        if (binTexpr.Left is IConstantTeXpression)
+        if (left is IConstantTeXpression)
         {
-            if (binTexpr.Right is IConstantTeXpression)
+            if (right is IConstantTeXpression)
             {
                 return this.GetFormatStringFromMultiplyStyle(leftLatex, rightLatex);
             }
 
-            return $"{{{leftLatex}}} {{{rightLatex}}}";
+            return $"{leftLatex} {rightLatex}";
         }
-        else if (binTexpr.Right is IConstantTeXpression)
+        else if (right is IConstantTeXpression)
         {
-            return $"{{{rightLatex}}} {{{leftLatex}}}";
+            return $"{leftLatex} {rightLatex}";
         }
 
         return this.GetFormatStringFromMultiplyStyle(leftLatex, rightLatex);
@@ -58,16 +55,14 @@ public class MultiplyLaTeXFormatter : LaTeXFormatter<IBinaryTeXpression>
     {
         return this.Style switch
         {
-            MultiplyStyle.Times => $"{{{left}}} \\times {{{right}}}",
-            MultiplyStyle.Dot => $"{{{left}}} \\dot {right}",
+            MultiplyStyle.Times => $"{left} \\times {right}",
+            MultiplyStyle.Dot => $"{left} \\dot {right}",
             MultiplyStyle.ParenthesesBoth => $"({left}) ({right})",
             MultiplyStyle.ParenthesesLeftOnly => $"({left}) {right}",
             MultiplyStyle.ParenthesesRightOnly => $"{left} ({right})",
             _ => throw new NotImplementedException($"MultiplyStyle {this.Style} not implemented!"),
         };
     }
-
-    public static MultiplyLaTeXFormatter Default { get; set; } = new(MultiplyStyle.Times, true);
 }
 
 public enum MultiplyStyle
