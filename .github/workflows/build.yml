@@ -19,6 +19,6 @@ jobs:
         dotnet build
 
     - name: Sample solution builds
-      run:
+      run: |
         cd samples
         dotnet build
