@@ -97,7 +97,9 @@ It looks like it matches, phew!
 
 ## Extensibility
 
-**TODO**.
+None of the classes in this library are sealed so you're free to create your own inherited classes for your own use-case.
+
+Please open a new issue if you want to merge your implementation to this library! It should be common enough to benefit others, so please keep that in mind before submitting.
 
 ## Why doesn't this use Linq.Expressions?
 
