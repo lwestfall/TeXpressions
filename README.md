@@ -1,6 +1,6 @@
 # TeXpressions
 
-[![codecov](https://codecov.io/gh/lwestfall/TeXpressions/branch/main/graph/badge.svg?token=UDHTYTL99C)](https://codecov.io/gh/lwestfall/TeXpressions)
+![Build](https://github.com/lwestfall/TeXpressions/actions/workflows/build.yml/badge.svg) ![Tests](https://github.com/lwestfall/TeXpressions/actions/workflows/test.yml/badge.svg) [![codecov](https://codecov.io/gh/lwestfall/TeXpressions/branch/main/graph/badge.svg?token=UDHTYTL99C)](https://codecov.io/gh/lwestfall/TeXpressions)
 
 TeXpressions is a framework for .NET 6+ that can do:
 
@@ -60,8 +60,10 @@ Console.WriteLine($"And it evaluates to: ${texpr.Evaluate()}$");
 
 Here is the resulting output for both lines:
 
-> The expression back to inline LaTeX: $\frac{2 \times 10}{4}$
-> And it evaluates to: 5
+```text
+The expression back to inline LaTeX: $\frac{2 \times 10}{4}$
+And it evaluates to: 5
+```
 
 Not bad!
 
@@ -90,8 +92,10 @@ Console.WriteLine($"This one evaluates to: ${texpr2.Evaluate()}$");
 
 And the resulting output:
 
-> texpr2 back to inline LaTeX: $\frac{2 \times 10}{4}$
-> This one evaluates to: 5
+```text
+texpr2 back to inline LaTeX: $\frac{2 \times 10}{4}$
+This one evaluates to: 5
+```
 
 It looks like it matches, phew!
 
