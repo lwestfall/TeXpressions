@@ -12,13 +12,88 @@ TeXpressions is a framework for .NET 6+ that can do:
 
 ## Contributing
 
-I encourage members of the community, regardless of experience level, to participate in the design and implementation of this software. All new contributors should read the [contributing guidelines](CONTRIBUTING.md). Good candidates for first time contributors [can be found in the issues tab](https://github.com/lwestfall/TeXpressions/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22).
+I encourage members of the community, regardless of experience level, to participate in the design and implementation of this software. All new contributors should read the [contributing guidelines](CONTRIBUTING.md). Good candidate issues for first time contributors [can be found in the issues tab](https://github.com/lwestfall/TeXpressions/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22).
 
 Please don't forget to comment in an issue (or create a new issue) *prior* to submitting a pull request. This makes it easier for other contributors to know what's being worked on.
 
 ## How to Use
 
-**TODO**.
+There are two primary ways to build TeXpression trees. All of the code in the following two sections can be found and run yourself from [samples/ReadmeExample/Program.cs](samples/ReadmeExample/Program.cs).
+
+What you see below is just the most basic explanation. See the wiki for more details and features.
+
+### 1. Parsing LaTeX strings
+
+The "more powerful" method of building TeXpressions is feeding it LaTeX strings. These are parsed into their respective TeXpression trees. Let's look at an example:
+
+`$\frac{2 \times 10}{4}$` which renders to $\frac{2 \times 10}{4}$ Using some mental math, we can quickly see that this should evaluate to 5.
+
+We can easily parse it to a variable called `texpr` like this:
+
+```cs
+var texpr = ParseUtility.ParseInlineNumericExpression(@"$\frac{2 \times 10}{4}$");
+// the @ before the string makes it a verbatim string, so backslash \ doesn't get escaped
+// slightly cleaner than the alternative "$\\frac{2 \\times 10}{4}$" :)
+```
+
+How will this get parsed? It might be easier to explain with an image of the resulting tree:
+
+Hopefully it's pretty clear what's happening here:
+
+- The "outer" or "top" most TeXpression is a `BinaryTeXpression` representing the `\frac` LaTeX function.
+  - The dividend (a.k.a. numerator) is the root's "Left" inner TeXpression, and is another `BinaryTeXpression`, but this time for the `\times` operator. Being a `BinaryTeXpression`, it has a `Left` and `Right` of its own:
+    - The Left is a `ConstantTeXpression` with value 2.
+    - The Right is a `ConstantTeXpression` with value 10.
+  - The divisor is the "Right" TeXpression and is a `ConstantTeXpression` with a value of 4.
+
+Great, we have a TeXpression tree! What can we do with it? Well, we can turn it back into LaTeX which is nice:
+
+```cs
+Console.WriteLine($"The expression back to inline LaTeX: ${texpr.ToLaTeX()}$");
+```
+
+We can also evaluate the TeXpression because there's no unknown parameters:
+
+```cs
+Console.WriteLine($"And it evaluates to: ${texpr.Evaluate()}$");
+```
+
+Here is the resulting output for both lines:
+
+> The expression back to inline LaTeX: $\frac{2 \times 10}{4}$
+> And it evaluates to: 5
+
+Not bad!
+
+### 2. Using built-in builder APIs
+
+Okay, so we just saw how the parser can turn an inline LaTeX expression and turn it into a TeXpression tree. What if we wanted to build this at design time?
+
+The built-in Numeric static class is great for building TeXpression trees for common math functions, and working with the double value-type. Let's make the above example using the Numeric API:
+
+```cs
+var texpr2 = Numeric.Divide(    // Root: BinaryTeXpression
+    Numeric.Multiply(           // Root.Left: BinaryTeXpression
+        Numeric.Constant(2),    // Root.Left.Left: ConstantTeXpression
+        Numeric.Constant(10)    // Root.Left.Right: ConstantTeXpression
+    ),
+    Numeric.Constant(4)         // Root.Right: ConstantTeXpression
+);
+```
+
+Let's format the LaTeX string and evaluate this one. Hopefully it all comes out the same:
+
+```cs
+Console.WriteLine($"texpr2 back to inline LaTeX: ${texpr2.ToLaTeX()}$");
+Console.WriteLine($"This one evaluates to: ${texpr2.Evaluate()}$");
+```
+
+And the resulting output:
+
+> texpr2 back to inline LaTeX: $\frac{2 \times 10}{4}$
+> This one evaluates to: 5
+
+It looks like it matches, phew!
 
 ## Extensibility
 

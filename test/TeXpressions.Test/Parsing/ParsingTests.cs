@@ -2,7 +2,6 @@ namespace TeXpressions.Test.Parsing;
 using NUnit.Framework;
 using TeXpressions.Core.Common;
 using TeXpressions.Parsing;
-using TeXpressions.Parsing.Visitors;
 
 public class ParsingTests
 {
@@ -29,11 +28,7 @@ public class ParsingTests
     [TestCase("$\\beta_{min}=8.75$", 8.75, typeof(ParameterTeXpression<double>))]
     public void NumericExpressionParsesAndEvaluates(string input, double expectedEval, Type expectedType)
     {
-        var parser = ParseUtility.GetParserForInput(input);
-
-        var visitor = new NumericTeXpressionVisitor();
-        var ctx = parser.inlineMath();
-        var expr = visitor.Visit(ctx);
+        var expr = ParseUtility.ParseInlineNumericExpression(input);
 
         Assert.That(expr, Is.Not.Null);
 

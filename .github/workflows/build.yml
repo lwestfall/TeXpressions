@@ -1,0 +1,24 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main, integration ]
+  pull_request:
+    branches: [ main, integration ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Main solution builds
+      run:
+        dotnet build
+
+    - name: Sample solution builds
+      run:
+        cd samples
+        dotnet build
