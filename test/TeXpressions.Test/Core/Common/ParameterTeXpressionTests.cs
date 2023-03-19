@@ -1,4 +1,4 @@
-namespace Core.Test.Common;
+namespace TeXpressions.Test.Core.Common;
 using TeXpressions.Core;
 using TeXpressions.Core.Common;
 
@@ -45,5 +45,15 @@ public class ParameterTeXpressionTests
             Assert.That(result, Is.InstanceOf<ConstantTeXpression<double>>());
             Assert.That(((ConstantTeXpression<double>)result).Value, Is.EqualTo(expected));
         });
+    }
+
+    [Test]
+    public void GetChildrenReturnsEmptyArray()
+    {
+        var paramTeXpr = Numeric.Parameter("a", Numeric.Constant(1));
+
+        var result = paramTeXpr.GetChildren();
+
+        Assert.That(result, Is.Empty);
     }
 }

@@ -46,4 +46,14 @@ public class ConstantTeXpressionTests
 
         Assert.That(result, Is.EqualTo(num));
     }
+
+    [Test]
+    public void GetChildrenReturnsEmptyArray()
+    {
+        var constantTexpr = Numeric.Constant(1, new MockLaTeXFormatter());
+
+        var result = constantTexpr.GetChildren();
+
+        Assert.That(result, Is.Empty);
+    }
 }

@@ -3,9 +3,9 @@ namespace TeXpressions.Core.Common;
 using TeXpressions.Core.Interfaces;
 
 public class BinaryTeXpression<TResultLeft, TResultRight, TResultOuter> : TeXpression<TResultOuter>, IBinaryTeXpression
-where TResultOuter : notnull, IFormattable
-where TResultLeft : notnull, IFormattable
-where TResultRight : notnull, IFormattable
+where TResultOuter : IFormattable
+where TResultLeft : IFormattable
+where TResultRight : IFormattable
 {
     public BinaryTeXpression(
         TeXpression<TResultLeft> left,
@@ -43,4 +43,6 @@ where TResultRight : notnull, IFormattable
             this.Function,
             this.LaTeXFormatter);
     }
+
+    public override ITeXpression[] GetChildren() => new TeXpression[] { this.Left, this.Right };
 }

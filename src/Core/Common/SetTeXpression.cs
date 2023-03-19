@@ -3,8 +3,8 @@ namespace TeXpressions.Core.Common;
 using TeXpressions.Core.Interfaces;
 
 public class SetTeXpression<TResultInner, TResultOuter> : TeXpression<TResultOuter>, ISetTeXpression
-where TResultOuter : notnull, IFormattable
-where TResultInner : notnull, IFormattable
+where TResultOuter : IFormattable
+where TResultInner : IFormattable
 {
     public SetTeXpression(
         TeXpression<TResultInner>[] inners,
@@ -22,6 +22,8 @@ where TResultInner : notnull, IFormattable
     TeXpression[] ISetTeXpression.Inners => this.Inners;
 
     public override TResultOuter Evaluate() => this.Function(this.Inners.Select(t => t.Evaluate()).ToArray());
+
+    public override ITeXpression[] GetChildren() => this.Inners;
 
     public override TeXpression<TResultOuter> Simplify(ILaTeXFormatter? constantFormatter = null)
     {
