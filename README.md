@@ -4,11 +4,35 @@
 
 TeXpressions is a framework for .NET 6+ that can do:
 
-- (TODO) Run-time parsing of LaTeX math and logical strings
+- Run-time parsing of LaTeX math and logical strings
 - Compile-time expression building, similar to the Linq.Expressions API
 - Evaluation of expressions
 - Simplification of expressions (including intermediate steps)
-- (WIP) Formatting of expressions to LaTeX strings
+- Formatting of expressions to LaTeX strings
+
+## Contributing
+
+I encourage members of the community, regardless of experience level, to participate in the design and implementation of this software. All new contributors should read the [contributing guidelines](CONTRIBUTING.md). Good candidates for first time contributors [can be found in the issues tab](https://github.com/lwestfall/TeXpressions/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22).
+
+Please don't forget to comment in an issue (or create a new issue) *prior* to submitting a pull request. This makes it easier for other contributors to know what's being worked on.
+
+## How to Use
+
+**TODO**.
+
+## Extensibility
+
+**TODO**.
+
+## Why doesn't this use Linq.Expressions?
+
+TeXpressions was never intended to replace Linq.Expressions. While some inspiration was drawn from the runtime's expression tree architecture and builder API and there is minor overlap in capabilties, TeXpressions use-cases are quite different. It is meant to be a math and logic centric expression tree builder that includes built-in LaTeX support. Not all TeXpressions have Linq.Expressions counterparts and vice-versa. Perhaps someday there could be some integration but at time of conception it doesn't seem to make sense.
+
+## 1.0.0 Roadmap
+
+- Iterables (sums, etc.)
+- SigFigLaTeXFormatter
+- How to handle rounding error - should number rounding in simplifications cascade to future steps? Make it configurable?
 
 ## Disclaimer
 
@@ -17,44 +41,6 @@ I'm not very smart, I'm not the best programmer or software architect, I'm certa
 At the moment this code base is **highly** volatile - it is very likely to change quite a lot before I choose to release 1.0.0. Use at your own risk!
 
 I *do not* guarantee or certify the accuracy of the LaTeX parsing, expression simplifications, evaluation, or LaTeX formatting! It is up to **you** as the consumer to independently verify that this software is sufficiently safe and accurate for your needs. See [LICENSE.txt](LICENSE.txt) for more details.
-
-## How to Use
-
-**TODO**
-
-## Supported Math Expressions
-
-There are a handful of built-in math expressions. The common operations are supported, and for practically anything else, there are Delegate expressions that allow you to perform pretty much any function of your choosing.
-
-`TODO - code sample`
-
-## Extensibility
-
-**TODO**
-
-## Why doesn't this use Linq.Expressions?
-
-TeXpressions was never intended to replace Linq.Expressions. While some inspiration was drawn from the runtime's expression tree architecture and builder API and there is minor overlap in capabilties, TeXpressions use-cases are quite different. It is meant to be a math and logic centric expression tree builder that includes built-in LaTeX support. Not all TeXpressions have Linq.Expressions counterparts and vice-versa. Perhaps someday there could be some integration but at time of conception it doesn't seem to make sense.
-
-## TODO
-
-### 0.1.0 Roadmap
-
-- Documentation
-- Custom exceptions where it makes sense
-- Built-in support for common numeric functions (trig, max, min, floor, ceiling, etc.)
-- Logical / boolean expressions, numeric comparisons, Iverson bracket notation for conditional expressions
-- CONTRIBUTING.md
-- Issue templates
-- List all LaTeX macros being used and their package dependencies
-- Demo web application
-
-### 1.0.0 Roadmap
-
-- Iterables (sums, etc.)
-- SigFigLaTeXFormatter
-- How to handle rounding error - should number rounding in simplifications cascade to future steps? Make it configurable?
-- CI / CD workflows
 
 ## References
 
