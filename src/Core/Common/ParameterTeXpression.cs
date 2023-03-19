@@ -4,7 +4,7 @@ using TeXpressions.Core.Formatting;
 using TeXpressions.Core.Interfaces;
 
 public class ParameterTeXpression<TResult> : TeXpression<TResult>, IParameterTeXpression
-where TResult : notnull, IFormattable
+where TResult : IFormattable
 {
     public ParameterTeXpression(ParameterValue<TResult> parameterValue, ILaTeXFormatter? latexFmt) : base(latexFmt ?? new ParameterLaTeXFormatter())
         => this.ParameterValue = parameterValue;
@@ -26,4 +26,6 @@ where TResult : notnull, IFormattable
     public string GetParameterLatex() => this.ParameterValue.LaTeXName;
 
     public override TeXpression<TResult> Simplify(ILaTeXFormatter? constantFormatter = null) => this.SimplifyToConstant(constantFormatter);
+
+    public override bool CanEvaluate() => this.ParameterValue.ValueExpression?.CanEvaluate() ?? false;
 }

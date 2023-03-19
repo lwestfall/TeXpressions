@@ -26,19 +26,18 @@ public abstract class TeXpression : ITeXpression
         foreach (var child in children)
         {
             descendants.Add(child);
-
-            if (child is IParentTeXpression parent)
-            {
-                descendants.AddRange(parent.GetDescendants());
-            }
+            descendants.AddRange(child.GetDescendants());
         }
 
         return descendants.ToArray();
     }
+
+    public virtual bool CanEvaluate() => this.GetDescendants().All(t => t.CanEvaluate());
+
 }
 
 public abstract class TeXpression<TResult> : TeXpression
-where TResult : notnull, IFormattable
+where TResult : IFormattable
 {
     public TeXpression(ILaTeXFormatter latexFmt) : base(latexFmt)
     {
@@ -49,4 +48,17 @@ where TResult : notnull, IFormattable
     public ConstantTeXpression<TResult> SimplifyToConstant(ILaTeXFormatter? constantFormatter = null) => new(this.Evaluate(), constantFormatter ?? new ConstantLaTeXFormatter());
 
     public abstract TResult Evaluate();
+
+    public bool TryEvaluate(out TResult? result)
+    {
+        result = default;
+
+        if (!this.CanEvaluate())
+        {
+            return false;
+        }
+
+        result = this.Evaluate();
+        return true;
+    }
 }

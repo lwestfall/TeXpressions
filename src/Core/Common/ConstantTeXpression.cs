@@ -3,7 +3,7 @@ namespace TeXpressions.Core.Common;
 using TeXpressions.Core.Interfaces;
 
 public class ConstantTeXpression<TResult> : TeXpression<TResult>, IConstantTeXpression
-where TResult : notnull, IFormattable
+where TResult : IFormattable
 {
     public ConstantTeXpression(TResult value, ILaTeXFormatter latexFmt) : base(latexFmt) => this.Value = value;
 
