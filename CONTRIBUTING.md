@@ -5,6 +5,27 @@ email, or any other method with the owners of this repository before making a ch
 
 Please note we have a code of conduct, please follow it in all your interactions with the project.
 
+## Getting Started
+
+If you are new to .NET development, welcome! This repo is beginner friendly, don't be afraid to ask
+questions in the [discussions](https://github.com/lwestfall/TeXpressions/discussions)! Questions don't
+have to be related to this project per-se. I'm happy to help with any general .NET or Git questions.
+
+Here's a few notes for those who are just getting started:
+
+1. [Download and install the .NET SDK](https://dotnet.microsoft.com/en-us/download). At time of writing, this library targets .NET 6. That means you'll need to download the SDK for .NET 6 **or later** (the SDKs are backward compatible).
+2. If you don't have Git installed on your computer, [follow the instructions for your OS here](https://github.com/git-guides/install-git).
+3. Clone this repository:
+   - If you like the command-line: `git clone https://github.com/lwestfall/TeXpressions.git`
+   - If you like Github desktop or another GUI, clone from URL: <https://github.com/lwestfall/TeXpressions.git>
+
+## Recommendations
+
+You are of course free to use whatever IDE you prefer, but I strongly recommend using something
+with support (either natively or via extension/plugin) for .editorconfig files, and consider
+turning on "Format on save" or similar. This repo has automated format checking and PRs *will* be
+rejected if the formatting doesn't meet specifications.
+
 ## Pull Request Process
 
 1. Ensure any install or build dependencies are removed before the end of the layer when doing a
@@ -30,21 +51,21 @@ orientation.
 Examples of behavior that contributes to creating a positive environment
 include:
 
-* Using welcoming and inclusive language
-* Being respectful of differing viewpoints and experiences
-* Gracefully accepting constructive criticism
-* Focusing on what is best for the community
-* Showing empathy towards other community members
+- Using welcoming and inclusive language
+- Being respectful of differing viewpoints and experiences
+- Gracefully accepting constructive criticism
+- Focusing on what is best for the community
+- Showing empathy towards other community members
 
 Examples of unacceptable behavior by participants include:
 
-* The use of sexualized language or imagery and unwelcome sexual attention or
+- The use of sexualized language or imagery and unwelcome sexual attention or
 advances
-* Trolling, insulting/derogatory comments, and personal or political attacks
-* Public or private harassment
-* Publishing others' private information, such as a physical or electronic
+- Trolling, insulting/derogatory comments, and personal or political attacks
+- Public or private harassment
+- Publishing others' private information, such as a physical or electronic
   address, without explicit permission
-* Other conduct which could reasonably be considered inappropriate in a
+- Other conduct which could reasonably be considered inappropriate in a
   professional setting
 
 ### Our Responsibilities
