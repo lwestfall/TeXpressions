@@ -20,7 +20,7 @@ Please don't forget to comment in an issue (or create a new issue) *prior* to su
 
 There are two primary ways to build TeXpression trees. All of the code in the following two sections can be found and run yourself from [samples/ReadmeExample/Program.cs](samples/ReadmeExample/Program.cs).
 
-What you see below is just the most basic explanation. See the wiki for more details and features.
+What you see below is just the most basic explanation. See the wiki (TODO) for more details and features.
 
 ### 1. Parsing LaTeX strings
 
