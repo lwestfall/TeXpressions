@@ -38,6 +38,8 @@ var texpr = ParseUtility.ParseInlineNumericExpression(@"$\frac{2 \times 10}{4}$"
 
 How will this get parsed? It might be easier to explain with an image of the resulting tree:
 
+![image](https://user-images.githubusercontent.com/15251311/226181895-4d0ae11b-45b7-4bdb-abd8-d757f7c5f6b3.png)
+
 Hopefully it's pretty clear what's happening here:
 
 - The "outer" or "top" most TeXpression is a `BinaryTeXpression` representing the `\frac` LaTeX function.
