@@ -1,23 +1,57 @@
 namespace TeXpressions.Parsing.Extensions;
 
-using Antlr4.Runtime;
 using TeXpressions.Core;
 using TeXpressions.Core.Common;
-using static TeXpressionMathParser;
+using static TeXpressionParser;
+using BinaryNumericFactory = Func<Core.Common.TeXpression<double>, Core.Common.TeXpression<double>, Core.Common.BinaryTeXpression<double, double, double>>;
+using UnaryNumericFactory = Func<Core.Common.TeXpression<double>, Core.Common.UnaryTeXpression<double, double>>;
 
 public static class ContextExtensions
 {
-    public static BinaryTeXpression<double, double, double> GetBinaryTeXpression(this BinaryOpContext ctx, TeXpression<double> left, TeXpression<double> right)
+    public static UnaryTeXpression<double, double> ToUnaryNumericTeXpression(this UnaryNumExprContext ctx, TeXpression<double> inner)
     {
-        Dictionary<Func<BinaryOpContext, ParserRuleContext>, Func<TeXpression<double>, TeXpression<double>, BinaryTeXpression<double, double, double>>> lookup = new()
+        if (ctx.unaryNumOpPre() != null)
         {
-            {(ctx) => ctx.addOp(), (l,r) => Numeric.Add(l,r)},
-            {(ctx) => ctx.subOp(), (l,r) => Numeric.Subtract(l,r)},
-            {(ctx) => ctx.divOp(), (l,r) => Numeric.Divide(l,r)},
-            {(ctx) => ctx.mulOp(), (l,r) => Numeric.Multiply(l,r)},
-            {(ctx) => ctx.expOp(), (l,r) => Numeric.Exponent(l,r)}
+            Dictionary<Func<UnaryNumOpPreContext, object>, UnaryNumericFactory> opLookup = new()
+            {
+                {ctx => ctx.negNumOp(), i => Numeric.Negate(i)}
+            };
+
+            return opLookup.First(kvp => kvp.Key(ctx.unaryNumOpPre()) != null).Value(inner);
+        }
+
+        Dictionary<Func<UnaryNumCmdNameContext, object>, UnaryNumericFactory> cmdLookup = new()
+        {
+            {ctx => ctx.GetText() == @"\sqrt", i => Numeric.SquareRoot(i)}
         };
 
-        return lookup.First(kvp => kvp.Key(ctx) != null).Value(left, right);
+        return cmdLookup.First(kvp => kvp.Key(ctx.unaryNumCmdName()) != null).Value(inner);
+    }
+
+    public static BinaryTeXpression<double, double, double> ToBinaryNumericTeXpression(
+        this BinaryNumExprContext ctx,
+        TeXpression<double> left,
+        TeXpression<double> right)
+    {
+        if (ctx.binaryNumericOp() != null)
+        {
+            Dictionary<Func<BinaryNumericOpContext, object>, BinaryNumericFactory> opLookup = new()
+            {
+                {(ctx) => ctx.ADD_OP(), (l,r) => Numeric.Add(l,r)},
+                {(ctx) => ctx.SUB_OP(), (l,r) => Numeric.Subtract(l,r)},
+                {(ctx) => ctx.DIV_OP(), (l,r) => Numeric.Divide(l,r)},
+                {(ctx) => ctx.MUL_OP(), (l,r) => Numeric.Multiply(l,r)},
+                {(ctx) => ctx.EXP_OP(), (l,r) => Numeric.Exponent(l,r)}
+            };
+
+            return opLookup.First(kvp => kvp.Key(ctx.binaryNumericOp()) != null).Value(left, right);
+        }
+
+        Dictionary<Func<BinaryCmdNameContext, object>, BinaryNumericFactory> cmdLookup = new()
+        {
+            {(ctx) => ctx.divCmd(), (l,r) => Numeric.Divide(l,r)}
+        };
+
+        return cmdLookup.First(kvp => kvp.Key(ctx.binaryCmdName()) != null).Value(left, right);
     }
 }

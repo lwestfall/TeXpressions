@@ -25,18 +25,36 @@ public class ParsingTests
     [TestCase("$A_b = 1.5$", 1.5, typeof(ParameterTeXpression<double>))]
     [TestCase("$A = 1/2$", 0.5, typeof(ParameterTeXpression<double>))]
     [TestCase("$\\alpha=1*5$", 5, typeof(ParameterTeXpression<double>))]
-    [TestCase("$\\beta_{min}=8.75$", 8.75, typeof(ParameterTeXpression<double>))]
+    [TestCase("$r=-5$", -5, typeof(ParameterTeXpression<double>))]
+    [TestCase("$\\sqrt{9}$", 3, typeof(UnaryTeXpression<double, double>))]
     public void NumericExpressionParsesAndEvaluates(string input, double expectedEval, Type expectedType)
     {
-        var expr = ParseUtility.ParseInlineNumericExpression(input);
+        var expr = ParseUtility.ParseInlineExpression(input);
 
         Assert.That(expr, Is.Not.Null);
+        Assert.That(expr, Is.InstanceOf<TeXpression<double>>());
 
-        var actualEval = expr!.Evaluate();
+        var numTexpr = (TeXpression<double>)expr;
+
+        var actualEval = numTexpr.Evaluate();
+
         Assert.Multiple(() =>
         {
             Assert.That(actualEval, Is.EqualTo(expectedEval));
             Assert.That(expr, Is.InstanceOf(expectedType));
         });
+    }
+
+    [TestCase("$\\beta_{min}=8.75\\times A$", 8.75, typeof(ParameterTeXpression<double>))]
+    public void NumericExpressionParsesNoEvaluate(string input, double expectedEval, Type expectedType)
+    {
+        var expr = ParseUtility.ParseInlineExpression(input);
+
+        Assert.That(expr, Is.Not.Null);
+        Assert.That(expr, Is.InstanceOf<TeXpression<double>>());
+
+        var numTexpr = (TeXpression<double>)expr;
+
+        Assert.Multiple(() => Assert.That(expr, Is.InstanceOf(expectedType)));
     }
 }

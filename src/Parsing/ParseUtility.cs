@@ -6,19 +6,19 @@ using TeXpressions.Parsing.Visitors;
 
 public static class ParseUtility
 {
-    public static TeXpressionMathParser GetParserForInput(string input)
+    public static TeXpressionParser GetParserForInput(string input)
     {
         var charStream = new AntlrInputStream(input);
-        var lexer = new TeXpressionMathLexer(charStream);
+        var lexer = new TeXpressionLexer(charStream);
         var tokenStream = new CommonTokenStream(lexer);
-        return new TeXpressionMathParser(tokenStream);
+        return new TeXpressionParser(tokenStream);
     }
 
-    public static TeXpression<double> ParseInlineNumericExpression(string input)
+    public static TeXpression ParseInlineExpression(string input)
     {
         var parser = GetParserForInput(input);
-        var ctx = parser.inlineMath();
-        var visitor = new NumericTeXpressionVisitor();
+        var ctx = parser.inline();
+        var visitor = new TeXpressionVisitor();
         return visitor.Visit(ctx);
     }
 }

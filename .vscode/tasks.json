@@ -43,7 +43,7 @@
         "-o",
         "src/Parsing/Generated",
         "-Dlanguage=CSharp",
-        "src/antlr/TeXpressionMath.g4",
+        "src/antlr/TeXpression.g4",
         "-visitor",
         "-no-listener"
       ],

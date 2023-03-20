@@ -3,8 +3,8 @@ namespace TeXpressions.Core.Common;
 using TeXpressions.Core.Interfaces;
 
 public class SetTeXpression<TResultInner, TResultOuter> : TeXpression<TResultOuter>, ISetTeXpression
-where TResultOuter : IFormattable
-where TResultInner : IFormattable
+where TResultOuter : notnull
+where TResultInner : notnull
 {
     public SetTeXpression(
         TeXpression<TResultInner>[] inners,
