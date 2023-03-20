@@ -33,25 +33,25 @@ public static class ContextExtensions
         TeXpression<double> left,
         TeXpression<double> right)
     {
-        if (ctx.binaryNumericOp() != null)
+        if (ctx.binaryCmdName() != null)
         {
-            Dictionary<Func<BinaryNumericOpContext, object>, BinaryNumericFactory> opLookup = new()
-            {
-                {(ctx) => ctx.ADD_OP(), (l,r) => Numeric.Add(l,r)},
-                {(ctx) => ctx.SUB_OP(), (l,r) => Numeric.Subtract(l,r)},
-                {(ctx) => ctx.DIV_OP(), (l,r) => Numeric.Divide(l,r)},
-                {(ctx) => ctx.MUL_OP(), (l,r) => Numeric.Multiply(l,r)},
-                {(ctx) => ctx.EXP_OP(), (l,r) => Numeric.Exponent(l,r)}
-            };
-
-            return opLookup.First(kvp => kvp.Key(ctx.binaryNumericOp()) != null).Value(left, right);
-        }
-
-        Dictionary<Func<BinaryCmdNameContext, object>, BinaryNumericFactory> cmdLookup = new()
+            Dictionary<Func<BinaryCmdNameContext, object>, BinaryNumericFactory> cmdLookup = new()
         {
             {(ctx) => ctx.divCmd(), (l,r) => Numeric.Divide(l,r)}
         };
 
-        return cmdLookup.First(kvp => kvp.Key(ctx.binaryCmdName()) != null).Value(left, right);
+            return cmdLookup.First(kvp => kvp.Key(ctx.binaryCmdName()) != null).Value(left, right);
+        }
+
+        Dictionary<Func<BinaryNumExprContext, object>, BinaryNumericFactory> opLookup = new()
+        {
+            {(ctx) => ctx.EXP_OP(), (l,r) => Numeric.Exponent(l,r)},
+            {(ctx) => ctx.MUL_OP(), (l,r) => Numeric.Multiply(l,r)},
+            {(ctx) => ctx.DIV_OP(), (l,r) => Numeric.Divide(l,r)},
+            {(ctx) => ctx.ADD_OP(), (l,r) => Numeric.Add(l,r)},
+            {(ctx) => ctx.SUB_OP(), (l,r) => Numeric.Subtract(l,r)}
+        };
+
+        return opLookup.First(kvp => kvp.Key(ctx) != null).Value(left, right);
     }
 }

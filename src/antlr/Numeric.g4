@@ -6,7 +6,11 @@ numericExpr:
 	| unaryNumCmdName '{' numericExpr '}'					# UnaryNumExpr
 	| unaryNumOpPre numericExpr								# UnaryNumExpr
 	| binaryCmdName '{' numericExpr '}{' numericExpr '}'	# BinaryNumExpr
-	| numericExpr binaryNumericOp numericExpr				# BinaryNumExpr
+	| numericExpr EXP_OP numericExpr						# BinaryNumExpr
+	| numericExpr MUL_OP numericExpr						# BinaryNumExpr
+	| numericExpr DIV_OP numericExpr						# BinaryNumExpr
+	| numericExpr ADD_OP numericExpr						# BinaryNumExpr
+	| numericExpr SUB_OP numericExpr						# BinaryNumExpr
 	| var													# ParamNumExpr
 	| NUMBER												# ConstantExpr;
 
@@ -22,8 +26,6 @@ binaryCmdName: divCmd;
 divCmd: '\\' ('d' | 's' | 't')? 'frac';
 
 // Binary Operations
-
-binaryNumericOp: ADD_OP | SUB_OP | MUL_OP | DIV_OP | EXP_OP;
 
 ADD_OP: '+';
 SUB_OP: '-';

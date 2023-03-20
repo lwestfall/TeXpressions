@@ -162,12 +162,6 @@ public interface ITeXpressionVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitDivCmd([NotNull] TeXpressionParser.DivCmdContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TeXpressionParser.binaryNumericOp"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitBinaryNumericOp([NotNull] TeXpressionParser.BinaryNumericOpContext context);
-	/// <summary>
 	/// Visit a parse tree produced by <see cref="TeXpressionParser.varMod"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

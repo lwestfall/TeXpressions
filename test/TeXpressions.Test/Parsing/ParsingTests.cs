@@ -15,18 +15,21 @@ public class ParsingTests
     [TestCase("$1 + 2$", 3, typeof(BinaryTeXpression<double, double, double>))]
     [TestCase("$2^3$", 8, typeof(BinaryTeXpression<double, double, double>))]
     [TestCase("$15.5 - 2.25$", 13.25, typeof(BinaryTeXpression<double, double, double>))]
-    [TestCase("$25.25 * 4$", 101, typeof(BinaryTeXpression<double, double, double>))]
+    [TestCase("$(25.25) * 4$", 101, typeof(BinaryTeXpression<double, double, double>))]
     [TestCase("$49 ÷ 7$", 7, typeof(BinaryTeXpression<double, double, double>))]
-    [TestCase("$\\sfrac{7.5}{2}$", 3.75, typeof(BinaryTeXpression<double, double, double>))]
-    [TestCase("$\\dfrac{1}{2}$", 0.5, typeof(BinaryTeXpression<double, double, double>))]
-    [TestCase("$\\tfrac{2}{0.5}$", 4, typeof(BinaryTeXpression<double, double, double>))]
-    [TestCase("$\\frac{6}{2}$", 3, typeof(BinaryTeXpression<double, double, double>))]
+    [TestCase(@"$\sfrac{7.5}{2}$", 3.75, typeof(BinaryTeXpression<double, double, double>))]
+    [TestCase(@"$\dfrac{1}{2}$", 0.5, typeof(BinaryTeXpression<double, double, double>))]
+    [TestCase(@"$\tfrac{2}{0.5}$", 4, typeof(BinaryTeXpression<double, double, double>))]
+    [TestCase(@"$\frac{6}{2}$", 3, typeof(BinaryTeXpression<double, double, double>))]
     [TestCase("$10 / 10$", 1, typeof(BinaryTeXpression<double, double, double>))]
     [TestCase("$A_b = 1.5$", 1.5, typeof(ParameterTeXpression<double>))]
     [TestCase("$A = 1/2$", 0.5, typeof(ParameterTeXpression<double>))]
-    [TestCase("$\\alpha=1*5$", 5, typeof(ParameterTeXpression<double>))]
+    [TestCase(@"$\alpha=1*5$", 5, typeof(ParameterTeXpression<double>))]
     [TestCase("$r=-5$", -5, typeof(ParameterTeXpression<double>))]
-    [TestCase("$\\sqrt{9}$", 3, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\sqrt{9}$", 3, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$1 + 2 \times 5$", 11, typeof(BinaryTeXpression<double, double, double>))]
+    [TestCase(@"$(1 + 2) \times 5$", 15, typeof(BinaryTeXpression<double, double, double>))]
+    [TestCase("$(1)$", 1, typeof(ConstantTeXpression<double>))]
     public void NumericExpressionParsesAndEvaluates(string input, double expectedEval, Type expectedType)
     {
         var expr = ParseUtility.ParseInlineExpression(input);
@@ -45,8 +48,8 @@ public class ParsingTests
         });
     }
 
-    [TestCase("$\\beta_{min}=8.75\\times A$", 8.75, typeof(ParameterTeXpression<double>))]
-    public void NumericExpressionParsesNoEvaluate(string input, double expectedEval, Type expectedType)
+    [TestCase("$\\beta_{min}=8.75\\times A$", typeof(ParameterTeXpression<double>))]
+    public void NumericExpressionParsesNoEvaluate(string input, Type expectedType)
     {
         var expr = ParseUtility.ParseInlineExpression(input);
 

@@ -33,24 +33,6 @@ public class TeXpressionVisitor : TeXpressionBaseVisitor<TeXpression>
         return texpr;
     }
 
-    // public override TeXpression VisitExpr([NotNull] ExprContext context)
-    // {
-    //     if (context.numericExpr() != null)
-    //     {
-    //         return this.Visit(context.numericExpr());
-    //     }
-    //     else if (context.logicExpr() != null)
-    //     {
-    //         return this.Visit(context.logicExpr());
-    //     }
-    //     else if (context.var() != null)
-    //     {
-    //         return this.Visit(context.var());
-    //     }
-
-    //     throw new InvalidOperationException("Visitor did something it shouldn't have. Review grammar rules");
-    // }
-
     public override TeXpression VisitGroupNumExpr([NotNull] GroupNumExprContext context) => this.Visit(context.numericExpr());
 
     public override TeXpression VisitUnaryNumExpr([NotNull] UnaryNumExprContext context)
