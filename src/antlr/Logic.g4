@@ -24,7 +24,7 @@ groupedLogic:
 	| '\\Bigl[' logicExpr '\\Bigr]'
 	| '\\bigg[' logicExpr '\\biggr]'
 	| '\\Bigg[' logicExpr '\\Biggr]'
-	| '\\{' logicExpr '\\}'
+	| '{' logicExpr '}'
 	| '\\left\\{' logicExpr '\\right\\}'
 	| '\\bigl\\{' logicExpr '\\bigr\\}'
 	| '\\Bigl\\{' logicExpr '\\Bigr\\}'

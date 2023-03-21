@@ -6,7 +6,7 @@ numericExpr:
 	| unaryNumCmdName '{' numericExpr '}'					# UnaryNumExpr
 	| unaryNumOpPre numericExpr								# UnaryNumExpr
 	| binaryCmdName '{' numericExpr '}{' numericExpr '}'	# BinaryNumExpr
-	| numericExpr EXP_OP numericExpr						# BinaryNumExpr
+	| <assoc = right> numericExpr EXP_OP numericExpr		# BinaryNumExpr
 	| numericExpr MUL_OP numericExpr						# BinaryNumExpr
 	| numericExpr DIV_OP numericExpr						# BinaryNumExpr
 	| numericExpr ADD_OP numericExpr						# BinaryNumExpr
@@ -27,6 +27,7 @@ groupedNum:
 	| '\\Bigl[' numericExpr '\\Bigr]'
 	| '\\bigg[' numericExpr '\\biggr]'
 	| '\\Bigg[' numericExpr '\\Biggr]'
+	| '{' numericExpr '}'
 	| '\\{' numericExpr '\\}'
 	| '\\left\\{' numericExpr '\\right\\}'
 	| '\\bigl\\{' numericExpr '\\bigr\\}'
