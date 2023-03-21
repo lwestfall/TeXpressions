@@ -11,4 +11,3 @@ inline: ('$' topExpr '$' | '\\(' topExpr '\\)') EOF;
 topExpr: var '=' expr | expr;
 
 expr: logicExpr | numericExpr;
-

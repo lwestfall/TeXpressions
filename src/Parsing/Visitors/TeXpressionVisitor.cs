@@ -33,7 +33,11 @@ public class TeXpressionVisitor : TeXpressionBaseVisitor<TeXpression>
         return texpr;
     }
 
-    public override TeXpression VisitGroupNumExpr([NotNull] GroupNumExprContext context) => this.Visit(context.numericExpr());
+    public override TeXpression VisitGroupedNumExpr([NotNull] GroupedNumExprContext context)
+        => this.Visit(context.groupedNum().numericExpr());
+
+    public override TeXpression VisitGroupedLogicExpr([NotNull] GroupedLogicExprContext context)
+        => this.Visit(context.groupedLogic().logicExpr());
 
     public override TeXpression VisitUnaryNumExpr([NotNull] UnaryNumExprContext context)
     {
@@ -55,9 +59,8 @@ public class TeXpressionVisitor : TeXpressionBaseVisitor<TeXpression>
         return Numeric.Constant(num);
     }
 
-    public override TeXpression VisitParamNumExpr([NotNull] ParamNumExprContext context) => Numeric.Parameter(context.GetText());
-
-    public override TeXpression VisitGroupLogicExpr([NotNull] GroupLogicExprContext context) => this.Visit(context.logicExpr());
+    public override TeXpression VisitParamNumExpr([NotNull] ParamNumExprContext context)
+        => Numeric.Parameter(context.GetText());
 
     public override TeXpression VisitUnaryLogicExpr([NotNull] UnaryLogicExprContext context)
     {
@@ -92,5 +95,6 @@ public class TeXpressionVisitor : TeXpressionBaseVisitor<TeXpression>
         };
     }
 
-    public override TeXpression VisitParamLogicExpr([NotNull] ParamLogicExprContext context) => Logical.Parameter(context.GetText());
+    public override TeXpression VisitParamLogicExpr([NotNull] ParamLogicExprContext context)
+        => Logical.Parameter(context.GetText());
 }

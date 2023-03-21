@@ -79,17 +79,6 @@ public partial class TeXpressionBaseVisitor<Result> : AbstractParseTreeVisitor<R
 	/// <return>The visitor result.</return>
 	public virtual Result VisitUnaryLogicExpr([NotNull] TeXpressionParser.UnaryLogicExprContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by the <c>GroupLogicExpr</c>
-	/// labeled alternative in <see cref="TeXpressionParser.logicExpr"/>.
-	/// <para>
-	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
-	/// on <paramref name="context"/>.
-	/// </para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	public virtual Result VisitGroupLogicExpr([NotNull] TeXpressionParser.GroupLogicExprContext context) { return VisitChildren(context); }
-	/// <summary>
 	/// Visit a parse tree produced by the <c>ParamLogicExpr</c>
 	/// labeled alternative in <see cref="TeXpressionParser.logicExpr"/>.
 	/// <para>
@@ -112,6 +101,17 @@ public partial class TeXpressionBaseVisitor<Result> : AbstractParseTreeVisitor<R
 	/// <return>The visitor result.</return>
 	public virtual Result VisitNumericCompareExpr([NotNull] TeXpressionParser.NumericCompareExprContext context) { return VisitChildren(context); }
 	/// <summary>
+	/// Visit a parse tree produced by the <c>GroupedLogicExpr</c>
+	/// labeled alternative in <see cref="TeXpressionParser.logicExpr"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitGroupedLogicExpr([NotNull] TeXpressionParser.GroupedLogicExprContext context) { return VisitChildren(context); }
+	/// <summary>
 	/// Visit a parse tree produced by the <c>ConstLogicExpr</c>
 	/// labeled alternative in <see cref="TeXpressionParser.logicExpr"/>.
 	/// <para>
@@ -133,6 +133,16 @@ public partial class TeXpressionBaseVisitor<Result> : AbstractParseTreeVisitor<R
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	public virtual Result VisitBinaryLogicExpr([NotNull] TeXpressionParser.BinaryLogicExprContext context) { return VisitChildren(context); }
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TeXpressionParser.groupedLogic"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitGroupedLogic([NotNull] TeXpressionParser.GroupedLogicContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="TeXpressionParser.unaryLogicOpPre"/>.
 	/// <para>
@@ -164,7 +174,7 @@ public partial class TeXpressionBaseVisitor<Result> : AbstractParseTreeVisitor<R
 	/// <return>The visitor result.</return>
 	public virtual Result VisitCmpOp([NotNull] TeXpressionParser.CmpOpContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by the <c>GroupNumExpr</c>
+	/// Visit a parse tree produced by the <c>GroupedNumExpr</c>
 	/// labeled alternative in <see cref="TeXpressionParser.numericExpr"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
@@ -173,7 +183,7 @@ public partial class TeXpressionBaseVisitor<Result> : AbstractParseTreeVisitor<R
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitGroupNumExpr([NotNull] TeXpressionParser.GroupNumExprContext context) { return VisitChildren(context); }
+	public virtual Result VisitGroupedNumExpr([NotNull] TeXpressionParser.GroupedNumExprContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>ParamNumExpr</c>
 	/// labeled alternative in <see cref="TeXpressionParser.numericExpr"/>.
@@ -218,6 +228,16 @@ public partial class TeXpressionBaseVisitor<Result> : AbstractParseTreeVisitor<R
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	public virtual Result VisitBinaryNumExpr([NotNull] TeXpressionParser.BinaryNumExprContext context) { return VisitChildren(context); }
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TeXpressionParser.groupedNum"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitGroupedNum([NotNull] TeXpressionParser.GroupedNumContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="TeXpressionParser.unaryNumCmdName"/>.
 	/// <para>

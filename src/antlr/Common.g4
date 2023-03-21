@@ -16,7 +16,7 @@ LETTER: GREEK | [a-zA-Z];
 DIGIT: [0-9];
 WS: ('\\'? ' ' | [\t\r\n])+ -> skip;
 // skip spaces, tabs, newlines
-MISC_SKIP: ('\\left' | '\\right' '.'?) -> skip;
+MISC_SKIP: ('\\left.' | '\\right.') -> skip;
 
 fragment GREEK:
 	[\u0391-\u03C9]

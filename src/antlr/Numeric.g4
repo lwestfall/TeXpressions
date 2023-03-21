@@ -2,7 +2,7 @@ grammar Numeric;
 import Common;
 
 numericExpr:
-	'(' numericExpr ')'										# GroupNumExpr
+	groupedNum												# GroupedNumExpr
 	| unaryNumCmdName '{' numericExpr '}'					# UnaryNumExpr
 	| unaryNumOpPre numericExpr								# UnaryNumExpr
 	| binaryCmdName '{' numericExpr '}{' numericExpr '}'	# BinaryNumExpr
@@ -13,6 +13,26 @@ numericExpr:
 	| numericExpr SUB_OP numericExpr						# BinaryNumExpr
 	| var													# ParamNumExpr
 	| NUMBER												# ConstNumExpr;
+
+groupedNum:
+	'(' numericExpr ')'
+	| '\\left(' numericExpr '\\right)'
+	| '\\bigl(' numericExpr '\\bigr)'
+	| '\\Bigl(' numericExpr '\\Bigr)'
+	| '\\biggl(' numericExpr '\\biggr)'
+	| '\\Biggl(' numericExpr '\\Biggr)'
+	| '[' numericExpr ']'
+	| '\\left[' numericExpr '\\right]'
+	| '\\bigl[' numericExpr '\\bigr]'
+	| '\\Bigl[' numericExpr '\\Bigr]'
+	| '\\bigg[' numericExpr '\\biggr]'
+	| '\\Bigg[' numericExpr '\\Biggr]'
+	| '\\{' numericExpr '\\}'
+	| '\\left\\{' numericExpr '\\right\\}'
+	| '\\bigl\\{' numericExpr '\\bigr\\}'
+	| '\\Bigl\\{' numericExpr '\\Bigr\\}'
+	| '\\bigg\\{' numericExpr '\\biggr\\}'
+	| '\\Bigg\\{' numericExpr '\\Biggr\\}';
 
 // Unary
 

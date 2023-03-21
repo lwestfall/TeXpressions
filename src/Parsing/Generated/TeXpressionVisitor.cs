@@ -60,13 +60,6 @@ public interface ITeXpressionVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitUnaryLogicExpr([NotNull] TeXpressionParser.UnaryLogicExprContext context);
 	/// <summary>
-	/// Visit a parse tree produced by the <c>GroupLogicExpr</c>
-	/// labeled alternative in <see cref="TeXpressionParser.logicExpr"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitGroupLogicExpr([NotNull] TeXpressionParser.GroupLogicExprContext context);
-	/// <summary>
 	/// Visit a parse tree produced by the <c>ParamLogicExpr</c>
 	/// labeled alternative in <see cref="TeXpressionParser.logicExpr"/>.
 	/// </summary>
@@ -81,6 +74,13 @@ public interface ITeXpressionVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitNumericCompareExpr([NotNull] TeXpressionParser.NumericCompareExprContext context);
 	/// <summary>
+	/// Visit a parse tree produced by the <c>GroupedLogicExpr</c>
+	/// labeled alternative in <see cref="TeXpressionParser.logicExpr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitGroupedLogicExpr([NotNull] TeXpressionParser.GroupedLogicExprContext context);
+	/// <summary>
 	/// Visit a parse tree produced by the <c>ConstLogicExpr</c>
 	/// labeled alternative in <see cref="TeXpressionParser.logicExpr"/>.
 	/// </summary>
@@ -94,6 +94,12 @@ public interface ITeXpressionVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitBinaryLogicExpr([NotNull] TeXpressionParser.BinaryLogicExprContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TeXpressionParser.groupedLogic"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitGroupedLogic([NotNull] TeXpressionParser.GroupedLogicContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="TeXpressionParser.unaryLogicOpPre"/>.
 	/// </summary>
@@ -113,12 +119,12 @@ public interface ITeXpressionVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitCmpOp([NotNull] TeXpressionParser.CmpOpContext context);
 	/// <summary>
-	/// Visit a parse tree produced by the <c>GroupNumExpr</c>
+	/// Visit a parse tree produced by the <c>GroupedNumExpr</c>
 	/// labeled alternative in <see cref="TeXpressionParser.numericExpr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitGroupNumExpr([NotNull] TeXpressionParser.GroupNumExprContext context);
+	Result VisitGroupedNumExpr([NotNull] TeXpressionParser.GroupedNumExprContext context);
 	/// <summary>
 	/// Visit a parse tree produced by the <c>ParamNumExpr</c>
 	/// labeled alternative in <see cref="TeXpressionParser.numericExpr"/>.
@@ -147,6 +153,12 @@ public interface ITeXpressionVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitBinaryNumExpr([NotNull] TeXpressionParser.BinaryNumExprContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TeXpressionParser.groupedNum"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitGroupedNum([NotNull] TeXpressionParser.GroupedNumContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="TeXpressionParser.unaryNumCmdName"/>.
 	/// </summary>

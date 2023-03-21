@@ -2,7 +2,7 @@ grammar Logic;
 import Numeric;
 
 logicExpr:
-	'(' logicExpr ')'				# GroupLogicExpr
+	groupedLogic					# GroupedLogicExpr
 	| unaryLogicOpPre logicExpr		# UnaryLogicExpr
 	| logicExpr AND_OP logicExpr	# BinaryLogicExpr
 	| logicExpr OR_OP logicExpr		# BinaryLogicExpr
@@ -10,6 +10,26 @@ logicExpr:
 	| numericExpr cmpOp numericExpr	# NumericCompareExpr
 	| var							# ParamLogicExpr
 	| LOGIC_CONST					# ConstLogicExpr;
+
+groupedLogic:
+	'(' logicExpr ')'
+	| '\\left(' logicExpr '\\right)'
+	| '\\bigl(' logicExpr '\\bigr)'
+	| '\\Bigl(' logicExpr '\\Bigr)'
+	| '\\biggl(' logicExpr '\\biggr)'
+	| '\\Biggl(' logicExpr '\\Biggr)'
+	| '[' logicExpr ']'
+	| '\\left[' logicExpr '\\right]'
+	| '\\bigl[' logicExpr '\\bigr]'
+	| '\\Bigl[' logicExpr '\\Bigr]'
+	| '\\bigg[' logicExpr '\\biggr]'
+	| '\\Bigg[' logicExpr '\\Biggr]'
+	| '\\{' logicExpr '\\}'
+	| '\\left\\{' logicExpr '\\right\\}'
+	| '\\bigl\\{' logicExpr '\\bigr\\}'
+	| '\\Bigl\\{' logicExpr '\\Bigr\\}'
+	| '\\bigg\\{' logicExpr '\\biggr\\}'
+	| '\\Bigg\\{' logicExpr '\\Biggr\\}';
 
 // Unary Logic
 

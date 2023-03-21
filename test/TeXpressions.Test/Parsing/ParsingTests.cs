@@ -58,8 +58,8 @@ public class ParsingTests
     [TestCase("$2 <= 2$", true, typeof(BinaryTeXpression<double, double, bool>))]
     [TestCase("$2 != 2$", false, typeof(BinaryTeXpression<double, double, bool>))]
     [TestCase("$2 != 1$", true, typeof(BinaryTeXpression<double, double, bool>))]
-    // [TestCase("$2 = 1$", false, typeof(BinaryTeXpression<double, double, bool>))] // these tests are breaking
-    // [TestCase("$2 = 2$", true, typeof(BinaryTeXpression<double, double, bool>))] // these tests are breaking
+    // [TestCase("$2 = 1$", false, typeof(BinaryTeXpression<double, double, bool>))] // todo: these tests are breaking
+    // [TestCase("$2 = 2$", true, typeof(BinaryTeXpression<double, double, bool>))] // todo: these tests are breaking
     [TestCase(@"$\top$", true, typeof(ConstantTeXpression<bool>))]
     [TestCase(@"$\neg\top$", false, typeof(UnaryTeXpression<bool, bool>))]
     [TestCase(@"$\neg\bot$", true, typeof(UnaryTeXpression<bool, bool>))]
