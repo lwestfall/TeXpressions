@@ -76,26 +76,26 @@ public static class Logical
     public static BinaryTeXpression<bool, bool, bool> And(
         TeXpression<bool> left,
         TeXpression<bool> right,
-        ILaTeXFormatter? formatter = null) => new(left, right, (l, r) => l && r, formatter ?? new CompositeLaTeXFormatter(@"{0} \land {1}"));
+        ILaTeXFormatter? formatter = null) => Binary(left, right, (l, r) => l && r, formatter ?? new CompositeLaTeXFormatter(@"{0} \land {1}"));
 
     public static BinaryTeXpression<bool, bool, bool> Or(
         TeXpression<bool> left,
         TeXpression<bool> right,
-        ILaTeXFormatter? formatter = null) => new(left, right, (l, r) => l || r, formatter ?? new CompositeLaTeXFormatter(@"{0} \or {1}"));
+        ILaTeXFormatter? formatter = null) => Binary(left, right, (l, r) => l || r, formatter ?? new CompositeLaTeXFormatter(@"{0} \or {1}"));
 
     public static BinaryTeXpression<bool, bool, bool> EqualTo(
         TeXpression<bool> left,
         TeXpression<bool> right,
-        ILaTeXFormatter? formatter = null) => new(left, right, (l, r) => l == r, formatter ?? new CompositeLaTeXFormatter("{0} = {1}"));
+        ILaTeXFormatter? formatter = null) => Binary(left, right, (l, r) => l == r, formatter ?? new CompositeLaTeXFormatter("{0} = {1}"));
 
     public static BinaryTeXpression<bool, bool, bool> NotEqualTo(
         TeXpression<bool> left,
         TeXpression<bool> right,
-        ILaTeXFormatter? formatter = null) => new(left, right, (l, r) => l != r, formatter ?? new CompositeLaTeXFormatter(@"{0} \neq {1}"));
+        ILaTeXFormatter? formatter = null) => Binary(left, right, (l, r) => l != r, formatter ?? new CompositeLaTeXFormatter(@"{0} \neq {1}"));
 
     public static UnaryTeXpression<bool, bool> Not(
         TeXpression<bool> inner,
-        ILaTeXFormatter? formatter = null) => new(inner, i => !i, formatter ?? new CompositeLaTeXFormatter(@"\lnot{0}"));
+        ILaTeXFormatter? formatter = null) => Unary(inner, i => !i, formatter ?? new CompositeLaTeXFormatter(@"\lnot{0}"));
 
     #endregion
 }

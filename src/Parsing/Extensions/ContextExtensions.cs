@@ -63,7 +63,6 @@ public static class ContextExtensions
             return Logical.Not(inner);
         }
 
-        // todo - rewrite this to make it 100% coverable
         throw new NotImplementedException();
     }
 
@@ -90,7 +89,6 @@ public static class ContextExtensions
             return Logical.NotEqualTo(left, right);
         }
 
-        // todo - rewrite this to make it 100% coverable
         throw new NotImplementedException();
     }
 
@@ -111,7 +109,6 @@ public static class ContextExtensions
             };
         }
 
-        // todo - rewrite this to make it 100% coverable
         return ctx.cmpOp().GetText() switch
         {
             ">" => Logical.GreaterThan(left, right),

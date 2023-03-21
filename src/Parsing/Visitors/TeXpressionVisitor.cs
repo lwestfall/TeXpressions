@@ -86,11 +86,10 @@ public class TeXpressionVisitor : TeXpressionBaseVisitor<TeXpression>
 
     public override TeXpression VisitConstLogicExpr([NotNull] ConstLogicExprContext context)
     {
-        // todo - rewrite this to make it 100% coverable
         return context.LOGIC_CONST().GetText() switch
         {
-            @"\top" => Logical.Constant(true),
-            @"\bot" => Logical.Constant(false),
+            @"\top" => Logical.True(),
+            @"\bot" => Logical.False(),
             _ => throw new NotImplementedException(),
         };
     }
