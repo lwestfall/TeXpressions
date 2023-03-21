@@ -31,7 +31,7 @@ The "more powerful" method of building TeXpressions is feeding it LaTeX strings.
 We can easily parse it to a variable called `texpr` like this:
 
 ```cs
-var texpr = ParseUtility.ParseInlineNumericExpression(@"$\frac{2 \times 10}{4}$");
+var texpr = ParseUtility.ParseInlineExpression<TeXpression<double>>(@"$\frac{2 \times 10}{4}$");
 // the @ before the string makes it a verbatim string, so backslash \ doesn't get escaped
 // slightly cleaner than the alternative "$\\frac{2 \\times 10}{4}$" :)
 ```

@@ -37,7 +37,7 @@ public abstract class TeXpression : ITeXpression
 }
 
 public abstract class TeXpression<TResult> : TeXpression
-where TResult : IFormattable
+where TResult : notnull
 {
     public TeXpression(ILaTeXFormatter latexFmt) : base(latexFmt)
     {

@@ -7,6 +7,11 @@ using TeXpressions.Core.Formatting;
 
 public class LaTeXFormatterTests
 {
+    private class ToStringIsNull
+    {
+        public override string? ToString() => null;
+    }
+
     [SetUp]
     public void Setup()
     {
@@ -47,6 +52,29 @@ public class LaTeXFormatterTests
         Assert.That(actual, Is.EqualTo(expectedOutput));
     }
 
+    [TestCase(true, @"\top")]
+    [TestCase(false, @"\bot")]
+    public void BooleanLiteralLaTeXFormatterFormatsForLogicalConstant(bool constant, string expected)
+    {
+        var expr = Logical.Constant(
+            constant,
+            new BooleanLiteralLaTeXFormatter()
+        );
+
+        var actual = expr.ToLaTeX();
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+
+    [TestCase(true, @"True")]
+    [TestCase(false, @"False")]
+    public void DefaultFormatterFormatsForLogicalConstant(bool constant, string expected)
+    {
+        var expr = Logical.Constant(constant);
+
+        var actual = expr.ToLaTeX();
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+
     [TestCase(new[] { 1.5, 2.25 }, "{0}", "1.5, 2.25")]
     [TestCase(new[] { 2.0, 1.0 }, "{0} + ", "2, 1 + ")]
     [TestCase(new[] { 3.3, 6.6 }, "Hey{0}", "Hey3.3, 6.6")]
@@ -71,6 +99,13 @@ public class LaTeXFormatterTests
         var expr = new ConstantTeXpression<double>(1.25, new CompositeLaTeXFormatter(""));
 
         Assert.Throws<NotImplementedException>(() => expr.ToLaTeX());
+    }
+
+    [Test]
+    public void NullToStringThrowsInvalidOperationException()
+    {
+        var expr = new ConstantTeXpression<ToStringIsNull>(new ToStringIsNull(), new ConstantLaTeXFormatter());
+        Assert.Throws<InvalidOperationException>(() => expr.ToLaTeX());
     }
 
     [TestCase(1.23, "", "en-US", "1.23")]

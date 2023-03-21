@@ -3,7 +3,7 @@ namespace TeXpressions.Core.Common;
 using TeXpressions.Core.Interfaces;
 
 public class ConstantTeXpression<TResult> : TeXpression<TResult>, IConstantTeXpression
-where TResult : IFormattable
+where TResult : notnull
 {
     public ConstantTeXpression(TResult value, ILaTeXFormatter latexFmt) : base(latexFmt) => this.Value = value;
 
@@ -23,5 +23,15 @@ where TResult : IFormattable
         return this;
     }
 
-    public string ValueToString(string? format = null) => this.Value.ToString(format, this.FormatProvider);
+    public string ValueToString(string? format = null)
+    {
+        if (this.Value is IFormattable formattable)
+        {
+            return formattable.ToString(format, this.FormatProvider);
+        }
+        else
+        {
+            return this.Value.ToString() ?? throw new InvalidOperationException("ToString() returning null??");
+        }
+    }
 }

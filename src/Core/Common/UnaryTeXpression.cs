@@ -3,8 +3,8 @@ namespace TeXpressions.Core.Common;
 using TeXpressions.Core.Interfaces;
 
 public class UnaryTeXpression<TResultInner, TResultOuter> : TeXpression<TResultOuter>, IUnaryTeXpression
-where TResultOuter : IFormattable
-where TResultInner : IFormattable
+where TResultOuter : notnull
+where TResultInner : notnull
 {
     public UnaryTeXpression(
         TeXpression<TResultInner> inner,

@@ -3,9 +3,9 @@ namespace TeXpressions.Core.Common;
 using TeXpressions.Core.Interfaces;
 
 public class BinaryTeXpression<TResultLeft, TResultRight, TResultOuter> : TeXpression<TResultOuter>, IBinaryTeXpression
-where TResultOuter : IFormattable
-where TResultLeft : IFormattable
-where TResultRight : IFormattable
+where TResultOuter : notnull
+where TResultLeft : notnull
+where TResultRight : notnull
 {
     public BinaryTeXpression(
         TeXpression<TResultLeft> left,

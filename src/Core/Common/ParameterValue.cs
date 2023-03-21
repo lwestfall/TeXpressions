@@ -4,7 +4,7 @@ using TeXpressions.Core.Formatting;
 using TeXpressions.Core.Interfaces;
 
 public class ParameterValue<TValue>
-where TValue : IFormattable
+where TValue : notnull
 {
     public ParameterValue(string latex, TeXpression<TValue>? valExpr = null)
     {
