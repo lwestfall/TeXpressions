@@ -1,5 +1,6 @@
 namespace TeXpressions.Parsing.Extensions;
 
+using Antlr4.Runtime.Tree;
 using TeXpressions.Core;
 using TeXpressions.Core.Common;
 using static TeXpressionParser;
@@ -53,5 +54,82 @@ public static class ContextExtensions
         };
 
         return opLookup.First(kvp => kvp.Key(ctx) != null).Value(left, right);
+    }
+
+    public static UnaryTeXpression<bool, bool> ToUnaryLogicTeXpression(this UnaryLogicExprContext ctx, TeXpression<bool> inner)
+    {
+        if (ctx.unaryLogicOpPre().negLogicalOp() != null)
+        {
+            return Logical.Not(inner);
+        }
+
+        // todo - rewrite this to make it 100% coverable
+        throw new NotImplementedException();
+    }
+
+    public static BinaryTeXpression<bool, bool, bool> ToBinaryLogicTeXpression(
+        this BinaryLogicExprContext ctx,
+        TeXpression<bool> left,
+        TeXpression<bool> right)
+    {
+        if (ctx.AND_OP() != null)
+        {
+            return Logical.And(left, right);
+        }
+        if (ctx.OR_OP() != null)
+        {
+            return Logical.Or(left, right);
+        }
+
+        if (EqOpIsEquals(ctx.EQ_OP()))
+        {
+            return Logical.EqualTo(left, right);
+        }
+        else
+        {
+            return Logical.NotEqualTo(left, right);
+        }
+
+        // todo - rewrite this to make it 100% coverable
+        throw new NotImplementedException();
+    }
+
+    public static BinaryTeXpression<double, double, bool> ToNumericComparisonTeXpression(
+        this NumericCompareExprContext ctx,
+        TeXpression<double> left,
+        TeXpression<double> right)
+    {
+        var eqOp = ctx.cmpOp().EQ_OP();
+
+        if (eqOp != null)
+        {
+            return eqOp.GetText() switch
+            {
+                "=" or @"\leftrightarrow" or @"\Leftrightarrow" => Logical.EqualTo(left, right),
+                "!=" or @"\neq" => Logical.NotEqualTo(left, right),
+                _ => throw new NotImplementedException(),
+            };
+        }
+
+        // todo - rewrite this to make it 100% coverable
+        return ctx.cmpOp().GetText() switch
+        {
+            ">" => Logical.GreaterThan(left, right),
+            @"\geq" or ">=" => Logical.GreaterThanEqualTo(left, right),
+            "<" => Logical.LessThan(left, right),
+            @"\leq" or "<=" => Logical.LessThanEqualTo(left, right),
+            _ => throw new NotImplementedException(),
+        };
+    }
+
+    private static bool EqOpIsEquals(ITerminalNode opNode)
+    {
+        // todo - rewrite this to make it 100% coverable
+        return opNode.GetText() switch
+        {
+            "=" or @"\leftrightarrow" or @"\Leftrightarrow" => true,
+            "!=" or @"\neq" => false,
+            _ => throw new NotImplementedException(),
+        };
     }
 }

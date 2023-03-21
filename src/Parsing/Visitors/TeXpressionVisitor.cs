@@ -49,11 +49,48 @@ public class TeXpressionVisitor : TeXpressionBaseVisitor<TeXpression>
         return context.ToBinaryNumericTeXpression(left, right);
     }
 
-    public override TeXpression VisitConstantExpr([NotNull] ConstantExprContext context)
+    public override TeXpression VisitConstNumExpr([NotNull] ConstNumExprContext context)
     {
         var num = double.Parse(context.NUMBER().GetText(), CultureInfo.InvariantCulture);
         return Numeric.Constant(num);
     }
 
     public override TeXpression VisitParamNumExpr([NotNull] ParamNumExprContext context) => Numeric.Parameter(context.GetText());
+
+    public override TeXpression VisitGroupLogicExpr([NotNull] GroupLogicExprContext context) => this.Visit(context.logicExpr());
+
+    public override TeXpression VisitUnaryLogicExpr([NotNull] UnaryLogicExprContext context)
+    {
+        var inner = (TeXpression<bool>)this.Visit(context.logicExpr());
+        return context.ToUnaryLogicTeXpression(inner);
+    }
+
+    public override TeXpression VisitBinaryLogicExpr([NotNull] BinaryLogicExprContext context)
+    {
+        var left = (TeXpression<bool>)this.Visit(context.logicExpr()[0]);
+        var right = (TeXpression<bool>)this.Visit(context.logicExpr()[1]);
+
+        return context.ToBinaryLogicTeXpression(left, right);
+    }
+
+    public override TeXpression VisitNumericCompareExpr([NotNull] NumericCompareExprContext context)
+    {
+        var left = (TeXpression<double>)this.Visit(context.numericExpr()[0]);
+        var right = (TeXpression<double>)this.Visit(context.numericExpr()[1]);
+
+        return context.ToNumericComparisonTeXpression(left, right);
+    }
+
+    public override TeXpression VisitConstLogicExpr([NotNull] ConstLogicExprContext context)
+    {
+        // todo - rewrite this to make it 100% coverable
+        return context.LOGIC_CONST().GetText() switch
+        {
+            @"\top" => Logical.Constant(true),
+            @"\bot" => Logical.Constant(false),
+            _ => throw new NotImplementedException(),
+        };
+    }
+
+    public override TeXpression VisitParamLogicExpr([NotNull] ParamLogicExprContext context) => Logical.Parameter(context.GetText());
 }

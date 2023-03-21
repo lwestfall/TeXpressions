@@ -12,7 +12,7 @@ numericExpr:
 	| numericExpr ADD_OP numericExpr						# BinaryNumExpr
 	| numericExpr SUB_OP numericExpr						# BinaryNumExpr
 	| var													# ParamNumExpr
-	| NUMBER												# ConstantExpr;
+	| NUMBER												# ConstNumExpr;
 
 // Unary
 

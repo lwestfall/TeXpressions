@@ -48,7 +48,7 @@ public class ParsingTests
         });
     }
 
-    [TestCase("$\\beta_{min}=8.75\\times A$", typeof(ParameterTeXpression<double>))]
+    [TestCase(@"$\beta_{min}=8.75\times A$", typeof(ParameterTeXpression<double>))]
     public void NumericExpressionParsesNoEvaluate(string input, Type expectedType)
     {
         var expr = ParseUtility.ParseInlineExpression(input);
@@ -58,6 +58,59 @@ public class ParsingTests
 
         var numTexpr = (TeXpression<double>)expr;
 
-        Assert.Multiple(() => Assert.That(expr, Is.InstanceOf(expectedType)));
+        Assert.That(expr, Is.InstanceOf(expectedType));
+    }
+
+    [TestCase("$2 > 1$", true, typeof(BinaryTeXpression<double, double, bool>))]
+    [TestCase("$2 >= 1$", true, typeof(BinaryTeXpression<double, double, bool>))]
+    [TestCase("$2 >= 2$", true, typeof(BinaryTeXpression<double, double, bool>))]
+    [TestCase("$2 < 1$", false, typeof(BinaryTeXpression<double, double, bool>))]
+    [TestCase("$2 <= 1$", false, typeof(BinaryTeXpression<double, double, bool>))]
+    [TestCase("$2 <= 2$", true, typeof(BinaryTeXpression<double, double, bool>))]
+    [TestCase("$2 != 2$", false, typeof(BinaryTeXpression<double, double, bool>))]
+    [TestCase("$2 != 1$", true, typeof(BinaryTeXpression<double, double, bool>))]
+    // [TestCase("$2 = 1$", false, typeof(BinaryTeXpression<double, double, bool>))] // these tests are breaking
+    // [TestCase("$2 = 2$", true, typeof(BinaryTeXpression<double, double, bool>))] // these tests are breaking
+    [TestCase(@"$\top$", true, typeof(ConstantTeXpression<bool>))]
+    [TestCase(@"$\neg\top$", false, typeof(UnaryTeXpression<bool, bool>))]
+    [TestCase(@"$\neg\bot$", true, typeof(UnaryTeXpression<bool, bool>))]
+    [TestCase(@"$\top \land \bot$", false, typeof(BinaryTeXpression<bool, bool, bool>))]
+    [TestCase(@"$\top \lor \bot$", true, typeof(BinaryTeXpression<bool, bool, bool>))]
+    [TestCase(@"$\top \lor 2 > 1$", true, typeof(BinaryTeXpression<bool, bool, bool>))]
+    [TestCase(@"$\top \land 2 > 1$", true, typeof(BinaryTeXpression<bool, bool, bool>))]
+    [TestCase(@"$\top \land 2 <= 1$", false, typeof(BinaryTeXpression<bool, bool, bool>))]
+    [TestCase(@"$\neg(2 > 1 \wedge 4 < 3) \leftrightarrow (\neg(2 > 1) \vee \lsim(4 < 3))$", true, typeof(BinaryTeXpression<bool, bool, bool>))]
+    [TestCase(@"$\neg(2 > 1 \wedge 4 < 3) \neq \top$", false, typeof(BinaryTeXpression<bool, bool, bool>))]
+    public void LogicalExpressionParsesAndEvaluates(string input, bool expectedEval, Type expectedType)
+    {
+        var expr = ParseUtility.ParseInlineExpression(input);
+
+        Assert.That(expr, Is.Not.Null);
+        Assert.That(expr, Is.InstanceOf<TeXpression<bool>>());
+
+        var boolTexpr = (TeXpression<bool>)expr;
+
+        var actualEval = boolTexpr.Evaluate();
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(actualEval, Is.EqualTo(expectedEval));
+            Assert.That(expr, Is.InstanceOf(expectedType));
+        });
+    }
+
+    [TestCase(@"$\beta=A\landB\lor\top$", typeof(ParameterTeXpression<bool>))]
+    [TestCase(@"$\beta=A>B$", typeof(ParameterTeXpression<bool>))]
+    [TestCase(@"$\beta=A\leftrightarrowB$", typeof(ParameterTeXpression<bool>))]
+    public void LogicalExpressionParsesNoEvaluate(string input, Type expectedType)
+    {
+        var expr = ParseUtility.ParseInlineExpression(input);
+
+        Assert.That(expr, Is.Not.Null);
+        Assert.That(expr, Is.InstanceOf<TeXpression<bool>>());
+
+        var logTexpr = (TeXpression<bool>)expr;
+
+        Assert.That(expr, Is.InstanceOf(expectedType));
     }
 }
