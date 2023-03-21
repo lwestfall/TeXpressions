@@ -32,14 +32,8 @@ public class ParsingTests
     [TestCase("$(1)$", 1, typeof(ConstantTeXpression<double>))]
     public void NumericExpressionParsesAndEvaluates(string input, double expectedEval, Type expectedType)
     {
-        var expr = ParseUtility.ParseInlineExpression(input);
-
-        Assert.That(expr, Is.Not.Null);
-        Assert.That(expr, Is.InstanceOf<TeXpression<double>>());
-
-        var numTexpr = (TeXpression<double>)expr;
-
-        var actualEval = numTexpr.Evaluate();
+        var expr = ParseUtility.ParseInlineExpression<TeXpression<double>>(input);
+        var actualEval = expr.Evaluate();
 
         Assert.Multiple(() =>
         {
@@ -51,12 +45,7 @@ public class ParsingTests
     [TestCase(@"$\beta_{min}=8.75\times A$", typeof(ParameterTeXpression<double>))]
     public void NumericExpressionParsesNoEvaluate(string input, Type expectedType)
     {
-        var expr = ParseUtility.ParseInlineExpression(input);
-
-        Assert.That(expr, Is.Not.Null);
-        Assert.That(expr, Is.InstanceOf<TeXpression<double>>());
-
-        var numTexpr = (TeXpression<double>)expr;
+        var expr = ParseUtility.ParseInlineExpression<TeXpression<double>>(input);
 
         Assert.That(expr, Is.InstanceOf(expectedType));
     }
@@ -83,14 +72,8 @@ public class ParsingTests
     [TestCase(@"$\neg(2 > 1 \wedge 4 < 3) \neq \top$", false, typeof(BinaryTeXpression<bool, bool, bool>))]
     public void LogicalExpressionParsesAndEvaluates(string input, bool expectedEval, Type expectedType)
     {
-        var expr = ParseUtility.ParseInlineExpression(input);
-
-        Assert.That(expr, Is.Not.Null);
-        Assert.That(expr, Is.InstanceOf<TeXpression<bool>>());
-
-        var boolTexpr = (TeXpression<bool>)expr;
-
-        var actualEval = boolTexpr.Evaluate();
+        var expr = ParseUtility.ParseInlineExpression<TeXpression<bool>>(input);
+        var actualEval = expr.Evaluate();
 
         Assert.Multiple(() =>
         {
@@ -104,12 +87,7 @@ public class ParsingTests
     [TestCase(@"$\beta=A\leftrightarrowB$", typeof(ParameterTeXpression<bool>))]
     public void LogicalExpressionParsesNoEvaluate(string input, Type expectedType)
     {
-        var expr = ParseUtility.ParseInlineExpression(input);
-
-        Assert.That(expr, Is.Not.Null);
-        Assert.That(expr, Is.InstanceOf<TeXpression<bool>>());
-
-        var logTexpr = (TeXpression<bool>)expr;
+        var expr = ParseUtility.ParseInlineExpression<TeXpression<bool>>(input);
 
         Assert.That(expr, Is.InstanceOf(expectedType));
     }

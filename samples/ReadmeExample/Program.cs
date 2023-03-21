@@ -1,11 +1,12 @@
 ﻿using TeXpressions.Core;
+using TeXpressions.Core.Common;
 using TeXpressions.Parsing;
 
 /*
     See readme.md for more explanation of what's happening here.
 */
 
-var texpr = ParseUtility.ParseInlineNumericExpression(@"$\frac{2 \times 10}{4}$");
+var texpr = ParseUtility.ParseInlineExpression<TeXpression<double>>(@"$\frac{2 \times 10}{4}$");
 // the @ before the string makes it a verbatim string, so backslash \ doesn't get escaped
 // slightly cleaner than the alternative "$\\frac{2 \\times 10}{4}$" :)
 

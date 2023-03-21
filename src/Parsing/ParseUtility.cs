@@ -21,4 +21,13 @@ public static class ParseUtility
         var visitor = new TeXpressionVisitor();
         return visitor.Visit(ctx);
     }
+
+    public static TTeXpression ParseInlineExpression<TTeXpression>(string input)
+    where TTeXpression : TeXpression
+    {
+        var parser = GetParserForInput(input);
+        var ctx = parser.inline();
+        var visitor = new TeXpressionVisitor();
+        return (TTeXpression)visitor.Visit(ctx);
+    }
 }
