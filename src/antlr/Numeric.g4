@@ -70,8 +70,7 @@ trigFunc:
 	| '\\arccot'
 	| '\\sinh'
 	| '\\cosh'
-	| '\\tanh'
-	| '\\coth';
+	| '\\tanh';
 
 basicTrigFunc:
 	'\\sin'
