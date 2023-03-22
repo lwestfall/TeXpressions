@@ -9,7 +9,7 @@ using static TeXpressionParser;
 
 public class TeXpressionVisitor : TeXpressionBaseVisitor<TeXpression>
 {
-    public override TeXpression VisitInline([NotNull] InlineContext context)
+    public override TeXpression VisitStatement([NotNull] StatementContext context)
         => this.Visit(context.topExpr());
 
     public override TeXpression VisitTopExpr([NotNull] TopExprContext context)

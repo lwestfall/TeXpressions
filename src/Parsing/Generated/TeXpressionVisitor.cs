@@ -35,11 +35,11 @@ using IToken = Antlr4.Runtime.IToken;
 [System.CLSCompliant(false)]
 public interface ITeXpressionVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TeXpressionParser.inline"/>.
+	/// Visit a parse tree produced by <see cref="TeXpressionParser.statement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitInline([NotNull] TeXpressionParser.InlineContext context);
+	Result VisitStatement([NotNull] TeXpressionParser.StatementContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="TeXpressionParser.topExpr"/>.
 	/// </summary>
@@ -160,23 +160,65 @@ public interface ITeXpressionVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitGroupedNum([NotNull] TeXpressionParser.GroupedNumContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TeXpressionParser.unaryNumCmdName"/>.
+	/// Visit a parse tree produced by <see cref="TeXpressionParser.unaryNumLeftRight"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitUnaryNumCmdName([NotNull] TeXpressionParser.UnaryNumCmdNameContext context);
+	Result VisitUnaryNumLeftRight([NotNull] TeXpressionParser.UnaryNumLeftRightContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TeXpressionParser.unaryNumOpPre"/>.
+	/// Visit a parse tree produced by <see cref="TeXpressionParser.abs"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitUnaryNumOpPre([NotNull] TeXpressionParser.UnaryNumOpPreContext context);
+	Result VisitAbs([NotNull] TeXpressionParser.AbsContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TeXpressionParser.ceiling"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitCeiling([NotNull] TeXpressionParser.CeilingContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TeXpressionParser.floor"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitFloor([NotNull] TeXpressionParser.FloorContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TeXpressionParser.round"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitRound([NotNull] TeXpressionParser.RoundContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TeXpressionParser.unaryNumCmdLeft"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitUnaryNumCmdLeft([NotNull] TeXpressionParser.UnaryNumCmdLeftContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TeXpressionParser.unaryNumOpLeft"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitUnaryNumOpLeft([NotNull] TeXpressionParser.UnaryNumOpLeftContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="TeXpressionParser.negNumOp"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitNegNumOp([NotNull] TeXpressionParser.NegNumOpContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TeXpressionParser.trigFunc"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitTrigFunc([NotNull] TeXpressionParser.TrigFuncContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TeXpressionParser.basicTrigFunc"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitBasicTrigFunc([NotNull] TeXpressionParser.BasicTrigFuncContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="TeXpressionParser.binaryCmdName"/>.
 	/// </summary>

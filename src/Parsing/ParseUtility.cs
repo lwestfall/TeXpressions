@@ -17,7 +17,7 @@ public static class ParseUtility
     public static TeXpression ParseInlineExpression(string input)
     {
         var parser = GetParserForInput(input);
-        var ctx = parser.inline();
+        var ctx = parser.statement();
         var visitor = new TeXpressionVisitor();
         return visitor.Visit(ctx);
     }

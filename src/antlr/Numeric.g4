@@ -3,8 +3,9 @@ import Common;
 
 numericExpr:
 	groupedNum												# GroupedNumExpr
-	| unaryNumCmdName '{' numericExpr '}'					# UnaryNumExpr
-	| unaryNumOpPre numericExpr								# UnaryNumExpr
+	| unaryNumLeftRight										# UnaryNumExpr
+	| unaryNumCmdLeft '{' numericExpr '}'					# UnaryNumExpr
+	| unaryNumOpLeft numericExpr							# UnaryNumExpr
 	| binaryCmdName '{' numericExpr '}{' numericExpr '}'	# BinaryNumExpr
 	| <assoc = right> numericExpr EXP_OP numericExpr		# BinaryNumExpr
 	| numericExpr MUL_OP numericExpr						# BinaryNumExpr
@@ -37,9 +38,48 @@ groupedNum:
 
 // Unary
 
-unaryNumCmdName: '\\sqrt';
-unaryNumOpPre: negNumOp;
+unaryNumLeftRight: abs | ceiling | floor | round;
+
+abs:
+	'|' numericExpr '|'
+	| '\\left|' numericExpr '\\right|'
+	| '\\big|' numericExpr '\\big|'
+	| '\\bigg|' numericExpr '\\bigg|'
+	| '\\Bigg|' numericExpr '\\Bigg|';
+
+ceiling:
+	'\\lceil' numericExpr '\\rceil'
+	| '\\left\\lceil' numericExpr '\\right\\rceil';
+floor:
+	'\\lfloor' numericExpr '\\rfloor'
+	| '\\left\\lfloor' numericExpr '\\right\\rfloor';
+round:
+	'\\lfloor' numericExpr '\\rceil'
+	| '\\left\\lfloor' numericExpr '\\right\\rceil';
+
+unaryNumCmdLeft: '\\sqrt';
+
+unaryNumOpLeft: negNumOp | trigFunc;
 negNumOp: '-';
+
+trigFunc:
+	func = basicTrigFunc exp = ('^{-1}' | '^2' | '^{2}')?
+	| '\\arcsin'
+	| '\\arccos'
+	| '\\arctan'
+	| '\\arccot'
+	| '\\sinh'
+	| '\\cosh'
+	| '\\tanh'
+	| '\\coth';
+
+basicTrigFunc:
+	'\\sin'
+	| '\\cos'
+	| '\\tan'
+	| '\\cot'
+	| '\\sec'
+	| '\\csc';
 
 // Binary Num Commands
 

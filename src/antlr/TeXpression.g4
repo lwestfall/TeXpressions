@@ -6,7 +6,12 @@ grammar TeXpression;
 
 import Logic;
 
-inline: ('$' topExpr '$' | '\\(' topExpr '\\)') EOF;
+statement: (
+		'$' topExpr '$'
+		| '\\(' topExpr '\\)'
+		| '$$' topExpr '$$'
+		| '\\[' topExpr '\\]'
+	) EOF;
 
 topExpr: var '=' expr | expr;
 

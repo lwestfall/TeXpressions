@@ -11,22 +11,38 @@ public static class ContextExtensions
 {
     public static UnaryTeXpression<double, double> ToUnaryNumericTeXpression(this UnaryNumExprContext ctx, TeXpression<double> inner)
     {
-        if (ctx.unaryNumOpPre() != null)
+        var opCtx = ctx.unaryNumOpLeft();
+        if (opCtx != null)
         {
-            Dictionary<Func<UnaryNumOpPreContext, object>, UnaryNumericFactory> opLookup = new()
+            if (opCtx.negNumOp() != null)
             {
-                {ctx => ctx.negNumOp(), i => Numeric.Negate(i)}
-            };
+                return Numeric.Negate(inner);
+            }
 
-            return opLookup.First(kvp => kvp.Key(ctx.unaryNumOpPre()) != null).Value(inner);
+            if (opCtx.trigFunc() != null)
+            {
+                return GetTrigTeXpression(opCtx.trigFunc());
+            }
         }
 
-        Dictionary<Func<UnaryNumCmdNameContext, object>, UnaryNumericFactory> cmdLookup = new()
+        Dictionary<Func<UnaryNumCmdLeftContext, object>, UnaryNumericFactory> cmdLookup = new()
         {
             {ctx => ctx.GetText() == @"\sqrt", i => Numeric.SquareRoot(i)}
         };
 
-        return cmdLookup.First(kvp => kvp.Key(ctx.unaryNumCmdName()) != null).Value(inner);
+        return cmdLookup.First(kvp => kvp.Key(ctx.unaryNumCmdLeft()) != null).Value(inner);
+    }
+
+    private static UnaryTeXpression<double, double> GetTrigTeXpression(TrigFuncContext ctx)
+    {
+        var baseFunc = ctx.basicTrigFunc()?.GetText() ?? ctx.GetText();
+
+        if (ctx.exp == null)
+        {
+
+        }
+
+        throw new NotImplementedException();
     }
 
     public static BinaryTeXpression<double, double, double> ToBinaryNumericTeXpression(

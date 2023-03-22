@@ -21,9 +21,11 @@ public static class Numeric
 
     public static ParameterTeXpression<double> Parameter(string latexName, TeXpression<double>? inner = null, ILaTeXFormatter? formatter = null)
         => new(new(latexName, inner), formatter ?? new ParameterLaTeXFormatter());
+
     #endregion
 
     #region Maths
+
     public static BinaryTeXpression<double, double, double> Add(TeXpression<double> left, TeXpression<double> right, ILaTeXFormatter? formatter = null)
         => new(left, right, (l, r) => l + r, formatter ?? new CompositeLaTeXFormatter("{0} + {1}"));
 
@@ -50,11 +52,45 @@ public static class Numeric
 
     public static BinaryTeXpression<double, double, double> Subtract(TeXpression<double> left, TeXpression<double> right, ILaTeXFormatter? formatter = null)
         => new(left, right, (l, r) => l - r, formatter ?? new CompositeLaTeXFormatter("{0} - {1}"));
+
+    #region Trig
+
+    public static UnaryTeXpression<double, double> Cos(TeXpression<double> inner, ILaTeXFormatter? formatter = null)
+        => new(inner, i => Math.Cos(i), formatter ?? new CompositeLaTeXFormatter(@"\cos{{{0}}}"));
+
+    public static UnaryTeXpression<double, double> Sin(TeXpression<double> inner, ILaTeXFormatter? formatter = null)
+        => new(inner, i => Math.Sin(i), formatter ?? new CompositeLaTeXFormatter(@"\sin{{{0}}}"));
+
+    public static UnaryTeXpression<double, double> Tan(TeXpression<double> inner, ILaTeXFormatter? formatter = null)
+        => new(inner, i => Math.Tan(i), formatter ?? new CompositeLaTeXFormatter(@"\tan{{{0}}}"));
+
+    public static UnaryTeXpression<double, double> Sec(TeXpression<double> inner, ILaTeXFormatter? formatter = null)
+        => new(inner, i => throw new NotImplementedException(), formatter ?? new CompositeLaTeXFormatter(@"\sec{{{0}}}"));
+
+    public static UnaryTeXpression<double, double> Csc(TeXpression<double> inner, ILaTeXFormatter? formatter = null)
+        => new(inner, i => throw new NotImplementedException(), formatter ?? new CompositeLaTeXFormatter(@"\csc{{{0}}}"));
+
+    public static UnaryTeXpression<double, double> Cot(TeXpression<double> inner, ILaTeXFormatter? formatter = null)
+        => new(inner, i => throw new NotImplementedException(), formatter ?? new CompositeLaTeXFormatter(@"\cot{{{0}}}"));
+
+    public static UnaryTeXpression<double, double> ArcCos(TeXpression<double> inner, ILaTeXFormatter? formatter = null)
+        => new(inner, i => Math.Acos(i), formatter ?? new CompositeLaTeXFormatter(@"\cos^{-1}{{{0}}}"));
+
+    public static UnaryTeXpression<double, double> ArcSin(TeXpression<double> inner, ILaTeXFormatter? formatter = null)
+        => new(inner, i => Math.Asin(i), formatter ?? new CompositeLaTeXFormatter(@"\sin^{-1}{{{0}}}"));
+
+    public static UnaryTeXpression<double, double> ArcTan(TeXpression<double> inner, ILaTeXFormatter? formatter = null)
+        => new(inner, i => Math.Atan(i), formatter ?? new CompositeLaTeXFormatter(@"\tan^{-1}{{{0}}}"));
+
+    #endregion
+
     #endregion
 
     #region Common
+
     public static ParameterTeXpression<double> Pi(ILaTeXFormatter? formatter = null) => new(PiParameterValue, formatter ?? new ParameterLaTeXFormatter());
 
     private static readonly ParameterValue<double> PiParameterValue = new(@"\pi", new ConstantTeXpression<double>(Math.PI, new ConstantLaTeXFormatter("#.###")));
+
     #endregion
 }
