@@ -34,6 +34,12 @@ public class ParsingTests
     [TestCase(@"$\{2^3\}^{2}$", 64, typeof(BinaryTeXpression<double, double, double>))]
     [TestCase(@"$1+1^{1+1+1}$", 2, typeof(BinaryTeXpression<double, double, double>))]
     [TestCase(@"$\left(1+1\right)^{1+1+1}$", 8, typeof(BinaryTeXpression<double, double, double>))]
+    [TestCase(@"$\left|(-1.5)\right|$", 1.5, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\left\lfloor2.7\right\rfloor$", 2, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\left\lceil2.2\right\rceil$", 3, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\left\lfloor2.2\right\rceil$", 2, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\left\lfloor2.5\right\rceil$", 3, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\left\lfloor2.7\right\rceil$", 3, typeof(UnaryTeXpression<double, double>))]
     public void NumericExpressionParsesAndEvaluates(string input, double expectedEval, Type expectedType)
     {
         var expr = ParseUtility.ParseInlineExpression<TeXpression<double>>(input);
