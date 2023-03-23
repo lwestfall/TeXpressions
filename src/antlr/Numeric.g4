@@ -4,7 +4,6 @@ import Common;
 numericExpr:
 	groupedNum												# GroupedNumExpr
 	| unaryNumLeftRight										# UnaryNumExpr
-	| unaryNumCmdLeft '{' numericExpr '}'					# UnaryNumExpr
 	| unaryNumOpLeft numericExpr							# UnaryNumExpr
 	| binaryCmdName '{' numericExpr '}{' numericExpr '}'	# BinaryNumExpr
 	| <assoc = right> numericExpr EXP_OP numericExpr		# BinaryNumExpr
@@ -13,6 +12,7 @@ numericExpr:
 	| numericExpr ADD_OP numericExpr						# BinaryNumExpr
 	| numericExpr SUB_OP numericExpr						# BinaryNumExpr
 	| var													# ParamNumExpr
+	| NUM_CONST												# NumConstParamExpr
 	| NUMBER												# ConstNumExpr;
 
 groupedNum:
@@ -57,28 +57,26 @@ round:
 	'\\lfloor' numericExpr '\\rceil'
 	| '\\left\\lfloor' numericExpr '\\right\\rceil';
 
-unaryNumCmdLeft: '\\sqrt';
-
-unaryNumOpLeft: negNumOp | trigFunc;
+unaryNumOpLeft: '-' | '\\sqrt' | trigFunc;
 negNumOp: '-';
 
 trigFunc:
-	func = basicTrigFunc exp = ('^{-1}' | '^2' | '^{2}')?	# BasicTrig
-	| '\\arcsin'											# ArcSine
-	| '\\arccos'											# ArcCosine
-	| '\\arctan'											# ArcTangent
-	| '\\arccot'											# ArcCotangent
-	| '\\sinh'												# SineH
-	| '\\cosh'												# CosineH
-	| '\\tanh'												# TangentH;
+	basicTrigFunc exp = ('^{-1}' | '^2' | '^{2}')?
+	| '\\arcsin'
+	| '\\arccos'
+	| '\\arctan'
+	| '\\arccot'
+	| '\\sinh'
+	| '\\cosh'
+	| '\\tanh';
 
 basicTrigFunc:
-	'\\sin'		# Sine
-	| '\\cos'	# Cosine
-	| '\\tan'	# Tangent
-	| '\\cot'	# Cotangent
-	| '\\sec'	# Secant
-	| '\\csc'	# Cosecant;
+	'\\sin'
+	| '\\cos'
+	| '\\tan'
+	| '\\cot'
+	| '\\sec'
+	| '\\csc';
 
 // Binary Num Commands
 

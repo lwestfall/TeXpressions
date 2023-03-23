@@ -1,29 +1,161 @@
 namespace TeXpressions.Parsing.Extensions;
 
+using System.Text.RegularExpressions;
 using Antlr4.Runtime.Tree;
 using TeXpressions.Core;
 using TeXpressions.Core.Common;
 using static TeXpressionParser;
 using BinaryNumericFactory = Func<Core.Common.TeXpression<double>, Core.Common.TeXpression<double>, Core.Common.BinaryTeXpression<double, double, double>>;
-using UnaryNumericFactory = Func<Core.Common.TeXpression<double>, Core.Common.UnaryTeXpression<double, double>>;
 
 public static class ContextExtensions
 {
     public static UnaryTeXpression<double, double> ToUnaryNumericTeXpression(this UnaryNumExprContext ctx, TeXpression<double> inner)
     {
-        var opCtx = ctx.unaryNumOpLeft();
+        var opText = ctx.unaryNumOpLeft().GetText();
 
-        if (opCtx?.negNumOp() != null)
+        if (opText == @"\sqrt")
+        {
+            return Numeric.SquareRoot(inner);
+        }
+
+        if (opText == @"-")
         {
             return Numeric.Negate(inner);
         }
 
-        Dictionary<Func<UnaryNumCmdLeftContext, object>, UnaryNumericFactory> cmdLookup = new()
-        {
-            {ctx => ctx.GetText() == @"\sqrt", i => Numeric.SquareRoot(i)}
-        };
+        var trigFunc = ctx.unaryNumOpLeft().trigFunc();
 
-        return cmdLookup.First(kvp => kvp.Key(ctx.unaryNumCmdLeft()) != null).Value(inner);
+        if (trigFunc != null)
+        {
+            return GetTeXpressionFromTrigFunc(trigFunc, inner);
+        }
+
+        throw new NotImplementedException();
+    }
+
+    private static UnaryTeXpression<double, double> GetTeXpressionFromTrigFunc(TrigFuncContext ctx, TeXpression<double> inner)
+    {
+        var func = ctx.basicTrigFunc()?.GetText() ?? ctx.GetText();
+
+        if (ctx.basicTrigFunc() != null)
+        {
+            var inverse = false;
+            var sq = false;
+            if (ctx.exp != null)
+            {
+                // not the best - strip nonnumeric characters (including -)
+                // use result to determine modifier
+                var num = Regex.Replace(ctx.exp.Text, @"\D", string.Empty);
+                inverse = num == "1";
+                sq = num == "2";
+            }
+
+            if (func == @"\sin")
+            {
+                if (inverse)
+                {
+                    return Numeric.ArcSin(inner);
+                }
+
+                if (sq)
+                {
+                    return Numeric.SinSquared(inner);
+                }
+
+                return Numeric.Sin(inner);
+            }
+
+            if (func == @"\cos")
+            {
+                if (inverse)
+                {
+                    return Numeric.ArcCos(inner);
+                }
+
+                if (sq)
+                {
+                    return Numeric.CosSquared(inner);
+                }
+
+                return Numeric.Cos(inner);
+            }
+
+            if (func == @"\tan")
+            {
+                if (inverse)
+                {
+                    return Numeric.ArcTan(inner);
+                }
+
+                if (sq)
+                {
+                    return Numeric.TanSquared(inner);
+                }
+
+                return Numeric.Tan(inner);
+            }
+
+            if (func == @"\cot")
+            {
+                if (inverse || sq)
+                {
+                    throw new NotImplementedException();
+                }
+
+                return Numeric.Cot(inner);
+            }
+
+            if (func == @"\sec")
+            {
+                if (inverse || sq)
+                {
+                    throw new NotImplementedException();
+                }
+
+                return Numeric.Sec(inner);
+            }
+
+            if (func == @"\csc")
+            {
+                if (inverse || sq)
+                {
+                    throw new NotImplementedException();
+                }
+
+                return Numeric.Csc(inner);
+            }
+        }
+
+        if (func == @"\arcsin")
+        {
+            return Numeric.ArcSin(inner);
+        }
+        if (func == @"\arccos")
+        {
+            return Numeric.ArcSin(inner);
+        }
+        if (func == @"\arctan")
+        {
+            return Numeric.ArcSin(inner);
+        }
+        if (func == @"\arccot")
+        {
+            return Numeric.ArcSin(inner);
+        }
+        if (func == @"\sinh")
+        {
+            return Numeric.ArcSin(inner);
+        }
+        if (func == @"\cosh")
+        {
+            return Numeric.ArcSin(inner);
+        }
+        if (func == @"\tanh")
+        {
+            return Numeric.ArcSin(inner);
+        }
+
+        throw new NotImplementedException();
     }
 
     public static BinaryTeXpression<double, double, double> ToBinaryNumericTeXpression(

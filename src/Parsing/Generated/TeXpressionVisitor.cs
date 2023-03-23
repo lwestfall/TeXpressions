@@ -154,6 +154,13 @@ public interface ITeXpressionVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitBinaryNumExpr([NotNull] TeXpressionParser.BinaryNumExprContext context);
 	/// <summary>
+	/// Visit a parse tree produced by the <c>NumConstParamExpr</c>
+	/// labeled alternative in <see cref="TeXpressionParser.numericExpr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNumConstParamExpr([NotNull] TeXpressionParser.NumConstParamExprContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="TeXpressionParser.groupedNum"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -190,12 +197,6 @@ public interface ITeXpressionVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitRound([NotNull] TeXpressionParser.RoundContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TeXpressionParser.unaryNumCmdLeft"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitUnaryNumCmdLeft([NotNull] TeXpressionParser.UnaryNumCmdLeftContext context);
-	/// <summary>
 	/// Visit a parse tree produced by <see cref="TeXpressionParser.unaryNumOpLeft"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -208,103 +209,17 @@ public interface ITeXpressionVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitNegNumOp([NotNull] TeXpressionParser.NegNumOpContext context);
 	/// <summary>
-	/// Visit a parse tree produced by the <c>BasicTrig</c>
-	/// labeled alternative in <see cref="TeXpressionParser.trigFunc"/>.
+	/// Visit a parse tree produced by <see cref="TeXpressionParser.trigFunc"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitBasicTrig([NotNull] TeXpressionParser.BasicTrigContext context);
+	Result VisitTrigFunc([NotNull] TeXpressionParser.TrigFuncContext context);
 	/// <summary>
-	/// Visit a parse tree produced by the <c>ArcSine</c>
-	/// labeled alternative in <see cref="TeXpressionParser.trigFunc"/>.
+	/// Visit a parse tree produced by <see cref="TeXpressionParser.basicTrigFunc"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitArcSine([NotNull] TeXpressionParser.ArcSineContext context);
-	/// <summary>
-	/// Visit a parse tree produced by the <c>ArcCosine</c>
-	/// labeled alternative in <see cref="TeXpressionParser.trigFunc"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitArcCosine([NotNull] TeXpressionParser.ArcCosineContext context);
-	/// <summary>
-	/// Visit a parse tree produced by the <c>ArcTangent</c>
-	/// labeled alternative in <see cref="TeXpressionParser.trigFunc"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitArcTangent([NotNull] TeXpressionParser.ArcTangentContext context);
-	/// <summary>
-	/// Visit a parse tree produced by the <c>ArcCotangent</c>
-	/// labeled alternative in <see cref="TeXpressionParser.trigFunc"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitArcCotangent([NotNull] TeXpressionParser.ArcCotangentContext context);
-	/// <summary>
-	/// Visit a parse tree produced by the <c>SineH</c>
-	/// labeled alternative in <see cref="TeXpressionParser.trigFunc"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitSineH([NotNull] TeXpressionParser.SineHContext context);
-	/// <summary>
-	/// Visit a parse tree produced by the <c>CosineH</c>
-	/// labeled alternative in <see cref="TeXpressionParser.trigFunc"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitCosineH([NotNull] TeXpressionParser.CosineHContext context);
-	/// <summary>
-	/// Visit a parse tree produced by the <c>TangentH</c>
-	/// labeled alternative in <see cref="TeXpressionParser.trigFunc"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitTangentH([NotNull] TeXpressionParser.TangentHContext context);
-	/// <summary>
-	/// Visit a parse tree produced by the <c>Sine</c>
-	/// labeled alternative in <see cref="TeXpressionParser.basicTrigFunc"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitSine([NotNull] TeXpressionParser.SineContext context);
-	/// <summary>
-	/// Visit a parse tree produced by the <c>Cosine</c>
-	/// labeled alternative in <see cref="TeXpressionParser.basicTrigFunc"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitCosine([NotNull] TeXpressionParser.CosineContext context);
-	/// <summary>
-	/// Visit a parse tree produced by the <c>Tangent</c>
-	/// labeled alternative in <see cref="TeXpressionParser.basicTrigFunc"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitTangent([NotNull] TeXpressionParser.TangentContext context);
-	/// <summary>
-	/// Visit a parse tree produced by the <c>Cotangent</c>
-	/// labeled alternative in <see cref="TeXpressionParser.basicTrigFunc"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitCotangent([NotNull] TeXpressionParser.CotangentContext context);
-	/// <summary>
-	/// Visit a parse tree produced by the <c>Secant</c>
-	/// labeled alternative in <see cref="TeXpressionParser.basicTrigFunc"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitSecant([NotNull] TeXpressionParser.SecantContext context);
-	/// <summary>
-	/// Visit a parse tree produced by the <c>Cosecant</c>
-	/// labeled alternative in <see cref="TeXpressionParser.basicTrigFunc"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitCosecant([NotNull] TeXpressionParser.CosecantContext context);
+	Result VisitBasicTrigFunc([NotNull] TeXpressionParser.BasicTrigFuncContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="TeXpressionParser.binaryCmdName"/>.
 	/// </summary>

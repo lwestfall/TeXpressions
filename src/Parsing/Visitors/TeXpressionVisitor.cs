@@ -47,13 +47,6 @@ public class TeXpressionVisitor : TeXpressionBaseVisitor<TeXpression>
             return context.ToUnaryNumericTeXpression(inner);
         }
 
-        var trigFunc = context.unaryNumOpLeft()?.trigFunc();
-
-        if (trigFunc != null)
-        {
-            return this.Visit(trigFunc);
-        }
-
         var lrCtx = context.unaryNumLeftRight();
 
         if (lrCtx?.abs() != null)
@@ -83,8 +76,6 @@ public class TeXpressionVisitor : TeXpressionBaseVisitor<TeXpression>
         throw new NotImplementedException();
     }
 
-    public override TeXpression VisitBasicTrig([NotNull] BasicTrigContext context) => base.VisitBasicTrig(context);
-
     public override TeXpression VisitBinaryNumExpr([NotNull] BinaryNumExprContext context)
     {
         var left = (TeXpression<double>)this.Visit(context.numericExpr()[0]);
@@ -101,6 +92,15 @@ public class TeXpressionVisitor : TeXpressionBaseVisitor<TeXpression>
 
     public override TeXpression VisitParamNumExpr([NotNull] ParamNumExprContext context)
         => Numeric.Parameter(context.GetText());
+
+    public override TeXpression VisitNumConstParamExpr([NotNull] NumConstParamExprContext context)
+    {
+        return context.GetText() switch
+        {
+            "\\pi" => Numeric.Pi(),
+            _ => throw new NotImplementedException(),
+        };
+    }
 
     public override TeXpression VisitUnaryLogicExpr([NotNull] UnaryLogicExprContext context)
     {

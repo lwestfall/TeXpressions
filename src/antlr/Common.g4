@@ -18,6 +18,8 @@ WS: ('\\'? ' ' | [\t\r\n])+ -> skip;
 // skip spaces, tabs, newlines
 MISC_SKIP: ('\\left.' | '\\right.') -> skip;
 
+NUM_CONST: '\\pi';
+
 fragment GREEK:
 	[\u0391-\u03C9]
 	| '\\alpha'
