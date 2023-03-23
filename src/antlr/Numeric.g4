@@ -63,22 +63,22 @@ unaryNumOpLeft: negNumOp | trigFunc;
 negNumOp: '-';
 
 trigFunc:
-	func = basicTrigFunc exp = ('^{-1}' | '^2' | '^{2}')?
-	| '\\arcsin'
-	| '\\arccos'
-	| '\\arctan'
-	| '\\arccot'
-	| '\\sinh'
-	| '\\cosh'
-	| '\\tanh';
+	func = basicTrigFunc exp = ('^{-1}' | '^2' | '^{2}')?	# BasicTrig
+	| '\\arcsin'											# ArcSine
+	| '\\arccos'											# ArcCosine
+	| '\\arctan'											# ArcTangent
+	| '\\arccot'											# ArcCotangent
+	| '\\sinh'												# SineH
+	| '\\cosh'												# CosineH
+	| '\\tanh'												# TangentH;
 
 basicTrigFunc:
-	'\\sin'
-	| '\\cos'
-	| '\\tan'
-	| '\\cot'
-	| '\\sec'
-	| '\\csc';
+	'\\sin'		# Sine
+	| '\\cos'	# Cosine
+	| '\\tan'	# Tangent
+	| '\\cot'	# Cotangent
+	| '\\sec'	# Secant
+	| '\\csc'	# Cosecant;
 
 // Binary Num Commands
 

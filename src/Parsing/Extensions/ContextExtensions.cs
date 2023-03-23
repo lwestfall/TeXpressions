@@ -12,17 +12,10 @@ public static class ContextExtensions
     public static UnaryTeXpression<double, double> ToUnaryNumericTeXpression(this UnaryNumExprContext ctx, TeXpression<double> inner)
     {
         var opCtx = ctx.unaryNumOpLeft();
-        if (opCtx != null)
-        {
-            if (opCtx.negNumOp() != null)
-            {
-                return Numeric.Negate(inner);
-            }
 
-            if (opCtx.trigFunc() != null)
-            {
-                return GetTrigTeXpression(opCtx.trigFunc());
-            }
+        if (opCtx?.negNumOp() != null)
+        {
+            return Numeric.Negate(inner);
         }
 
         Dictionary<Func<UnaryNumCmdLeftContext, object>, UnaryNumericFactory> cmdLookup = new()
@@ -31,18 +24,6 @@ public static class ContextExtensions
         };
 
         return cmdLookup.First(kvp => kvp.Key(ctx.unaryNumCmdLeft()) != null).Value(inner);
-    }
-
-    private static UnaryTeXpression<double, double> GetTrigTeXpression(TrigFuncContext ctx)
-    {
-        var baseFunc = ctx.basicTrigFunc()?.GetText() ?? ctx.GetText();
-
-        if (ctx.exp == null)
-        {
-
-        }
-
-        throw new NotImplementedException();
     }
 
     public static BinaryTeXpression<double, double, double> ToBinaryNumericTeXpression(

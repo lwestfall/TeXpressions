@@ -41,9 +41,49 @@ public class TeXpressionVisitor : TeXpressionBaseVisitor<TeXpression>
 
     public override TeXpression VisitUnaryNumExpr([NotNull] UnaryNumExprContext context)
     {
-        var inner = (TeXpression<double>)this.Visit(context.numericExpr());
-        return context.ToUnaryNumericTeXpression(inner);
+        if (context.numericExpr() != null)
+        {
+            var inner = (TeXpression<double>)this.Visit(context.numericExpr());
+            return context.ToUnaryNumericTeXpression(inner);
+        }
+
+        var trigFunc = context.unaryNumOpLeft()?.trigFunc();
+
+        if (trigFunc != null)
+        {
+            return this.Visit(trigFunc);
+        }
+
+        var lrCtx = context.unaryNumLeftRight();
+
+        if (lrCtx?.abs() != null)
+        {
+            var inner = (TeXpression<double>)this.Visit(lrCtx.abs().numericExpr());
+            return Numeric.Abs(inner);
+        }
+
+        if (lrCtx?.ceiling() != null)
+        {
+            var inner = (TeXpression<double>)this.Visit(lrCtx.ceiling().numericExpr());
+            return Numeric.Ceiling(inner);
+        }
+
+        if (lrCtx?.floor() != null)
+        {
+            var inner = (TeXpression<double>)this.Visit(lrCtx.floor().numericExpr());
+            return Numeric.Floor(inner);
+        }
+
+        if (lrCtx?.round() != null)
+        {
+            var inner = (TeXpression<double>)this.Visit(lrCtx.round().numericExpr());
+            return Numeric.Round(inner);
+        }
+
+        throw new NotImplementedException();
     }
+
+    public override TeXpression VisitBasicTrig([NotNull] BasicTrigContext context) => base.VisitBasicTrig(context);
 
     public override TeXpression VisitBinaryNumExpr([NotNull] BinaryNumExprContext context)
     {

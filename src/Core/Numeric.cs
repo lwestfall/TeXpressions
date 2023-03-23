@@ -56,8 +56,8 @@ public static class Numeric
     public static UnaryTeXpression<double, double> Negate(TeXpression<double> inner, ILaTeXFormatter? formatter = null)
         => new(inner, (i) => -i, formatter ?? new CompositeLaTeXFormatter("{{-{0}}}"));
 
-    public static UnaryTeXpression<double, double> Round(TeXpression<double> inner, ILaTeXFormatter? formatter = null)
-        => new(inner, Math.Round, formatter ?? new CompositeLaTeXFormatter(@"\left\lfloor {0} \right\rceil"));
+    public static UnaryTeXpression<double, double> Round(TeXpression<double> inner, MidpointRounding rounding = MidpointRounding.AwayFromZero, ILaTeXFormatter? formatter = null)
+        => new(inner, i => Math.Round(i, rounding), formatter ?? new CompositeLaTeXFormatter(@"\left\lfloor {0} \right\rceil"));
 
     public static UnaryTeXpression<double, double> SquareRoot(TeXpression<double> inner, ILaTeXFormatter? formatter = null)
         => new(inner, Math.Sqrt, formatter ?? new CompositeLaTeXFormatter(@"\sqrt{{{0}}}"));
