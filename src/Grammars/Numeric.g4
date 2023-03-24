@@ -65,7 +65,6 @@ trigFunc:
 	| '\\arcsin'
 	| '\\arccos'
 	| '\\arctan'
-	| '\\arccot'
 	| '\\sinh'
 	| '\\cosh'
 	| '\\tanh';

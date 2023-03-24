@@ -43,6 +43,15 @@ public class ParsingTests
     [TestCase(@"$\sin{\pi/2}$", 1, typeof(UnaryTeXpression<double, double>))]
     [TestCase(@"$\cos\pi$", -1, typeof(UnaryTeXpression<double, double>))]
     [TestCase(@"$\tan(0)$", 0, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\sin{\pi/2}$", 1, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\cos\pi$", -1, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\tan(0)$", 0, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\sec{\pi}$", -1, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\csc{\frac{\pi}{2}}$", 1, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\cot{\dfrac{-\pi}{4}}$", -1, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\arcsin 1$", Math.PI / 2, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\arccos(\sfrac{\sqrt{2}}{2})$", Math.PI / 4, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\arctan{\sqrt{3}/3}$", Math.PI / 6, typeof(UnaryTeXpression<double, double>))]
     // [TestCase(@"$\sin^2{1}$", Math.PI / 2, typeof(UnaryTeXpression<double, double>))]    // todo: fix trig inverse/square via superscript
     // [TestCase(@"$\sin^{2}{1}$", Math.PI / 2, typeof(UnaryTeXpression<double, double>))]  // todo: fix trig inverse/square via superscript
     // [TestCase(@"$\sin^{1}{1}$", Math.PI / 2, typeof(UnaryTeXpression<double, double>))]  // todo: fix trig inverse/square via superscript
@@ -56,7 +65,7 @@ public class ParsingTests
 
         Assert.Multiple(() =>
         {
-            Assert.That(actualEval, Is.EqualTo(expectedEval));
+            Assert.That(actualEval, Is.EqualTo(expectedEval).Within(0.001).Percent);
             Assert.That(expr, Is.InstanceOf(expectedType));
         });
     }

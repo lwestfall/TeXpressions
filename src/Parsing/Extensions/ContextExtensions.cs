@@ -98,31 +98,16 @@ public static class ContextExtensions
 
             if (func == @"\cot")
             {
-                if (inverse || sq)
-                {
-                    throw new NotImplementedException();
-                }
-
                 return Numeric.Cot(inner);
             }
 
             if (func == @"\sec")
             {
-                if (inverse || sq)
-                {
-                    throw new NotImplementedException();
-                }
-
                 return Numeric.Sec(inner);
             }
 
             if (func == @"\csc")
             {
-                if (inverse || sq)
-                {
-                    throw new NotImplementedException();
-                }
-
                 return Numeric.Csc(inner);
             }
         }
@@ -133,15 +118,11 @@ public static class ContextExtensions
         }
         if (func == @"\arccos")
         {
-            return Numeric.ArcSin(inner);
+            return Numeric.ArcCos(inner);
         }
         if (func == @"\arctan")
         {
-            return Numeric.ArcSin(inner);
-        }
-        if (func == @"\arccot")
-        {
-            return Numeric.ArcSin(inner);
+            return Numeric.ArcTan(inner);
         }
         if (func == @"\sinh")
         {
