@@ -61,7 +61,7 @@ unaryNumOpLeft: '-' | '\\sqrt' | trigFunc;
 negNumOp: '-';
 
 trigFunc:
-	basicTrigFunc exp = ('^{-1}' | '^2' | '^{2}')?
+	basicTrigFunc trigSuper?
 	| '\\arcsin'
 	| '\\arccos'
 	| '\\arctan'
@@ -69,6 +69,9 @@ trigFunc:
 	| '\\sinh'
 	| '\\cosh'
 	| '\\tanh';
+
+trigSuper: '^' '{' '-'? DIGIT '}' | '^' DIGIT;
+// '^{-1}' # TrigSuperInv | '^2' # TrigSuperSq | '^{2}' # TrigSuperSq;
 
 basicTrigFunc:
 	'\\sin'

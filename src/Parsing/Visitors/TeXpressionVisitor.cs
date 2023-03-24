@@ -78,8 +78,11 @@ public class TeXpressionVisitor : TeXpressionBaseVisitor<TeXpression>
 
     public override TeXpression VisitBinaryNumExpr([NotNull] BinaryNumExprContext context)
     {
-        var left = (TeXpression<double>)this.Visit(context.numericExpr()[0]);
-        var right = (TeXpression<double>)this.Visit(context.numericExpr()[1]);
+        var left = (TeXpression<double>)this.Visit(context.numericExpr()[0])
+            ?? throw new InvalidOperationException($"Error parsing left inner TeXpression in {context.GetText()}");
+
+        var right = (TeXpression<double>)this.Visit(context.numericExpr()[1])
+            ?? throw new InvalidOperationException($"Error parsing right inner TeXpression in {context.GetText()}");
 
         return context.ToBinaryNumericTeXpression(left, right);
     }

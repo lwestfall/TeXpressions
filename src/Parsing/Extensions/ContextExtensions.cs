@@ -41,11 +41,11 @@ public static class ContextExtensions
         {
             var inverse = false;
             var sq = false;
-            if (ctx.exp != null)
+            if (ctx.trigSuper() != null)
             {
                 // not the best - strip nonnumeric characters (including -)
                 // use result to determine modifier
-                var num = Regex.Replace(ctx.exp.Text, @"\D", string.Empty);
+                var num = Regex.Replace(ctx.trigSuper().GetText(), @"\D", string.Empty);
                 inverse = num == "1";
                 sq = num == "2";
             }

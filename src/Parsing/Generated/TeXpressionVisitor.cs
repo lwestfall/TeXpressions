@@ -215,6 +215,12 @@ public interface ITeXpressionVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitTrigFunc([NotNull] TeXpressionParser.TrigFuncContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="TeXpressionParser.trigSuper"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitTrigSuper([NotNull] TeXpressionParser.TrigSuperContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="TeXpressionParser.basicTrigFunc"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
