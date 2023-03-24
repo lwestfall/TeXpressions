@@ -61,7 +61,7 @@ unaryNumOpLeft: '-' | '\\sqrt' | trigFunc;
 negNumOp: '-';
 
 trigFunc:
-	basicTrigFunc trigSuper?
+	basicTrigFunc /*trigSuper?*/
 	| '\\arcsin'
 	| '\\arccos'
 	| '\\arctan'

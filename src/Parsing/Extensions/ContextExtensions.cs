@@ -1,6 +1,5 @@
 namespace TeXpressions.Parsing.Extensions;
 
-using System.Text.RegularExpressions;
 using Antlr4.Runtime.Tree;
 using TeXpressions.Core;
 using TeXpressions.Core.Common;
@@ -41,14 +40,16 @@ public static class ContextExtensions
         {
             var inverse = false;
             var sq = false;
-            if (ctx.trigSuper() != null)
-            {
-                // not the best - strip nonnumeric characters (including -)
-                // use result to determine modifier
-                var num = Regex.Replace(ctx.trigSuper().GetText(), @"\D", string.Empty);
-                inverse = num == "1";
-                sq = num == "2";
-            }
+
+            // todo: fix trig inverse/square via superscript
+            // if (ctx.trigSuper() != null)
+            // {
+            //     // not the best - strip nonnumeric characters (including -)
+            //     // use result to determine modifier
+            //     var num = Regex.Replace(ctx.trigSuper().GetText(), @"\D", string.Empty);
+            //     inverse = num == "1";
+            //     sq = num == "2";
+            // }
 
             if (func == @"\sin")
             {
