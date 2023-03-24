@@ -457,7 +457,7 @@ src/ConsoleTest
 **/lcov.info
 
 # Antlr files (except grammars)
-**/antlr/*
-!**/antlr/*.g4
+src/antlr/**/*
+src/Grammars/.antlr/
 src/Parsing/Generated/*.interp
 src/Parsing/Generated/*.tokens

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from src/antlr/TeXpression.g4 by ANTLR 4.12.0
+// Generated from src/Grammars/TeXpression.g4 by ANTLR 4.12.0
 
 // Unreachable code detected
 #pragma warning disable 0162
