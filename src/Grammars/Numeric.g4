@@ -74,9 +74,6 @@ trigFunc:
 	| '\\sec'
 	| '\\csc';
 
-// trigSuper: '^' '{' '-'? DIGIT '}' | '^' DIGIT; '^{-1}' # TrigSuperInv | '^2' # TrigSuperSq |
-// '^{2}' # TrigSuperSq;
-
 baseTrigFunc: '\\sin' | '\\cos' | '\\tan';
 
 // Binary Num Commands

@@ -121,4 +121,12 @@ public class ParsingTests
 
         Assert.That(expr, Is.InstanceOf(expectedType));
     }
+
+    [Test]
+    public void BasicTrigFuncWithInvalidSuperscriptThrowsInvalidOperationException()
+    {
+        var input = @"$$\sin^{3}(x)$$";
+
+        Assert.Throws<InvalidOperationException>(() => ParseUtility.ParseInlineExpression<TeXpression<bool>>(input));
+    }
 }

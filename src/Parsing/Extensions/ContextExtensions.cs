@@ -29,8 +29,12 @@ public static class ContextExtensions
     {
         if (exp != null)
         {
-
             var expVal = exp?.Evaluate();
+
+            if (expVal is not null and not (-1 or 2))
+            {
+                throw new InvalidOperationException($"BaseTrigFunc superscript evaluated to {expVal} must evaluate only to -1 or +2.");
+            }
 
             var inverse = expVal == -1;
             var sq = expVal == 2;
