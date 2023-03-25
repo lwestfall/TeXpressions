@@ -52,12 +52,14 @@ public class ParsingTests
     [TestCase(@"$\arcsin 1$", Math.PI / 2, typeof(UnaryTeXpression<double, double>))]
     [TestCase(@"$\arccos(\sfrac{\sqrt{2}}{2})$", Math.PI / 4, typeof(UnaryTeXpression<double, double>))]
     [TestCase(@"$\arctan{\sqrt{3}/3}$", Math.PI / 6, typeof(UnaryTeXpression<double, double>))]
-    // [TestCase(@"$\sin^2{1}$", Math.PI / 2, typeof(UnaryTeXpression<double, double>))]    // todo: fix trig inverse/square via superscript
-    // [TestCase(@"$\sin^{2}{1}$", Math.PI / 2, typeof(UnaryTeXpression<double, double>))]  // todo: fix trig inverse/square via superscript
-    // [TestCase(@"$\sin^{1}{1}$", Math.PI / 2, typeof(UnaryTeXpression<double, double>))]  // todo: fix trig inverse/square via superscript
-    // [TestCase(@"$\sin^{-1}{1}$", Math.PI / 2, typeof(UnaryTeXpression<double, double>))] // todo: fix trig inverse/square via superscript
-    // [TestCase(@"$\cos^{-1}0$", Math.PI / 2, typeof(UnaryTeXpression<double, double>))]   // todo: fix trig inverse/square via superscript
-    // [TestCase(@"$\tan^{-1}{1}$", Math.PI / 4, typeof(UnaryTeXpression<double, double>))] // todo: fix trig inverse/square via superscript
+    [TestCase(@"$\sin^2{\pi/2}$", 1, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\sin^{2}{\pi/4}$", 0.5, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\cos^2{\pi/2}$", 0, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\cos^{2}{\pi/4}$", 0.5, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\tan^2\pi$", 0, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\sin^{-1}{1}$", Math.PI / 2, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\cos^{-1}0$", Math.PI / 2, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\tan^{-1}{1}$", Math.PI / 4, typeof(UnaryTeXpression<double, double>))]
     public void NumericExpressionParsesAndEvaluates(string input, double expectedEval, Type expectedType)
     {
         var expr = ParseUtility.ParseInlineExpression<TeXpression<double>>(input);
@@ -65,7 +67,7 @@ public class ParsingTests
 
         Assert.Multiple(() =>
         {
-            Assert.That(actualEval, Is.EqualTo(expectedEval).Within(0.001).Percent);
+            Assert.That(actualEval, Is.EqualTo(expectedEval).Within(1.0 / 1000000000));
             Assert.That(expr, Is.InstanceOf(expectedType));
         });
     }

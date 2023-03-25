@@ -2,18 +2,20 @@ grammar Numeric;
 import Common;
 
 numericExpr:
-	groupedNum												# GroupedNumExpr
-	| unaryNumLeftRight										# UnaryNumExpr
-	| unaryNumOpLeft numericExpr							# UnaryNumExpr
-	| binaryCmdName '{' numericExpr '}{' numericExpr '}'	# BinaryNumExpr
-	| <assoc = right> numericExpr EXP_OP numericExpr		# BinaryNumExpr
-	| numericExpr MUL_OP numericExpr						# BinaryNumExpr
-	| numericExpr DIV_OP numericExpr						# BinaryNumExpr
-	| numericExpr ADD_OP numericExpr						# BinaryNumExpr
-	| numericExpr SUB_OP numericExpr						# BinaryNumExpr
-	| var													# ParamNumExpr
-	| NUM_CONST												# NumConstParamExpr
-	| NUMBER												# ConstNumExpr;
+	groupedNum													# GroupedNumExpr
+	| unaryNumLeftRight											# UnaryNumExpr
+	| unaryNumOpLeft numericExpr								# UnaryNumExpr
+	| trigFunc arg = numericExpr								# TrigFuncExpr
+	| baseTrigFunc EXP_OP exp = numericExpr arg = numericExpr	# TrigFuncExpr
+	| binaryCmdName '{' numericExpr '}' '{' numericExpr '}'		# BinaryNumExpr
+	| <assoc = right> numericExpr EXP_OP numericExpr			# BinaryNumExpr
+	| numericExpr MUL_OP numericExpr							# BinaryNumExpr
+	| numericExpr DIV_OP numericExpr							# BinaryNumExpr
+	| numericExpr ADD_OP numericExpr							# BinaryNumExpr
+	| numericExpr SUB_OP numericExpr							# BinaryNumExpr
+	| var														# ParamNumExpr
+	| NUM_CONST													# NumConstParamExpr
+	| NUMBER													# ConstNumExpr;
 
 groupedNum:
 	'(' numericExpr ')'
@@ -57,28 +59,25 @@ round:
 	'\\lfloor' numericExpr '\\rceil'
 	| '\\left\\lfloor' numericExpr '\\right\\rceil';
 
-unaryNumOpLeft: '-' | '\\sqrt' | trigFunc;
+unaryNumOpLeft: '-' | '\\sqrt';
 negNumOp: '-';
 
 trigFunc:
-	basicTrigFunc /*trigSuper?*/
+	baseTrigFunc
 	| '\\arcsin'
 	| '\\arccos'
 	| '\\arctan'
 	| '\\sinh'
 	| '\\cosh'
-	| '\\tanh';
-
-trigSuper: '^' '{' '-'? DIGIT '}' | '^' DIGIT;
-// '^{-1}' # TrigSuperInv | '^2' # TrigSuperSq | '^{2}' # TrigSuperSq;
-
-basicTrigFunc:
-	'\\sin'
-	| '\\cos'
-	| '\\tan'
+	| '\\tanh'
 	| '\\cot'
 	| '\\sec'
 	| '\\csc';
+
+// trigSuper: '^' '{' '-'? DIGIT '}' | '^' DIGIT; '^{-1}' # TrigSuperInv | '^2' # TrigSuperSq |
+// '^{2}' # TrigSuperSq;
+
+baseTrigFunc: '\\sin' | '\\cos' | '\\tan';
 
 // Binary Num Commands
 

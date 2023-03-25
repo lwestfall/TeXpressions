@@ -76,13 +76,23 @@ public class TeXpressionVisitor : TeXpressionBaseVisitor<TeXpression>
         throw new NotImplementedException();
     }
 
+    public override TeXpression VisitTrigFuncExpr([NotNull] TrigFuncExprContext context)
+    {
+        var argExpr = (TeXpression<double>)this.Visit(context.arg);
+        TeXpression<double>? expExpr = null;
+
+        if (context.exp != null)
+        {
+            expExpr = (TeXpression<double>?)this.Visit(context.exp);
+        }
+
+        return context.GetTeXpressionFromTrigFuncExpr(argExpr, expExpr);
+    }
+
     public override TeXpression VisitBinaryNumExpr([NotNull] BinaryNumExprContext context)
     {
-        var left = (TeXpression<double>)this.Visit(context.numericExpr()[0])
-            ?? throw new InvalidOperationException($"Error parsing left inner TeXpression in {context.GetText()}");
-
-        var right = (TeXpression<double>)this.Visit(context.numericExpr()[1])
-            ?? throw new InvalidOperationException($"Error parsing right inner TeXpression in {context.GetText()}");
+        var left = (TeXpression<double>)this.Visit(context.numericExpr()[0]);
+        var right = (TeXpression<double>)this.Visit(context.numericExpr()[1]);
 
         return context.ToBinaryNumericTeXpression(left, right);
     }

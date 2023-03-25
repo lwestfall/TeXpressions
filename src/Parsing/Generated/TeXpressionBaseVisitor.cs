@@ -229,6 +229,17 @@ public partial class TeXpressionBaseVisitor<Result> : AbstractParseTreeVisitor<R
 	/// <return>The visitor result.</return>
 	public virtual Result VisitBinaryNumExpr([NotNull] TeXpressionParser.BinaryNumExprContext context) { return VisitChildren(context); }
 	/// <summary>
+	/// Visit a parse tree produced by the <c>TrigFuncExpr</c>
+	/// labeled alternative in <see cref="TeXpressionParser.numericExpr"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitTrigFuncExpr([NotNull] TeXpressionParser.TrigFuncExprContext context) { return VisitChildren(context); }
+	/// <summary>
 	/// Visit a parse tree produced by the <c>NumConstParamExpr</c>
 	/// labeled alternative in <see cref="TeXpressionParser.numericExpr"/>.
 	/// <para>
@@ -330,7 +341,7 @@ public partial class TeXpressionBaseVisitor<Result> : AbstractParseTreeVisitor<R
 	/// <return>The visitor result.</return>
 	public virtual Result VisitTrigFunc([NotNull] TeXpressionParser.TrigFuncContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TeXpressionParser.trigSuper"/>.
+	/// Visit a parse tree produced by <see cref="TeXpressionParser.baseTrigFunc"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -338,17 +349,7 @@ public partial class TeXpressionBaseVisitor<Result> : AbstractParseTreeVisitor<R
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitTrigSuper([NotNull] TeXpressionParser.TrigSuperContext context) { return VisitChildren(context); }
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="TeXpressionParser.basicTrigFunc"/>.
-	/// <para>
-	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
-	/// on <paramref name="context"/>.
-	/// </para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	public virtual Result VisitBasicTrigFunc([NotNull] TeXpressionParser.BasicTrigFuncContext context) { return VisitChildren(context); }
+	public virtual Result VisitBaseTrigFunc([NotNull] TeXpressionParser.BaseTrigFuncContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="TeXpressionParser.binaryCmdName"/>.
 	/// <para>

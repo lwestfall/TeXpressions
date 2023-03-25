@@ -154,6 +154,13 @@ public interface ITeXpressionVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitBinaryNumExpr([NotNull] TeXpressionParser.BinaryNumExprContext context);
 	/// <summary>
+	/// Visit a parse tree produced by the <c>TrigFuncExpr</c>
+	/// labeled alternative in <see cref="TeXpressionParser.numericExpr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitTrigFuncExpr([NotNull] TeXpressionParser.TrigFuncExprContext context);
+	/// <summary>
 	/// Visit a parse tree produced by the <c>NumConstParamExpr</c>
 	/// labeled alternative in <see cref="TeXpressionParser.numericExpr"/>.
 	/// </summary>
@@ -215,17 +222,11 @@ public interface ITeXpressionVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitTrigFunc([NotNull] TeXpressionParser.TrigFuncContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TeXpressionParser.trigSuper"/>.
+	/// Visit a parse tree produced by <see cref="TeXpressionParser.baseTrigFunc"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitTrigSuper([NotNull] TeXpressionParser.TrigSuperContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="TeXpressionParser.basicTrigFunc"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitBasicTrigFunc([NotNull] TeXpressionParser.BasicTrigFuncContext context);
+	Result VisitBaseTrigFunc([NotNull] TeXpressionParser.BaseTrigFuncContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="TeXpressionParser.binaryCmdName"/>.
 	/// </summary>

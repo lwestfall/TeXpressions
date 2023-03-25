@@ -22,119 +22,125 @@ public static class ContextExtensions
             return Numeric.Negate(inner);
         }
 
-        var trigFunc = ctx.unaryNumOpLeft().trigFunc();
+        throw new NotImplementedException();
+    }
 
-        if (trigFunc != null)
+    public static UnaryTeXpression<double, double> GetTeXpressionFromTrigFuncExpr(this TrigFuncExprContext ctx, TeXpression<double> innerArg, TeXpression<double>? exp)
+    {
+        if (exp != null)
         {
-            return GetTeXpressionFromTrigFunc(trigFunc, inner);
+
+            var expVal = exp?.Evaluate();
+
+            var inverse = expVal == -1;
+            var sq = expVal == 2;
+
+            return ctx.baseTrigFunc().GetTeXpressionFromBaseTrigFunc(innerArg, inverse, sq);
+        }
+
+        return ctx.trigFunc().GetTeXpressionFromTrigFunc(innerArg);
+
+    }
+
+    private static UnaryTeXpression<double, double> GetTeXpressionFromBaseTrigFunc(this BaseTrigFuncContext ctx, TeXpression<double> innerArg, bool inverse, bool squared)
+    {
+        var func = ctx.GetText();
+
+        if (func == @"\sin")
+        {
+            if (inverse)
+            {
+                return Numeric.ArcSin(innerArg);
+            }
+
+            if (squared)
+            {
+                return Numeric.SinSquared(innerArg);
+            }
+
+            return Numeric.Sin(innerArg);
+        }
+
+        if (func == @"\cos")
+        {
+            if (inverse)
+            {
+                return Numeric.ArcCos(innerArg);
+            }
+
+            if (squared)
+            {
+                return Numeric.CosSquared(innerArg);
+            }
+
+            return Numeric.Cos(innerArg);
+        }
+
+        if (func == @"\tan")
+        {
+            if (inverse)
+            {
+                return Numeric.ArcTan(innerArg);
+            }
+
+            if (squared)
+            {
+                return Numeric.TanSquared(innerArg);
+            }
+
+            return Numeric.Tan(innerArg);
         }
 
         throw new NotImplementedException();
     }
 
-    private static UnaryTeXpression<double, double> GetTeXpressionFromTrigFunc(TrigFuncContext ctx, TeXpression<double> inner)
+    private static UnaryTeXpression<double, double> GetTeXpressionFromTrigFunc(this TrigFuncContext ctx, TeXpression<double> innerArg)
     {
-        var func = ctx.basicTrigFunc()?.GetText() ?? ctx.GetText();
-
-        if (ctx.basicTrigFunc() != null)
+        if (ctx.baseTrigFunc() != null)
         {
-            var inverse = false;
-            var sq = false;
+            return ctx.baseTrigFunc().GetTeXpressionFromBaseTrigFunc(innerArg, false, false);
+        }
 
-            // todo: fix trig inverse/square via superscript
-            // if (ctx.trigSuper() != null)
-            // {
-            //     // not the best - strip nonnumeric characters (including -)
-            //     // use result to determine modifier
-            //     var num = Regex.Replace(ctx.trigSuper().GetText(), @"\D", string.Empty);
-            //     inverse = num == "1";
-            //     sq = num == "2";
-            // }
+        var func = ctx.GetText();
 
-            if (func == @"\sin")
-            {
-                if (inverse)
-                {
-                    return Numeric.ArcSin(inner);
-                }
+        if (func == @"\cot")
+        {
+            return Numeric.Cot(innerArg);
+        }
 
-                if (sq)
-                {
-                    return Numeric.SinSquared(inner);
-                }
+        if (func == @"\sec")
+        {
+            return Numeric.Sec(innerArg);
+        }
 
-                return Numeric.Sin(inner);
-            }
-
-            if (func == @"\cos")
-            {
-                if (inverse)
-                {
-                    return Numeric.ArcCos(inner);
-                }
-
-                if (sq)
-                {
-                    return Numeric.CosSquared(inner);
-                }
-
-                return Numeric.Cos(inner);
-            }
-
-            if (func == @"\tan")
-            {
-                if (inverse)
-                {
-                    return Numeric.ArcTan(inner);
-                }
-
-                if (sq)
-                {
-                    return Numeric.TanSquared(inner);
-                }
-
-                return Numeric.Tan(inner);
-            }
-
-            if (func == @"\cot")
-            {
-                return Numeric.Cot(inner);
-            }
-
-            if (func == @"\sec")
-            {
-                return Numeric.Sec(inner);
-            }
-
-            if (func == @"\csc")
-            {
-                return Numeric.Csc(inner);
-            }
+        if (func == @"\csc")
+        {
+            return Numeric.Csc(innerArg);
         }
 
         if (func == @"\arcsin")
         {
-            return Numeric.ArcSin(inner);
+            return Numeric.ArcSin(innerArg);
         }
         if (func == @"\arccos")
         {
-            return Numeric.ArcCos(inner);
+            return Numeric.ArcCos(innerArg);
         }
         if (func == @"\arctan")
         {
-            return Numeric.ArcTan(inner);
+            return Numeric.ArcTan(innerArg);
         }
         if (func == @"\sinh")
         {
-            return Numeric.ArcSin(inner);
+            return Numeric.ArcSin(innerArg);
         }
         if (func == @"\cosh")
         {
-            return Numeric.ArcSin(inner);
+            return Numeric.ArcSin(innerArg);
         }
         if (func == @"\tanh")
         {
-            return Numeric.ArcSin(inner);
+            return Numeric.ArcSin(innerArg);
         }
 
         throw new NotImplementedException();
