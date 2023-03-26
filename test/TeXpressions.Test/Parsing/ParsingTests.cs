@@ -60,6 +60,11 @@ public class ParsingTests
     [TestCase(@"$\sin^{-1}{1}$", Math.PI / 2, typeof(UnaryTeXpression<double, double>))]
     [TestCase(@"$\cos^{-1}0$", Math.PI / 2, typeof(UnaryTeXpression<double, double>))]
     [TestCase(@"$\tan^{-1}{1}$", Math.PI / 4, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\log{100}$", 2, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\log_{10}{100}$", 2, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\log_3{27}$", 3, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\log_2{256}$", 8, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\ln{e^2}$", 2, typeof(UnaryTeXpression<double, double>))]
     public void NumericExpressionParsesAndEvaluates(string input, double expectedEval, Type expectedType)
     {
         var expr = ParseUtility.ParseInlineExpression<TeXpression<double>>(input);

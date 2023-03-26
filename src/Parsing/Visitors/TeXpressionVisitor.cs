@@ -18,14 +18,13 @@ public class TeXpressionVisitor : TeXpressionBaseVisitor<TeXpression>
 
         if (context.var() != null)
         {
-            var varLatex = context.var().GetText();
-
             if (texpr is TeXpression<double> numTexpr)
             {
-                return Numeric.Parameter(varLatex, numTexpr);
+                return context.var().ToNumericTeXpression(numTexpr);
             }
             else if (texpr is TeXpression<bool> boolTexpr)
             {
+                var varLatex = context.var().GetText();
                 return Logical.Parameter(varLatex, boolTexpr);
             }
         }
@@ -99,12 +98,12 @@ public class TeXpressionVisitor : TeXpressionBaseVisitor<TeXpression>
 
     public override TeXpression VisitConstNumExpr([NotNull] ConstNumExprContext context)
     {
-        var num = double.Parse(context.NUMBER().GetText(), CultureInfo.InvariantCulture);
+        var num = double.Parse(context.number().GetText(), CultureInfo.InvariantCulture);
         return Numeric.Constant(num);
     }
 
     public override TeXpression VisitParamNumExpr([NotNull] ParamNumExprContext context)
-        => Numeric.Parameter(context.GetText());
+        => context.var().ToNumericTeXpression();
 
     public override TeXpression VisitNumConstParamExpr([NotNull] NumConstParamExprContext context)
     {

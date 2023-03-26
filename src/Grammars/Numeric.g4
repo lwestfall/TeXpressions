@@ -15,7 +15,7 @@ numericExpr:
 	| numericExpr SUB_OP numericExpr							# BinaryNumExpr
 	| var														# ParamNumExpr
 	| NUM_CONST													# NumConstParamExpr
-	| NUMBER													# ConstNumExpr;
+	| number													# ConstNumExpr;
 
 groupedNum:
 	'(' numericExpr ')'
@@ -59,8 +59,13 @@ round:
 	'\\lfloor' numericExpr '\\rceil'
 	| '\\left\\lfloor' numericExpr '\\right\\rceil';
 
-unaryNumOpLeft: '-' | '\\sqrt';
+unaryNumOpLeft: '-' | '\\sqrt' | logFunc;
 negNumOp: '-';
+
+logFunc: logType = '\\log' | logType = '\\ln' | logBaseFunc;
+logBaseFunc:
+	'\\log_' base += DIGIT
+	| '\\log_{' base += DIGIT+ '}';
 
 trigFunc:
 	baseTrigFunc
@@ -89,6 +94,6 @@ MUL_OP: '*' | '\\ast' | '\\dot' | '\\times';
 DIV_OP: '/' | '÷';
 EXP_OP: '^';
 
-NUMBER: DIGIT* '.' DIGIT+ | DIGIT+;
+number: DIGIT* '.' DIGIT+ | DIGIT+;
 
 NUM_CONST: '\\pi';

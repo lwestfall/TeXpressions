@@ -216,6 +216,18 @@ public interface ITeXpressionVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitNegNumOp([NotNull] TeXpressionParser.NegNumOpContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="TeXpressionParser.logFunc"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitLogFunc([NotNull] TeXpressionParser.LogFuncContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TeXpressionParser.logBaseFunc"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitLogBaseFunc([NotNull] TeXpressionParser.LogBaseFuncContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="TeXpressionParser.trigFunc"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -239,6 +251,12 @@ public interface ITeXpressionVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitDivCmd([NotNull] TeXpressionParser.DivCmdContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TeXpressionParser.number"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNumber([NotNull] TeXpressionParser.NumberContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="TeXpressionParser.varMod"/>.
 	/// </summary>

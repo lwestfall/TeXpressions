@@ -1,5 +1,6 @@
 namespace TeXpressions.Parsing.Extensions;
 
+using System.Globalization;
 using Antlr4.Runtime.Tree;
 using TeXpressions.Core;
 using TeXpressions.Core.Common;
@@ -8,8 +9,39 @@ using BinaryNumericFactory = Func<Core.Common.TeXpression<double>, Core.Common.T
 
 public static class ContextExtensions
 {
+    public static TeXpression ToNumericTeXpression(this VarContext ctx, TeXpression<double>? valueExpr = null)
+    {
+        var varLatex = ctx.GetText();
+
+        if (valueExpr == null && varLatex == "e")
+        {
+            return Numeric.EulersNumber();
+        }
+
+        return Numeric.Parameter(varLatex, valueExpr);
+    }
+
     public static UnaryTeXpression<double, double> ToUnaryNumericTeXpression(this UnaryNumExprContext ctx, TeXpression<double> inner)
     {
+        var logFunc = ctx.unaryNumOpLeft()?.logFunc();
+        if (logFunc != null)
+        {
+            if (logFunc.logBaseFunc() != null)
+            {
+                var baseStr = string.Concat(logFunc.logBaseFunc()._base.Select(t => t.Text));
+                var @base = double.Parse(baseStr, CultureInfo.CurrentCulture);
+
+                return Numeric.LogBase(inner, @base);
+            }
+
+            return logFunc.logType.Text switch
+            {
+                @"\log" => Numeric.Log10(inner),
+                @"\ln" => Numeric.Ln(inner),
+                _ => throw new NotImplementedException(),
+            };
+        }
+
         var opText = ctx.unaryNumOpLeft().GetText();
 
         if (opText == @"\sqrt")

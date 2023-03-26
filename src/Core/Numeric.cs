@@ -44,6 +44,18 @@ public static class Numeric
     public static UnaryTeXpression<double, double> Floor(TeXpression<double> inner, ILaTeXFormatter? formatter = null)
         => new(inner, Math.Floor, formatter ?? new CompositeLaTeXFormatter(@"\left\lfloor {0} \right\rfloor"));
 
+    public static UnaryTeXpression<double, double> Ln(TeXpression<double> inner, ILaTeXFormatter? formatter = null)
+        => new(inner, Math.Log, formatter ?? new CompositeLaTeXFormatter(@"\ln{{{0}}}"));
+
+    public static UnaryTeXpression<double, double> Log2(TeXpression<double> inner, ILaTeXFormatter? formatter = null)
+        => new(inner, (i) => Math.Log2(i), formatter ?? new CompositeLaTeXFormatter(@"\ln{{{0}}}"));
+
+    public static UnaryTeXpression<double, double> Log10(TeXpression<double> inner, ILaTeXFormatter? formatter = null)
+        => new(inner, (i) => Math.Log10(i), formatter ?? new CompositeLaTeXFormatter(@"\ln{{{0}}}"));
+
+    public static UnaryTeXpression<double, double> LogBase(TeXpression<double> inner, double @base, ILaTeXFormatter? formatter = null)
+        => new(inner, (i) => Math.Log(i, @base), formatter ?? new CompositeLaTeXFormatter(@"\ln{{{0}}}"));
+
     public static SetTeXpression<double, double> Max(TeXpression<double>[] inners, ILaTeXFormatter? formatter = null)
         => new(inners, (i) => i.Max(), formatter ?? new CompositeLaTeXFormatter("max({0})"));
 
@@ -117,6 +129,10 @@ public static class Numeric
     #endregion
 
     #region Common
+
+    public static ParameterTeXpression<double> EulersNumber(ILaTeXFormatter? formatter = null) => new(EulersNumberParameterValue, formatter ?? new ParameterLaTeXFormatter());
+
+    private static readonly ParameterValue<double> EulersNumberParameterValue = new(@"e", new ConstantTeXpression<double>(Math.E, new ConstantLaTeXFormatter("#.###")));
 
     public static ParameterTeXpression<double> Pi(ILaTeXFormatter? formatter = null) => new(PiParameterValue, formatter ?? new ParameterLaTeXFormatter());
 
