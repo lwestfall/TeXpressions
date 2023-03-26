@@ -1,32 +1,185 @@
 namespace TeXpressions.Parsing.Extensions;
 
+using System.Globalization;
 using Antlr4.Runtime.Tree;
 using TeXpressions.Core;
 using TeXpressions.Core.Common;
 using static TeXpressionParser;
 using BinaryNumericFactory = Func<Core.Common.TeXpression<double>, Core.Common.TeXpression<double>, Core.Common.BinaryTeXpression<double, double, double>>;
-using UnaryNumericFactory = Func<Core.Common.TeXpression<double>, Core.Common.UnaryTeXpression<double, double>>;
 
 public static class ContextExtensions
 {
-    public static UnaryTeXpression<double, double> ToUnaryNumericTeXpression(this UnaryNumExprContext ctx, TeXpression<double> inner)
+    public static TeXpression ToNumericTeXpression(this VarContext ctx, TeXpression<double>? valueExpr = null)
     {
-        if (ctx.unaryNumOpPre() != null)
-        {
-            Dictionary<Func<UnaryNumOpPreContext, object>, UnaryNumericFactory> opLookup = new()
-            {
-                {ctx => ctx.negNumOp(), i => Numeric.Negate(i)}
-            };
+        var varLatex = ctx.GetText();
 
-            return opLookup.First(kvp => kvp.Key(ctx.unaryNumOpPre()) != null).Value(inner);
+        if (valueExpr == null && varLatex == "e")
+        {
+            return Numeric.EulersNumber();
         }
 
-        Dictionary<Func<UnaryNumCmdNameContext, object>, UnaryNumericFactory> cmdLookup = new()
-        {
-            {ctx => ctx.GetText() == @"\sqrt", i => Numeric.SquareRoot(i)}
-        };
+        return Numeric.Parameter(varLatex, valueExpr);
+    }
 
-        return cmdLookup.First(kvp => kvp.Key(ctx.unaryNumCmdName()) != null).Value(inner);
+    public static UnaryTeXpression<double, double> ToUnaryNumericTeXpression(this UnaryNumExprContext ctx, TeXpression<double> inner)
+    {
+        var logFunc = ctx.unaryNumOpLeft()?.logFunc();
+        if (logFunc != null)
+        {
+            if (logFunc.logBaseFunc() != null)
+            {
+                var baseStr = string.Concat(logFunc.logBaseFunc()._base.Select(t => t.Text));
+                var @base = double.Parse(baseStr, CultureInfo.CurrentCulture);
+
+                return Numeric.LogBase(inner, @base);
+            }
+
+            return logFunc.logType.Text switch
+            {
+                @"\log" => Numeric.Log10(inner),
+                @"\ln" => Numeric.Ln(inner),
+                _ => throw new NotImplementedException(),
+            };
+        }
+
+        var opText = ctx.unaryNumOpLeft().GetText();
+
+        if (opText == @"\sqrt")
+        {
+            return Numeric.SquareRoot(inner);
+        }
+
+        if (opText == @"-")
+        {
+            return Numeric.Negate(inner);
+        }
+
+        throw new NotImplementedException();
+    }
+
+    public static UnaryTeXpression<double, double> GetTeXpressionFromTrigFuncExpr(this TrigFuncExprContext ctx, TeXpression<double> innerArg, TeXpression<double>? exp)
+    {
+        if (exp != null)
+        {
+            var expVal = exp?.Evaluate();
+
+            if (expVal is not null and not (-1 or 2))
+            {
+                throw new InvalidOperationException($"BaseTrigFunc superscript evaluated to {expVal} must evaluate only to -1 or +2.");
+            }
+
+            var inverse = expVal == -1;
+            var sq = expVal == 2;
+
+            return ctx.baseTrigFunc().GetTeXpressionFromBaseTrigFunc(innerArg, inverse, sq);
+        }
+
+        return ctx.trigFunc().GetTeXpressionFromTrigFunc(innerArg);
+
+    }
+
+    private static UnaryTeXpression<double, double> GetTeXpressionFromBaseTrigFunc(this BaseTrigFuncContext ctx, TeXpression<double> innerArg, bool inverse, bool squared)
+    {
+        var func = ctx.GetText();
+
+        if (func == @"\sin")
+        {
+            if (inverse)
+            {
+                return Numeric.ArcSin(innerArg);
+            }
+
+            if (squared)
+            {
+                return Numeric.SinSquared(innerArg);
+            }
+
+            return Numeric.Sin(innerArg);
+        }
+
+        if (func == @"\cos")
+        {
+            if (inverse)
+            {
+                return Numeric.ArcCos(innerArg);
+            }
+
+            if (squared)
+            {
+                return Numeric.CosSquared(innerArg);
+            }
+
+            return Numeric.Cos(innerArg);
+        }
+
+        if (func == @"\tan")
+        {
+            if (inverse)
+            {
+                return Numeric.ArcTan(innerArg);
+            }
+
+            if (squared)
+            {
+                return Numeric.TanSquared(innerArg);
+            }
+
+            return Numeric.Tan(innerArg);
+        }
+
+        throw new NotImplementedException();
+    }
+
+    private static UnaryTeXpression<double, double> GetTeXpressionFromTrigFunc(this TrigFuncContext ctx, TeXpression<double> innerArg)
+    {
+        if (ctx.baseTrigFunc() != null)
+        {
+            return ctx.baseTrigFunc().GetTeXpressionFromBaseTrigFunc(innerArg, false, false);
+        }
+
+        var func = ctx.GetText();
+
+        if (func == @"\cot")
+        {
+            return Numeric.Cot(innerArg);
+        }
+
+        if (func == @"\sec")
+        {
+            return Numeric.Sec(innerArg);
+        }
+
+        if (func == @"\csc")
+        {
+            return Numeric.Csc(innerArg);
+        }
+
+        if (func == @"\arcsin")
+        {
+            return Numeric.ArcSin(innerArg);
+        }
+        if (func == @"\arccos")
+        {
+            return Numeric.ArcCos(innerArg);
+        }
+        if (func == @"\arctan")
+        {
+            return Numeric.ArcTan(innerArg);
+        }
+        if (func == @"\sinh")
+        {
+            return Numeric.SinH(innerArg);
+        }
+        if (func == @"\cosh")
+        {
+            return Numeric.CosH(innerArg);
+        }
+        if (func == @"\tanh")
+        {
+            return Numeric.TanH(innerArg);
+        }
+
+        throw new NotImplementedException();
     }
 
     public static BinaryTeXpression<double, double, double> ToBinaryNumericTeXpression(

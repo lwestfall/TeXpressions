@@ -1,7 +1,7 @@
 namespace TeXpressions.Test.Core.Common;
 
-using global::Core.Test.Mocks;
 using TeXpressions.Core;
+using TeXpressions.Test.Core.Mocks;
 
 public class ConstantTeXpressionTests
 {

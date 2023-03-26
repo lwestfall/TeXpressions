@@ -1,4 +1,4 @@
-namespace Core.Test.Mocks;
+namespace TeXpressions.Test.Core.Mocks;
 
 using TeXpressions.Core.Common;
 using TeXpressions.Core.Interfaces;

@@ -30,10 +30,44 @@ public class ParsingTests
     [TestCase(@"$1 + 2 \times 5$", 11, typeof(BinaryTeXpression<double, double, double>))]
     [TestCase(@"$(1 + 2) \times 5$", 15, typeof(BinaryTeXpression<double, double, double>))]
     [TestCase("$(1)$", 1, typeof(ConstantTeXpression<double>))]
-    [TestCase("$2^{3}^{2}$", 512, typeof(BinaryTeXpression<double, double, double>))]
+    [TestCase("$2^{3^{2}}$", 512, typeof(BinaryTeXpression<double, double, double>))]
     [TestCase(@"$\{2^3\}^{2}$", 64, typeof(BinaryTeXpression<double, double, double>))]
     [TestCase(@"$1+1^{1+1+1}$", 2, typeof(BinaryTeXpression<double, double, double>))]
     [TestCase(@"$\left(1+1\right)^{1+1+1}$", 8, typeof(BinaryTeXpression<double, double, double>))]
+    [TestCase(@"$\left|(-1.5)\right|$", 1.5, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\left\lfloor2.7\right\rfloor$", 2, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\left\lceil2.2\right\rceil$", 3, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\left\lfloor2.2\right\rceil$", 2, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\left\lfloor2.5\right\rceil$", 3, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\left\lfloor2.7\right\rceil$", 3, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\sin{\pi/2}$", 1, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\cos\pi$", -1, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\tan(0)$", 0, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\sin{\pi/2}$", 1, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\cos\pi$", -1, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\tan(0)$", 0, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\sec{\pi}$", -1, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\csc{\frac{\pi}{2}}$", 1, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\cot{\dfrac{-\pi}{4}}$", -1, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\arcsin 1$", Math.PI / 2, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\arccos(\sfrac{\sqrt{2}}{2})$", Math.PI / 4, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\arctan{\sqrt{3}/3}$", Math.PI / 6, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\sin^2{\pi/2}$", 1, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\sin^{2}{\pi/4}$", 0.5, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\cos^2{\pi/2}$", 0, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\cos^{2}{\pi/4}$", 0.5, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\tan^2\pi$", 0, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\sin^{-1}{1}$", Math.PI / 2, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\cos^{-1}0$", Math.PI / 2, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\tan^{-1}{1}$", Math.PI / 4, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\log{100}$", 2, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\log_{10}{100}$", 2, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\log_3{27}$", 3, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\log_2{256}$", 8, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\ln{e^2}$", 2, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\sinh{2}$", 3.626860407847018767, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\cosh{2}$", 3.762195691083631459, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\tanh{2}$", 0.964027580075816883, typeof(UnaryTeXpression<double, double>))]
     public void NumericExpressionParsesAndEvaluates(string input, double expectedEval, Type expectedType)
     {
         var expr = ParseUtility.ParseInlineExpression<TeXpression<double>>(input);
@@ -41,7 +75,7 @@ public class ParsingTests
 
         Assert.Multiple(() =>
         {
-            Assert.That(actualEval, Is.EqualTo(expectedEval));
+            Assert.That(actualEval, Is.EqualTo(expectedEval).Within(1.0 / 1000000000));
             Assert.That(expr, Is.InstanceOf(expectedType));
         });
     }
@@ -94,5 +128,13 @@ public class ParsingTests
         var expr = ParseUtility.ParseInlineExpression<TeXpression<bool>>(input);
 
         Assert.That(expr, Is.InstanceOf(expectedType));
+    }
+
+    [Test]
+    public void BasicTrigFuncWithInvalidSuperscriptThrowsInvalidOperationException()
+    {
+        var input = @"$$\sin^{3}(x)$$";
+
+        Assert.Throws<InvalidOperationException>(() => ParseUtility.ParseInlineExpression<TeXpression<bool>>(input));
     }
 }

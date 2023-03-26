@@ -1,8 +1,8 @@
 namespace Core.Test.Common;
 
-using Core.Test.Mocks;
 using TeXpressions.Core.Common;
 using TeXpressions.Core.Formatting;
+using TeXpressions.Test.Core.Mocks;
 
 public class ParameterValueTests
 {

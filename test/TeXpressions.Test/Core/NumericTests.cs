@@ -1,8 +1,8 @@
-namespace Core.Test;
+namespace TeXpressions.Test.Core;
 
-using Core.Test.Mocks;
 using TeXpressions.Core;
 using TeXpressions.Core.Interfaces;
+using TeXpressions.Test.Core.Mocks;
 
 public class NumericTests
 {
@@ -189,6 +189,18 @@ public class NumericTests
         var expected = Math.PI;
 
         var texpr = Numeric.Pi();
+
+        var result = texpr.Evaluate();
+
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+    [TestCase]
+    public void Log2GivesCorrectEvaluation()
+    {
+        var expected = 8;
+
+        var texpr = Numeric.Log2(Numeric.Constant(256));
 
         var result = texpr.Evaluate();
 

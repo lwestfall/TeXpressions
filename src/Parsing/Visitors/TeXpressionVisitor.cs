@@ -9,7 +9,7 @@ using static TeXpressionParser;
 
 public class TeXpressionVisitor : TeXpressionBaseVisitor<TeXpression>
 {
-    public override TeXpression VisitInline([NotNull] InlineContext context)
+    public override TeXpression VisitStatement([NotNull] StatementContext context)
         => this.Visit(context.topExpr());
 
     public override TeXpression VisitTopExpr([NotNull] TopExprContext context)
@@ -18,14 +18,13 @@ public class TeXpressionVisitor : TeXpressionBaseVisitor<TeXpression>
 
         if (context.var() != null)
         {
-            var varLatex = context.var().GetText();
-
             if (texpr is TeXpression<double> numTexpr)
             {
-                return Numeric.Parameter(varLatex, numTexpr);
+                return context.var().ToNumericTeXpression(numTexpr);
             }
             else if (texpr is TeXpression<bool> boolTexpr)
             {
+                var varLatex = context.var().GetText();
                 return Logical.Parameter(varLatex, boolTexpr);
             }
         }
@@ -41,8 +40,52 @@ public class TeXpressionVisitor : TeXpressionBaseVisitor<TeXpression>
 
     public override TeXpression VisitUnaryNumExpr([NotNull] UnaryNumExprContext context)
     {
-        var inner = (TeXpression<double>)this.Visit(context.numericExpr());
-        return context.ToUnaryNumericTeXpression(inner);
+        if (context.numericExpr() != null)
+        {
+            var inner = (TeXpression<double>)this.Visit(context.numericExpr());
+            return context.ToUnaryNumericTeXpression(inner);
+        }
+
+        var lrCtx = context.unaryNumLeftRight();
+
+        if (lrCtx?.abs() != null)
+        {
+            var inner = (TeXpression<double>)this.Visit(lrCtx.abs().numericExpr());
+            return Numeric.Abs(inner);
+        }
+
+        if (lrCtx?.ceiling() != null)
+        {
+            var inner = (TeXpression<double>)this.Visit(lrCtx.ceiling().numericExpr());
+            return Numeric.Ceiling(inner);
+        }
+
+        if (lrCtx?.floor() != null)
+        {
+            var inner = (TeXpression<double>)this.Visit(lrCtx.floor().numericExpr());
+            return Numeric.Floor(inner);
+        }
+
+        if (lrCtx?.round() != null)
+        {
+            var inner = (TeXpression<double>)this.Visit(lrCtx.round().numericExpr());
+            return Numeric.Round(inner);
+        }
+
+        throw new NotImplementedException();
+    }
+
+    public override TeXpression VisitTrigFuncExpr([NotNull] TrigFuncExprContext context)
+    {
+        var argExpr = (TeXpression<double>)this.Visit(context.arg);
+        TeXpression<double>? expExpr = null;
+
+        if (context.exp != null)
+        {
+            expExpr = (TeXpression<double>?)this.Visit(context.exp);
+        }
+
+        return context.GetTeXpressionFromTrigFuncExpr(argExpr, expExpr);
     }
 
     public override TeXpression VisitBinaryNumExpr([NotNull] BinaryNumExprContext context)
@@ -55,12 +98,21 @@ public class TeXpressionVisitor : TeXpressionBaseVisitor<TeXpression>
 
     public override TeXpression VisitConstNumExpr([NotNull] ConstNumExprContext context)
     {
-        var num = double.Parse(context.NUMBER().GetText(), CultureInfo.InvariantCulture);
+        var num = double.Parse(context.number().GetText(), CultureInfo.InvariantCulture);
         return Numeric.Constant(num);
     }
 
     public override TeXpression VisitParamNumExpr([NotNull] ParamNumExprContext context)
-        => Numeric.Parameter(context.GetText());
+        => context.var().ToNumericTeXpression();
+
+    public override TeXpression VisitNumConstParamExpr([NotNull] NumConstParamExprContext context)
+    {
+        return context.GetText() switch
+        {
+            "\\pi" => Numeric.Pi(),
+            _ => throw new NotImplementedException(),
+        };
+    }
 
     public override TeXpression VisitUnaryLogicExpr([NotNull] UnaryLogicExprContext context)
     {
