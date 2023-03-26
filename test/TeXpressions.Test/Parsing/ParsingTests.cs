@@ -65,6 +65,9 @@ public class ParsingTests
     [TestCase(@"$\log_3{27}$", 3, typeof(UnaryTeXpression<double, double>))]
     [TestCase(@"$\log_2{256}$", 8, typeof(UnaryTeXpression<double, double>))]
     [TestCase(@"$\ln{e^2}$", 2, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\sinh{2}$", 3.626860407847018767, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\cosh{2}$", 3.762195691083631459, typeof(UnaryTeXpression<double, double>))]
+    [TestCase(@"$\tanh{2}$", 0.964027580075816883, typeof(UnaryTeXpression<double, double>))]
     public void NumericExpressionParsesAndEvaluates(string input, double expectedEval, Type expectedType)
     {
         var expr = ParseUtility.ParseInlineExpression<TeXpression<double>>(input);

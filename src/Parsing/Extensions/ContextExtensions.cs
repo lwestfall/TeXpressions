@@ -168,15 +168,15 @@ public static class ContextExtensions
         }
         if (func == @"\sinh")
         {
-            return Numeric.ArcSin(innerArg);
+            return Numeric.SinH(innerArg);
         }
         if (func == @"\cosh")
         {
-            return Numeric.ArcSin(innerArg);
+            return Numeric.CosH(innerArg);
         }
         if (func == @"\tanh")
         {
-            return Numeric.ArcSin(innerArg);
+            return Numeric.TanH(innerArg);
         }
 
         throw new NotImplementedException();
