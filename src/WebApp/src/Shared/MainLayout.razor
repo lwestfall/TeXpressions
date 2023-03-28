@@ -1,19 +1,30 @@
 ﻿@inherits LayoutComponentBase
 
-<PageTitle>WebApp</PageTitle>
+<PageTitle>TeXpressions</PageTitle>
 
 <div class="page">
     <div class="sidebar">
         <NavMenu />
     </div>
 
-    <main>
+    <main style="  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: space-between;">
         <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+            <a href="https://github.com/lwestfall/TeXpressions" target="_blank"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/lwestfall/TeXpressions?style=social"></a>
         </div>
 
         <article class="content px-4">
             @Body
         </article>
+        <footer class="footer container mt-auto">
+            <hr class="my-0 py-0"/>
+            <div class="text-center">
+                <small>
+                    Copyright © Luke J. Westfall @DateTime.UtcNow.Year<br/>
+                </small>
+            </div>
+        </footer>
     </main>
 </div>
