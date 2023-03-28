@@ -27,3 +27,7 @@ app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
 app.Run();
+
+#pragma warning disable CA1050
+// Make the implicit Program class public so test projects can access it
+public partial class Program { }
