@@ -1,0 +1,82 @@
+@page "/Sandbox"
+@using MathJaxBlazor
+@using TeXpressions.Core.Common
+@using TeXpressions.Parsing
+
+<PageTitle>Sandbox</PageTitle>
+
+<div>
+    <table style="width: 100%; border: solid 1px;">
+        <tr>
+            <th>Input</th>
+            <th>As Typed</th>
+            <th>Rendered</th>
+            <th>Evaluated</th>
+            <th>Formatted</th>
+        </tr>
+        <tr>
+            <td>
+                <input value="@LatexInput" @oninput="@OnLatexInput" />
+            </td>
+            <td>@LatexInput</td>
+            <td><Equation Value=@LatexInput /></td>
+            <td>@GetEvaluated()</td>
+            <td>@TeXpression?.ToLaTeX()
+                <div>
+                    <Equation Value=@TeXpression?.ToLaTeX() />
+                </div>
+            </td>
+        </tr>
+    </table>
+    @if (!string.IsNullOrWhiteSpace(ExceptionMessage))
+    {
+        <div>
+            <strong>Exception message:</strong> @ExceptionMessage
+        </div>
+    }
+    @if (!string.IsNullOrWhiteSpace(ParserMessages))
+    {
+        <div>
+            <strong>Parser message:</strong> @ParserMessages
+        </div>
+    }
+</div>
+
+@code {
+    public string LatexInput { get; set; } = "";
+    public TeXpression? TeXpression { get; set; } = null;
+    public string ExceptionMessage { get; set; } = string.Empty;
+    public string ParserMessages { get; set; } = string.Empty;
+
+    public void OnLatexInput(ChangeEventArgs args)
+    {
+
+        this.LatexInput = args.Value.ToString();
+        try
+        {
+            using var sw = new StringWriter();
+            Console.SetOut(sw);
+            this.TeXpression = ParseUtility.ParseInlineExpression($"${this.LatexInput}$");
+            this.ParserMessages = sw.ToString();
+            this.ExceptionMessage = string.Empty;
+        } catch (Exception e)
+        {
+            this.ExceptionMessage = e.Message;
+        }
+    }
+
+    public string GetEvaluated()
+    {
+        if (this.TeXpression == null)
+        {
+            return "";
+        }
+
+        if (!this.TeXpression.CanEvaluate())
+        {
+            return "unable";
+        }
+
+        return this.TeXpression.EvaluateToObject()?.ToString() ?? "[null]";
+    }
+}
