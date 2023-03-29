@@ -1,4 +1,4 @@
-namespace Core.Test.Common;
+namespace TeXpressions.Test.Core.Common;
 
 using TeXpressions.Core;
 using TeXpressions.Core.Common;

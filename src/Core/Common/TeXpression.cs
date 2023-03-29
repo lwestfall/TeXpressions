@@ -18,6 +18,8 @@ public abstract class TeXpression : ITeXpression
 
     public abstract ITeXpression[] GetChildren();
 
+    public abstract object EvaluateToObject();
+
     public ITeXpression[] GetDescendants()
     {
         var children = this.GetChildren();
@@ -48,6 +50,8 @@ where TResult : notnull
     public ConstantTeXpression<TResult> SimplifyToConstant(ILaTeXFormatter? constantFormatter = null) => new(this.Evaluate(), constantFormatter ?? new ConstantLaTeXFormatter());
 
     public abstract TResult Evaluate();
+
+    public override object EvaluateToObject() => this.Evaluate();
 
     public bool TryEvaluate(out TResult? result)
     {
