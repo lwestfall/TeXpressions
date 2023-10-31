@@ -137,4 +137,11 @@ public class ParsingTests
 
         Assert.Throws<InvalidOperationException>(() => ParseUtility.ParseInlineExpression<TeXpression<bool>>(input));
     }
+
+    [TestCase(@"$y=\begin{cases}x&\text{if }x > 0\\0&\text{otherwise}\end{cases}$", 1.5, 1.5)]
+    [TestCase(@"$y=\begin{cases}x&\text{if }x > 0\\0&\text{otherwise}\end{cases}$", -0.1, 0)]
+    public void CasesExpressionParsesAndEvaluates(string input, double x, double expected)
+    {
+        Assert.Fail();
+    }
 }

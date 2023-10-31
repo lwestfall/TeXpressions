@@ -4,7 +4,7 @@ grammar TeXpression;
 #pragma warning disable 3021
 }
 
-import Logic;
+import Environment;
 
 statement: (
 		'$' topExpr '$'
@@ -15,4 +15,4 @@ statement: (
 
 topExpr: var '=' expr | expr;
 
-expr: logicExpr | numericExpr;
+expr: baseExpr | envBlock;

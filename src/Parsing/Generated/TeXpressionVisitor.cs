@@ -53,6 +53,48 @@ public interface ITeXpressionVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitExpr([NotNull] TeXpressionParser.ExprContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="TeXpressionParser.envBlock"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitEnvBlock([NotNull] TeXpressionParser.EnvBlockContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TeXpressionParser.envName"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitEnvName([NotNull] TeXpressionParser.EnvNameContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TeXpressionParser.envContent"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitEnvContent([NotNull] TeXpressionParser.EnvContentContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TeXpressionParser.tabularContent"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitTabularContent([NotNull] TeXpressionParser.TabularContentContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TeXpressionParser.tabularRow"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitTabularRow([NotNull] TeXpressionParser.TabularRowContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TeXpressionParser.tabularCell"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitTabularCell([NotNull] TeXpressionParser.TabularCellContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TeXpressionParser.baseExpr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitBaseExpr([NotNull] TeXpressionParser.BaseExprContext context);
+	/// <summary>
 	/// Visit a parse tree produced by the <c>UnaryLogicExpr</c>
 	/// labeled alternative in <see cref="TeXpressionParser.logicExpr"/>.
 	/// </summary>
